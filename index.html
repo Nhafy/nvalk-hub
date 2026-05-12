@@ -38,7 +38,7 @@
         .main-title-unifie { color: var(--text-main); font-size: 2.5rem; margin: 0; font-weight: 900; letter-spacing: 5px; text-transform: uppercase; filter: drop-shadow(var(--glow-cyan)); }
         .cyber-cables { position: absolute; top: 100%; left: 0; width: 100%; height: 15px; opacity: 0.8; filter: drop-shadow(0 0 5px var(--cyan));}
         .top-nav { display: flex; gap: 20px; flex: 1; margin-left: 40px;}
-        .nav-btn { background: transparent; color: var(--text-gray); border: none; font-size: 1.1rem; font-weight: 600; cursor: pointer; transition: 0.3s; padding: 5px 15px; border-radius: 4px; position: relative; text-transform: uppercase; }
+        .nav-btn { background: transparent; color: var(--text-gray); border: none; font-size: 1.1rem; font-weight: 600; cursor: pointer; transition: 0.3s; padding: 5px 15px; border-radius: 4px; position: relative; text-transform: uppercase; white-space: nowrap; }
         .nav-btn:hover { color: var(--cyan); text-shadow: var(--glow-cyan); }
         .nav-btn.admin { color: var(--magenta); }
         .nav-btn.admin:hover { color: var(--magenta); text-shadow: var(--glow-magenta); }
@@ -46,7 +46,7 @@
         .nav-btn.admin.active { text-shadow: var(--glow-magenta); background: rgba(217, 38, 255, 0.1); border-bottom-color: var(--magenta); }
         .user-profile { display: flex; align-items: center; gap: 12px; cursor: pointer; transition: 0.3s;}
         .user-profile:hover { transform: scale(1.05); }
-        .avatar-container { position: relative; width: 45px; height: 45px; }
+        .avatar-container { position: relative; width: 45px; height: 45px; flex-shrink: 0; }
         .avatar { width: 100%; height: 100%; background: #222; border-radius: 50%; border: 2px solid var(--text-gray); background-size: cover; background-position: center;}
         .status-dot { position: absolute; bottom: 0; right: 0; width: 12px; height: 12px; border-radius: 50%; background: var(--green); border: 2px solid var(--bg-card); z-index: 2;}
 
@@ -85,8 +85,8 @@
 
         /* CENTER PANELS */
         .center-panel { flex: 1; padding: 40px; overflow-y: auto; scrollbar-width: thin; scrollbar-color: var(--cyan) #000; position: relative; z-index: 2;}
-        .hub-header { display: flex; align-items: center; gap: 20px; margin-bottom: 30px; }
-        .btn-back { background: transparent; border: 2px solid var(--cyan); color: var(--cyan); padding: 8px 15px; border-radius: 5px; font-weight: bold; cursor: pointer; transition: 0.3s; box-shadow: inset 0 0 10px rgba(0,229,255,0.1); text-transform: uppercase;}
+        .hub-header { display: flex; align-items: center; gap: 20px; margin-bottom: 30px; flex-wrap: wrap; }
+        .btn-back { background: transparent; border: 2px solid var(--cyan); color: var(--cyan); padding: 8px 15px; border-radius: 5px; font-weight: bold; cursor: pointer; transition: 0.3s; box-shadow: inset 0 0 10px rgba(0,229,255,0.1); text-transform: uppercase; white-space: nowrap;}
         .btn-back:hover { background: var(--cyan); color: black; box-shadow: var(--glow-cyan); }
         .hub-title-stylized { font-size: 4rem; font-weight: 900; letter-spacing: 10px; color: var(--text-main); margin: 0; text-shadow: var(--glow-cyan); }
         .tiles-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
@@ -102,9 +102,9 @@
         .forum-header-bar { display: flex; flex-wrap: wrap; gap: 15px; align-items: center; margin-bottom: 20px; background: rgba(0, 229, 255, 0.05); padding: 15px; border: 1px solid var(--cyan); border-radius: 10px; box-shadow: inset 0 0 20px rgba(0,229,255,0.1);}
         .cyber-search { background: #000; border: 1px solid var(--cyan); color: white; padding: 12px 20px; border-radius: 30px; outline: none; transition: 0.3s; font-family: 'Segoe UI'; font-size: 1rem;}
         .cyber-search:focus { box-shadow: 0 0 20px rgba(0,229,255,0.4); }
-        .cyber-btn { background: var(--cyan); color: black; font-weight: bold; padding: 12px 25px; border: none; border-radius: 5px; cursor: pointer; text-transform: uppercase; transition: 0.3s; box-shadow: var(--glow-cyan);}
+        .cyber-btn { background: var(--cyan); color: black; font-weight: bold; padding: 12px 25px; border: none; border-radius: 5px; cursor: pointer; text-transform: uppercase; transition: 0.3s; box-shadow: var(--glow-cyan); white-space: nowrap;}
         .cyber-btn:hover { background: white; box-shadow: 0 0 20px white; }
-        .forum-categories { display: flex; gap: 10px; margin-bottom: 20px; }
+        .forum-categories { display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap;}
         .cat-btn { background: transparent; border: 1px solid #444; color: var(--text-gray); padding: 8px 15px; border-radius: 20px; cursor: pointer; transition: 0.3s; font-size: 0.9rem;}
         .cat-btn:hover { border-color: var(--cyan); color: var(--cyan); }
         .cat-btn.active { background: var(--cyan); color: black; border-color: var(--cyan); font-weight: bold; box-shadow: 0 0 10px var(--cyan);}
@@ -113,59 +113,59 @@
         .forum-item.pinned { border-color: var(--magenta); box-shadow: inset 0 0 15px rgba(217,38,255,0.1); border-left: 5px solid var(--magenta);}
         .forum-item:hover { border-color: var(--cyan); box-shadow: inset 0 0 20px rgba(0,229,255,0.1), 0 5px 15px rgba(0,0,0,0.5); transform: translateX(5px);}
         .forum-item-avatar { width: 60px; height: 60px; border-radius: 50%; border: 2px solid var(--text-gray); background-size: cover; background-position: center; flex-shrink: 0;}
-        .forum-item-author-box { width: 150px; border-right: 1px solid #333; padding-right: 15px; }
+        .forum-item-author-box { width: 150px; border-right: 1px solid #333; padding-right: 15px; flex-shrink: 0; }
         .fi-pseudo { color: var(--cyan); font-weight: bold; font-size: 1.2rem; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;}
         .fi-role { color: var(--text-gray); font-size: 0.75rem; margin: 2px 0 0 0; }
-        .forum-item-content-box { flex: 1; }
+        .forum-item-content-box { flex: 1; min-width: 0;}
         .fi-title { color: white; margin: 0 0 8px 0; font-size: 1.3rem; text-shadow: 0 0 5px rgba(255,255,255,0.3);}
         .fi-excerpt { color: #aaa; margin: 0; font-size: 0.95rem; line-height: 1.4; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;}
-        .fi-footer { display: flex; gap: 15px; font-size: 0.8rem; color: #888; margin-top: 10px;}
+        .fi-footer { display: flex; gap: 15px; font-size: 0.8rem; color: #888; margin-top: 10px; flex-wrap: wrap;}
         .fi-footer span { display: flex; align-items: center; gap: 5px; }
         .fi-footer .btn-like { cursor: pointer; transition: 0.2s; border: none; background: transparent; color: #888; padding: 0;}
         .fi-footer .btn-like:hover { color: var(--red); transform: scale(1.1);}
         
         #forum-read { background: rgba(0,0,0,0.8); border: 1px solid var(--cyan); border-radius: 10px; padding: 40px; box-shadow: 0 0 30px rgba(0,229,255,0.1);}
         #read-topic-tag { display: inline-block; background: var(--cyan); color: black; padding: 3px 10px; border-radius: 4px; font-weight: bold; font-size: 0.8rem; margin-bottom: 15px; text-transform: uppercase;}
-        #read-topic-title { color: white; font-size: 2.5rem; margin-top: 0; margin-bottom: 15px; text-shadow: 0 0 10px rgba(255,255,255,0.5);}
-        .read-author-box { display: flex; align-items: center; gap: 15px; border-bottom: 1px dashed #333; padding-bottom: 20px; margin-bottom: 30px;}
-        #read-topic-content { line-height: 1.8; font-size: 1.15rem; color: #ddd; white-space: pre-wrap;}
+        #read-topic-title { color: white; font-size: 2.5rem; margin-top: 0; margin-bottom: 15px; text-shadow: 0 0 10px rgba(255,255,255,0.5); word-wrap: break-word;}
+        .read-author-box { display: flex; align-items: center; gap: 15px; border-bottom: 1px dashed #333; padding-bottom: 20px; margin-bottom: 30px; flex-wrap: wrap;}
+        #read-topic-content { line-height: 1.8; font-size: 1.15rem; color: #ddd; white-space: pre-wrap; word-wrap: break-word;}
         .read-topic-image { max-width: 100%; border-radius: 8px; margin-top: 20px; border: 1px solid #444; box-shadow: 0 5px 15px rgba(0,0,0,0.5);}
         
         /* Réponses Forum */
         .forum-replies-section { margin-top: 40px; border-top: 2px solid #222; padding-top: 20px; }
         .reply-item { background: rgba(255,255,255,0.02); border-left: 3px solid var(--cyan); padding: 15px; border-radius: 0 8px 8px 0; margin-bottom: 15px; display: flex; gap: 15px; }
         .reply-avatar { width: 40px; height: 40px; border-radius: 50%; background-size: cover; background-position: center; border: 1px solid #444; flex-shrink: 0;}
-        .reply-content { flex: 1; }
-        .reply-header { display: flex; justify-content: space-between; margin-bottom: 5px; }
+        .reply-content { flex: 1; min-width: 0; }
+        .reply-header { display: flex; justify-content: space-between; margin-bottom: 5px; flex-wrap: wrap; }
         
-        .pagination-container { display: flex; justify-content: center; gap: 10px; margin-top: 20px;}
+        .pagination-container { display: flex; justify-content: center; gap: 10px; margin-top: 20px; flex-wrap: wrap;}
         .page-btn { background: #111; color: var(--text-main); border: 1px solid var(--cyan); padding: 8px 15px; border-radius: 5px; cursor: pointer; transition: 0.3s; }
         .page-btn.active { background: var(--cyan); color: black; font-weight: bold; box-shadow: var(--glow-cyan);}
         .page-btn:hover { background: var(--cyan); color: black; }
 
-        /* V21 PROFIL DASHBOARD */
+        /* PROFIL DASHBOARD */
         .profile-grid { display: grid; grid-template-columns: 1fr 2fr; gap: 30px; margin-bottom: 30px; }
         .profile-card { background: rgba(0,0,0,0.6); border: 1px solid #333; padding: 25px; border-radius: 12px; box-shadow: inset 0 0 20px rgba(0,0,0,0.5); }
         .profile-card h3 { margin-top: 0; color: var(--cyan); border-bottom: 1px dashed #333; padding-bottom: 10px; }
-        .stat-box { display: flex; justify-content: space-between; padding: 10px; background: rgba(255,255,255,0.03); margin-bottom: 8px; border-radius: 5px; border-left: 2px solid var(--cyan); }
+        .stat-box { display: flex; justify-content: space-between; padding: 10px; background: rgba(255,255,255,0.03); margin-bottom: 8px; border-radius: 5px; border-left: 2px solid var(--cyan); flex-wrap: wrap; gap: 5px;}
         .perm-box { display: inline-block; padding: 4px 8px; background: rgba(46,204,113,0.1); color: var(--green); border: 1px solid var(--green); border-radius: 4px; font-size: 0.8rem; margin: 5px; }
         .perm-box.deny { background: rgba(255,59,59,0.1); color: var(--red); border-color: var(--red); }
-        .profil-tabs { display: flex; gap: 10px; margin-bottom: 20px; border-bottom: 1px solid #222; padding-bottom: 10px; }
+        .profil-tabs { display: flex; gap: 10px; margin-bottom: 20px; border-bottom: 1px solid #222; padding-bottom: 10px; flex-wrap: wrap;}
         .ptab-btn { background: transparent; color: var(--text-gray); border: none; font-size: 1rem; cursor: pointer; padding: 5px 15px; transition: 0.3s; }
         .ptab-btn.active { color: var(--cyan); font-weight: bold; border-bottom: 2px solid var(--cyan); }
 
         /* TICKETS CHAT BUBBLES */
-        .ticket-msg-box { padding: 15px; border-radius: 10px; margin-bottom: 15px; border: 1px solid #333; }
+        .ticket-msg-box { padding: 15px; border-radius: 10px; margin-bottom: 15px; border: 1px solid #333; word-wrap: break-word;}
         .ticket-msg-box.user { background: rgba(0, 229, 255, 0.05); border-color: var(--cyan); margin-right: 50px; }
         .ticket-msg-box.admin { background: rgba(217, 38, 255, 0.05); border-color: var(--magenta); margin-left: 50px; }
-        .ticket-status-badge { padding: 5px 10px; border-radius: 20px; font-size: 0.8rem; font-weight: bold; }
+        .ticket-status-badge { padding: 5px 10px; border-radius: 20px; font-size: 0.8rem; font-weight: bold; white-space: nowrap;}
         .ticket-open { background: rgba(243, 156, 18, 0.2); color: var(--orange); border: 1px solid var(--orange); }
         .ticket-resolved { background: rgba(46, 204, 113, 0.2); color: var(--green); border: 1px solid var(--green); }
 
         /* ADMIN & MODALS */
         #admin-lock-screen { text-align: center; padding: 50px; }
-        .lock-terminal { background: #050505; border: 2px solid var(--red); padding: 40px; border-radius: 15px; display: inline-block; box-shadow: 0 0 30px rgba(255,0,0,0.2); }
-        .admin-tabs { display: flex; gap: 10px; margin-bottom: 30px; border-bottom: 1px solid #222; padding-bottom: 15px; }
+        .lock-terminal { background: #050505; border: 2px solid var(--red); padding: 40px; border-radius: 15px; display: inline-block; box-shadow: 0 0 30px rgba(255,0,0,0.2); max-width: 90%;}
+        .admin-tabs { display: flex; gap: 10px; margin-bottom: 30px; border-bottom: 1px solid #222; padding-bottom: 15px; flex-wrap: wrap;}
         .admin-tab-btn { background: #111; border: 1px solid #333; color: white; padding: 10px 20px; border-radius: 5px; cursor: pointer; transition: 0.3s; }
         .admin-tab-btn.active { background: var(--magenta); border-color: var(--magenta); box-shadow: var(--glow-magenta); }
         .admin-table { width: 100%; border-collapse: collapse; margin-top: 20px; }
@@ -175,23 +175,72 @@
         .checkbox-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 15px; background: #0a0a0a; padding: 15px; border-radius: 6px; border: 1px solid #333;}
         .checkbox-grid label { display: flex; align-items: center; gap: 10px; color: var(--text-gray); font-size: 0.9rem; cursor: pointer;}
         .log-terminal { background: #000; border: 1px solid #333; padding: 20px; border-radius: 8px; height: 300px; overflow-y: auto; font-family: Consolas, monospace; font-size: 0.85rem; color: #a8ff60; box-shadow: inset 0 0 20px rgba(0,0,0,1);}
-        .log-entry { margin-bottom: 5px; border-bottom: 1px dashed #111; padding-bottom: 5px;}
+        .log-entry { margin-bottom: 5px; border-bottom: 1px dashed #111; padding-bottom: 5px; word-wrap: break-word;}
         .log-time { color: var(--text-gray); }
         .log-user { color: var(--cyan); font-weight: bold; }
         .log-action { color: var(--text-main); }
         .log-alert { color: var(--red); }
 
-        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 2999; backdrop-filter: blur(5px); display: flex; justify-content: center; align-items: center;}
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 2999; backdrop-filter: blur(5px); display: flex; justify-content: center; align-items: center; overflow-y: auto; padding: 20px; box-sizing: border-box;}
+        #profile-modal { position: fixed; top: 80px; right: -450px; width: 380px; background: rgba(12, 16, 28, 0.95); backdrop-filter: blur(15px); border-left: 2px solid var(--cyan); border-bottom: 2px solid var(--cyan); padding: 25px; transition: 0.4s cubic-bezier(0.18, 0.89, 0.32, 1.28); z-index: 2000; box-shadow: -15px 15px 40px rgba(0,0,0,0.8); border-radius: 0 0 0 15px; }
+        #profile-modal.open { right: 0; }
+        .sc-profile-header { display: flex; gap: 20px; align-items: center; margin-bottom: 25px; border-bottom: 1px solid #222; padding-bottom: 20px;}
+        .sc-avatar { width: 90px; height: 90px; border-radius: 50%; border: 3px solid var(--cyan); background-size: cover; background-position: center; box-shadow: var(--glow-cyan); position: relative;}
+        .sc-btn { width: 100%; padding: 12px; background: transparent; border: 1px solid var(--cyan); color: var(--cyan); font-weight: bold; cursor: pointer; margin-top: 12px; border-radius: 4px; transition: 0.3s;}
+        .sc-btn:hover { background: var(--cyan); color: #000; box-shadow: var(--glow-cyan); }
         
-        .center-modal { background: #0c101c; border: 2px solid var(--cyan); padding: 30px; border-radius: 15px; width: 500px; max-width: 90%; box-shadow: 0 0 50px rgba(0,229,255,0.2); }
-        .center-modal.large { width: 800px; max-width: 95%; } 
+        .license-box { background: rgba(0,0,0,0.5); border: 1px dashed var(--cyan); padding: 15px; border-radius: 8px; margin-top: 15px; }
+        .license-row { display: flex; justify-content: space-between; margin-bottom: 5px; font-size: 0.9rem;}
+        
+        .center-modal { background: #0c101c; border: 2px solid var(--cyan); padding: 30px; border-radius: 15px; width: 500px; max-width: 100%; box-shadow: 0 0 50px rgba(0,229,255,0.2); box-sizing: border-box; }
+        .center-modal.large { width: 800px; max-width: 100%; } 
         .center-modal.magenta-theme { border-color: var(--magenta); box-shadow: 0 0 50px rgba(217,38,255,0.2); }
         .modal-input { width: 100%; padding: 12px; margin-bottom: 15px; background: #000; color: white; border: 1px solid #333; border-radius: 6px; box-sizing: border-box; font-family: 'Segoe UI'; font-size: 1rem;}
         .modal-input:focus { border-color: var(--cyan); outline: none;}
-        input, select { padding: 10px; background: #111; color: white; border: 1px solid #333; border-radius: 5px; font-family: 'Segoe UI';}
+        input, select { padding: 10px; background: #111; color: white; border: 1px solid #333; border-radius: 5px; font-family: 'Segoe UI'; box-sizing: border-box;}
         .avatar-crop-container { width: 150px; height: 150px; background: #000; border-radius: 5px; position: relative; overflow: hidden; margin: 0 auto 15px auto; border: 1px solid #333;}
         #avatar-preview-img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.2s;}
         .crop-circle-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; box-sizing: border-box; border: 30px solid rgba(0,0,0,0.6); border-radius: 50%; pointer-events: none;}
+
+        /* --- 📱 RESPONSIVE DESIGN (MOBILES & TABLETTES) --- */
+        @media (max-width: 900px) {
+            .main-wrapper { flex-direction: column; overflow-y: auto; }
+            .sidebar { width: 100%; border-right: none; border-bottom: 1px solid var(--cyan); flex-direction: row; flex-wrap: wrap; justify-content: space-around; padding: 15px; box-sizing: border-box; }
+            .sidebar .widget { flex: 1 1 45%; min-width: 150px; margin: 5px; }
+            .center-panel { padding: 20px 15px; overflow-y: visible; }
+            
+            .header { flex-direction: column; padding: 10px; align-items: flex-start; gap: 10px; }
+            .cyber-title-container { display: none; } /* Cache le gros titre N-VALK sur mobile */
+            .top-nav { margin-left: 0; width: 100%; overflow-x: auto; white-space: nowrap; padding-bottom: 5px; }
+            .user-profile { position: absolute; top: 10px; right: 10px; }
+            #user-display, #role-display { display: none; } /* Montre juste l'avatar */
+
+            #login-box { width: 90%; padding: 20px; }
+            .center-modal { width: 100% !important; padding: 20px; }
+            
+            #profile-modal { width: 100%; right: -100%; border-radius: 0; border-left: none; }
+            
+            .profile-grid { grid-template-columns: 1fr; }
+            
+            .forum-item { flex-direction: column; align-items: flex-start; }
+            .forum-item-author-box { border-right: none; border-bottom: 1px solid #333; width: 100%; padding-bottom: 10px; margin-bottom: 10px; display: flex; align-items: center; gap: 10px; }
+            
+            .admin-table { display: block; overflow-x: auto; white-space: nowrap; }
+            .checkbox-grid { grid-template-columns: 1fr; }
+            
+            .intro-title-text { font-size: 4rem; letter-spacing: 5px; }
+            .hub-title-stylized { font-size: 2.5rem; }
+            
+            /* Admin Modals stack content */
+            #admin-edit-overlay .center-modal > div:nth-child(3) { flex-direction: column; gap: 10px; }
+            #admin-edit-overlay .center-modal > div:nth-child(3) > div { border-left: none !important; padding-left: 0 !important; }
+            #admin-sub-colors > div { flex-direction: column; }
+            #admin-sub-colors > div > div { border-left: none !important; padding-left: 0 !important; border-top: 1px dashed #333; padding-top: 20px; margin-top: 20px;}
+            
+            /* Ticket messages adjustments */
+            .ticket-msg-box.user { margin-right: 10px; }
+            .ticket-msg-box.admin { margin-left: 10px; }
+        }
     </style>
 </head>
 <body>
@@ -266,7 +315,7 @@
                 </div>
                 <div class="widget" draggable="true">
                     <p style="color: var(--cyan); margin: 0 0 10px 0; font-size: 0.8rem; font-weight:bold;">DERNIERS SIGNAUX (LIVE)</p>
-                    <div class="sidebar-forum-console" id="sidebar-forum-list" onclick="switchTab('forum')"></div>
+                    <div class="sidebar-forum-console" id="sidebar-forum-list"></div>
                 </div>
                 <div class="widget" draggable="true">
                     <p style="color: var(--cyan); margin: 0 0 10px 0; font-size: 0.8rem; font-weight:bold;">COURS DE L'OR (XAU/EUR)</p>
@@ -354,7 +403,7 @@
 
                 <div id="forum-offline-msg" class="hidden" style="text-align:center; padding: 50px; background: rgba(5,5,10,0.8); border: 1px solid var(--red); border-radius: 10px; margin-top: 20px;">
                     <h2 style="color:var(--red); font-size: 2rem; margin-top: 0;">⚠️ RÉSEAU NON DÉTECTÉ</h2>
-                    <p style="color: #ccc; font-size: 1.1rem;">Le module <span class="dynamic-forum-name">Spectrum</span> nécessite une connexion au Hub central pour synchroniser les données.</p>
+                    <p style="color: #ccc; font-size: 1.1rem;">Le module <span class="dynamic-forum-name">Spectrum</span> nécessite une connexion au Hub central.</p>
                 </div>
                 
                 <div id="forum-main-view">
@@ -365,13 +414,13 @@
                         <button class="cat-btn" onclick="filterForumCat('Aide')">Aide</button>
                     </div>
                     <div class="forum-header-bar">
-                        <input type="text" class="cyber-search" id="forum-search-input" placeholder="🔍 Recherche intelligente (Titre, Contenu, Auteur)..." onkeyup="renderForum()" style="flex:1;">
-                        <select id="forum-sort-select" class="cyber-search" style="width: auto; margin-left: 10px;" onchange="renderForum()">
+                        <input type="text" class="cyber-search" id="forum-search-input" placeholder="🔍 Recherche intelligente..." onkeyup="renderForum()" style="flex:1; min-width:200px;">
+                        <select id="forum-sort-select" class="cyber-search" style="width: auto;" onchange="renderForum()">
                             <option value="recent">⏱️ Plus récent</option>
                             <option value="ancien">⏳ Plus ancien</option>
                             <option value="pertinence">🎯 Pertinence</option>
                         </select>
-                        <button class="cyber-btn" onclick="openCreateTopicModal()" style="margin-left: 15px;">+ NOUVEAU SUJET</button>
+                        <button class="cyber-btn" onclick="openCreateTopicModal()">+ NOUVEAU SUJET</button>
                     </div>
                     <div id="forum-list"></div>
                     <div class="pagination-container" id="forum-pagination"></div>
@@ -395,7 +444,6 @@
                     <div class="forum-replies-section">
                         <h3 style="color:var(--cyan); margin-top:0;">Réponses <span id="topic-replies-count" style="color:#666; font-size:0.9rem;">(0)</span></h3>
                         <div id="forum-replies-list"></div>
-                        
                         <div style="margin-top: 20px; background: rgba(255,255,255,0.05); padding: 15px; border-radius: 8px;">
                             <textarea id="forum-reply-input" class="modal-input" placeholder="Écrire un commentaire..." style="height:80px; resize:none; margin-bottom:10px;"></textarea>
                             <button class="cyber-btn" style="padding: 8px 15px; font-size:0.9rem;" onclick="postForumReply()">Envoyer la réponse</button>
@@ -408,7 +456,7 @@
                 <div class="hub-header">
                     <button class="btn-back" onclick="switchTab('accueil')">◀ RETOUR</button>
                     <h1 class="hub-title-stylized" style="font-size: 3rem;">MON PROFIL</h1>
-                    <button class="sc-btn" style="margin-left: auto; width: auto; padding: 10px 20px;" onclick="openPersonalSettings()">⚙️ PARAMÈTRES DU COMPTE</button>
+                    <button class="sc-btn" style="margin-left: auto; width: auto; padding: 10px 20px;" onclick="openPersonalSettings()">⚙️ PARAMÈTRES</button>
                 </div>
                 
                 <div class="profile-grid">
@@ -432,21 +480,20 @@
 
                         <div class="profile-card">
                             <h3>Habilitations Système</h3>
-                            <div id="prof-perms-list">
-                                </div>
+                            <div id="prof-perms-list"></div>
                         </div>
                     </div>
 
                     <div>
-                        <div class="profile-card" style="margin-bottom: 20px; display:flex; gap:20px;">
-                            <div style="flex:1;">
+                        <div class="profile-card" style="margin-bottom: 20px; display:flex; flex-wrap:wrap; gap:20px;">
+                            <div style="flex:1; min-width: 200px;">
                                 <h3>Licences Logicielles</h3>
-                                <div class="stat-box"><span style="color:var(--text-gray);">Statut Compte</span> <strong style="color:var(--green);">Actif (À Vie)</strong></div>
-                                <div class="stat-box"><span style="color:var(--text-gray);">Clé Produit</span> <strong id="prof-license-key" style="color:var(--magenta); font-family:Consolas;">XXXX-XXXX</strong></div>
-                                <div class="stat-box"><span style="color:var(--text-gray);">Expiration Pack</span> <strong id="prof-pack-expire" style="color:var(--cyan);">31/12/2030</strong></div>
+                                <div class="stat-box"><span style="color:var(--text-gray);">Statut</span> <strong style="color:var(--green);">Actif (À Vie)</strong></div>
+                                <div class="stat-box"><span style="color:var(--text-gray);">Clé</span> <strong id="prof-license-key" style="color:var(--magenta); font-family:Consolas;">XXXX-XXXX</strong></div>
+                                <div class="stat-box"><span style="color:var(--text-gray);">Pack</span> <strong id="prof-pack-expire" style="color:var(--cyan);">31/12/2030</strong></div>
                                 <button class="sc-btn" style="border-color: var(--cyan); color: var(--cyan); width: 100%; padding: 5px; margin-top: 10px; font-size: 0.8rem;" onclick="prolongerPack()">🔄 PROLONGER LE PACK (+1 AN)</button>
                             </div>
-                            <div style="flex:1;">
+                            <div style="flex:1; min-width: 200px;">
                                 <h3>Statistiques</h3>
                                 <div class="stat-box"><span style="color:var(--text-gray);">Sujets <span class="dynamic-forum-name">Spectrum</span></span> <strong id="prof-stat-topics" style="color:white;">0</strong></div>
                                 <div class="stat-box"><span style="color:var(--text-gray);">Réponses</span> <strong id="prof-stat-replies" style="color:white;">0</strong></div>
@@ -460,9 +507,7 @@
                                 <button class="ptab-btn" onclick="switchProfileTab('tickets', this)">Mes Tickets Support</button>
                             </div>
                             
-                            <div id="prof-tab-topics">
-                                <div id="my-forum-posts"></div>
-                            </div>
+                            <div id="prof-tab-topics"><div id="my-forum-posts"></div></div>
                             <div id="prof-tab-tickets" class="hidden">
                                 <button class="cyber-btn" style="font-size:0.8rem; padding:8px 15px; margin-bottom:15px;" onclick="openInternalSupportModal()">+ NOUVEAU TICKET</button>
                                 <div id="my-tickets-list"></div>
@@ -476,7 +521,7 @@
                 <div id="admin-lock-screen">
                     <div class="lock-terminal">
                         <h2 style="color: var(--red);">🔐 TERMINAL SÉCURISÉ</h2>
-                        <input type="password" id="admin-code-input" placeholder="CODE..." style="padding: 15px; background: black; border: 1px solid #444; color: var(--red); text-align: center; font-size: 1.5rem; width: 200px;" onkeypress="if(event.key==='Enter') checkAdminCode()">
+                        <input type="password" id="admin-code-input" placeholder="CODE..." style="padding: 15px; background: black; border: 1px solid #444; color: var(--red); text-align: center; font-size: 1.5rem; width: 100%; box-sizing: border-box;" onkeypress="if(event.key==='Enter') checkAdminCode()">
                         <br><br>
                         <button class="btn-login" style="background: var(--red); color: white;" onclick="checkAdminCode()">DÉVERROUILLER</button>
                     </div>
@@ -490,9 +535,9 @@
 
                     <div class="admin-tabs">
                         <button class="admin-tab-btn active" onclick="switchAdminSubTab('accounts')">👥 Comptes</button>
-                        <button class="admin-tab-btn" onclick="switchAdminSubTab('tickets')">🎫 Tickets & Support</button>
+                        <button class="admin-tab-btn" onclick="switchAdminSubTab('tickets')">🎫 Tickets</button>
                         <button class="admin-tab-btn" onclick="switchAdminSubTab('modules')">🧩 Modules</button>
-                        <button class="admin-tab-btn" onclick="switchAdminSubTab('colors')">🎨 Apparence & Noms</button>
+                        <button class="admin-tab-btn" onclick="switchAdminSubTab('colors')">🎨 Apparence</button>
                         <button class="admin-tab-btn" onclick="switchAdminSubTab('logs')">📜 Historique</button>
                     </div>
 
@@ -533,7 +578,7 @@
                             <button class="btn-back" onclick="closeAdminTicketRead()" style="margin-bottom:15px;">◀ RETOUR_TICKETS</button>
                             <div style="background:rgba(0,0,0,0.8); border:1px solid #333; padding:20px; border-radius:10px;">
                                 <h2 id="ad-ticket-title" style="color:white; margin-top:0;">Titre</h2>
-                                <div style="display:flex; justify-content:space-between; margin-bottom:20px; border-bottom:1px dashed #444; padding-bottom:10px;">
+                                <div style="display:flex; justify-content:space-between; margin-bottom:20px; border-bottom:1px dashed #444; padding-bottom:10px; flex-wrap: wrap;">
                                     <span id="ad-ticket-author" style="color:var(--cyan); font-weight:bold;">Auteur</span>
                                     <span id="ad-ticket-date" style="color:#666; font-size:0.8rem;">Date</span>
                                 </div>
@@ -541,7 +586,7 @@
                                 
                                 <div id="ad-ticket-reply-box" style="margin-top: 20px; border-top: 1px dashed #444; padding-top: 20px;">
                                     <textarea id="ad-ticket-reply-input" class="modal-input" placeholder="Écrire une réponse à l'utilisateur..." style="height:100px; resize:none;"></textarea>
-                                    <div style="display: flex; gap: 10px;">
+                                    <div style="display: flex; gap: 10px; flex-wrap: wrap;">
                                         <button class="nav-btn" style="background:var(--cyan); color:black;" onclick="replyToTicketAdmin()">RÉPONDRE</button>
                                         <button class="nav-btn" style="background:var(--green); color:black; margin-left:auto;" onclick="resolveTicketAdmin()">MARQUER RÉSOLU (Archiver)</button>
                                     </div>
@@ -562,15 +607,15 @@
                             </tbody>
                         </table>
                         <h3 style="margin-top: 40px; border-top: 1px dashed #333; padding-top: 20px;">➕ Créateur de Tuiles</h3>
-                        <div style="display: flex; gap: 10px;">
-                            <input type="text" id="tab-name" placeholder="Nom de la tuile" style="width: 30%;">
-                            <input type="text" id="tab-path" placeholder="Chemin/URL" style="width: 50%;">
+                        <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                            <input type="text" id="tab-name" placeholder="Nom de la tuile" style="width: 100%; max-width:200px;">
+                            <input type="text" id="tab-path" placeholder="Chemin/URL" style="width: 100%; max-width:300px;">
                             <button class="btn-magenta" style="flex: 1;" onclick="creerNouveauModule()">Générer</button>
                         </div>
                     </div>
 
                     <div id="admin-sub-colors" class="admin-panel hidden">
-                        <div style="display: flex; gap: 40px;">
+                        <div style="display: flex; gap: 40px; flex-wrap: wrap;">
                             <div style="flex: 1;">
                                 <h3 style="color:var(--cyan);">Palette de Couleurs</h3>
                                 <input type="color" id="picker-cyan" value="#00E5FF" onchange="updateColors()"> Cyan<br><br>
@@ -641,14 +686,14 @@
     <div id="personal-settings-overlay" class="modal-overlay hidden" onclick="if(event.target === this) closePersonalSettings()">
         <div class="center-modal">
             <h2 style="color: var(--cyan); margin-top:0;">⚙️ MES PARAMÈTRES</h2>
-            <div style="display:flex; gap:20px;">
-                <div style="text-align: center; flex: 1;">
+            <div style="display:flex; gap:20px; flex-wrap:wrap;">
+                <div style="text-align: center; flex: 1; min-width:150px;">
                     <div class="avatar-crop-container"><img id="avatar-preview-img" src="" alt="Aperçu"><div class="crop-circle-overlay"></div></div>
                     <input type="file" id="avatar-upload" accept="image/*" onchange="previewAvatar(event)" class="hidden">
                     <label for="avatar-upload" class="nav-btn" style="display:block; text-align:center; font-size:0.85rem; margin-bottom:10px; padding:10px; background:#222; border:1px solid var(--cyan); color:var(--cyan); cursor:pointer;">📁 PARCOURIR...</label>
                     <div style="display: flex; align-items:center; gap:5px; color:var(--text-gray); font-size:0.7rem;">Zoom: <input type="range" id="avatar-zoom" min="1" max="3" step="0.1" value="1" oninput="updateAvatarZoom()" style="flex:1;"></div>
                 </div>
-                <div style="flex: 2;">
+                <div style="flex: 2; min-width:200px;">
                     <label style="color: var(--text-gray); font-size: 0.8rem;">Login de connexion</label>
                     <input type="text" id="ps-login" class="modal-input" style="color: var(--cyan);">
                     <label style="color: var(--text-gray); font-size: 0.8rem;">Pseudo affiché</label>
@@ -687,15 +732,15 @@
         <div class="center-modal magenta-theme" style="width: 700px; max-width: 95%;">
             <h2 style="color: var(--magenta); margin-top:0; border-bottom: 1px dashed var(--magenta); padding-bottom: 10px;">DOSSIER SECRET CITOYEN</h2>
             <input type="hidden" id="ae-id">
-            <div style="display: flex; gap: 20px;">
-                <div style="flex: 1;">
+            <div style="display: flex; gap: 20px; flex-wrap:wrap;">
+                <div style="flex: 1; min-width:200px;">
                     <label style="color: var(--text-gray); font-size: 0.8rem;">Identifiant (Login)</label><input type="text" id="ae-login" class="modal-input">
                     <label style="color: var(--text-gray); font-size: 0.8rem;">Pseudo</label><input type="text" id="ae-pseudo" class="modal-input">
                     <label style="color: var(--text-gray); font-size: 0.8rem;">Forcer Mot de passe</label><input type="password" id="ae-password" class="modal-input" placeholder="Laisser vide = inchangé">
                     <label style="color: var(--text-gray); font-size: 0.8rem;">Grade d'accès</label>
                     <select id="ae-grade" class="modal-input" style="background: #111;"><option value="Utilisateur">Utilisateur</option><option value="Co-Admin">Co-Admin</option><option value="Admin">Administrateur</option></select>
                 </div>
-                <div style="flex: 1; border-left: 1px dashed #333; padding-left: 20px;">
+                <div style="flex: 1; border-left: 1px dashed #333; padding-left: 20px; min-width:200px;">
                     <label style="color: var(--cyan); font-size: 0.8rem; font-weight: bold;">🔑 Clé de Licence Unique</label>
                     <input type="text" id="ae-license" class="modal-input" style="border-color: var(--cyan); color: var(--cyan); font-family: Consolas;">
                     <label style="color: var(--orange); font-size: 0.8rem; font-weight: bold;">📝 Notes Secrètes (Raison ban, etc.)</label>
@@ -709,7 +754,7 @@
             </div>
             <div style="display: flex; gap: 10px; justify-content: flex-end; margin-top: 20px;">
                 <button class="nav-btn" style="background: #333;" onclick="closeAdminEdit()">Annuler</button>
-                <button class="nav-btn" style="background: var(--magenta); color: white; box-shadow: var(--glow-magenta);" onclick="saveAdminEdit()">Sauvegarder les données</button>
+                <button class="nav-btn" style="background: var(--magenta); color: white; box-shadow: var(--glow-magenta);" onclick="saveAdminEdit()">Sauvegarder</button>
             </div>
         </div>
     </div>
@@ -738,51 +783,27 @@
     </div>
 
     <script>
-        // --- JAVASCRIPT DU CŒUR ---
+        // --- MATRIX ---
         const canvas = document.getElementById('matrix-canvas'); const ctx = canvas.getContext('2d'); canvas.width = window.innerWidth; canvas.height = window.innerHeight;
         const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%^&*()_+{}|:"<>?~`-=[]\;,./'; const fontSize = 14; const columns = canvas.width / fontSize; const drops = [];
         for (let x = 0; x < columns; x++) drops[x] = 1;
-        function drawMatrix() {
-            ctx.fillStyle = 'rgba(0, 0, 0, 0.05)'; ctx.fillRect(0, 0, canvas.width, canvas.height); ctx.font = fontSize + 'px Consolas, monospace';
-            for (let i = 0; i < drops.length; i++) {
-                ctx.fillStyle = Math.random() > 0.5 ? 'var(--cyan)' : 'var(--magenta)'; ctx.fillText(characters.charAt(Math.floor(Math.random() * characters.length)), i * fontSize, drops[i] * fontSize);
-                if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) drops[i] = 0; drops[i]++;
-            }
-        }
+        function drawMatrix() { ctx.fillStyle = 'rgba(0, 0, 0, 0.05)'; ctx.fillRect(0, 0, canvas.width, canvas.height); ctx.font = fontSize + 'px Consolas, monospace'; for (let i = 0; i < drops.length; i++) { ctx.fillStyle = Math.random() > 0.5 ? 'var(--cyan)' : 'var(--magenta)'; ctx.fillText(characters.charAt(Math.floor(Math.random() * characters.length)), i * fontSize, drops[i] * fontSize); if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) drops[i] = 0; drops[i]++; } }
         window.addEventListener('resize', () => { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }); setInterval(drawMatrix, 33);
 
         function showToast(msg, type="success") { const toast = document.getElementById('toast-notification'); toast.innerText = msg; toast.style.background = type === 'success' ? 'var(--cyan)' : 'var(--red)'; toast.style.color = type === 'success' ? 'black' : 'white'; toast.style.boxShadow = `0 0 20px var(--${type === 'success' ? 'cyan' : 'red'})`; toast.classList.add('show'); setTimeout(() => toast.classList.remove('show'), 3000); }
-        function addLog(action, level = "info") {
-            const now = new Date(); const timeStr = now.toLocaleTimeString('fr-FR'); const dateStr = now.toLocaleDateString('fr-FR', {day:'2-digit', month:'2-digit', year:'numeric'});
-            let userStr = currentUser ? currentUser.login : "SYSTEM"; let colorClass = level === "alert" ? "log-alert" : "log-action";
-            const logHtml = `<div class="log-entry"><span class="log-time">[${dateStr} ${timeStr}]</span> <span class="log-user">${userStr}</span>: <span class="${colorClass}">${action}</span></div>`;
-            const consoleEl = document.getElementById('log-console'); if(consoleEl) consoleEl.insertAdjacentHTML('afterbegin', logHtml);
-            let logsArr = JSON.parse(localStorage.getItem('nvalk_logs')) || []; logsArr.unshift({time: `[${dateStr} ${timeStr}]`, user: userStr, action: action, level: level});
-            if(logsArr.length > 100) logsArr.pop(); localStorage.setItem('nvalk_logs', JSON.stringify(logsArr));
-        }
+        function addLog(action, level = "info") { const now = new Date(); const timeStr = now.toLocaleTimeString('fr-FR'); const dateStr = now.toLocaleDateString('fr-FR', {day:'2-digit', month:'2-digit', year:'numeric'}); let userStr = currentUser ? currentUser.login : "SYSTEM"; let colorClass = level === "alert" ? "log-alert" : "log-action"; const logHtml = `<div class="log-entry"><span class="log-time">[${dateStr} ${timeStr}]</span> <span class="log-user">${userStr}</span>: <span class="${colorClass}">${action}</span></div>`; const consoleEl = document.getElementById('log-console'); if(consoleEl) consoleEl.insertAdjacentHTML('afterbegin', logHtml); let logsArr = JSON.parse(localStorage.getItem('nvalk_logs')) || []; logsArr.unshift({time: `[${dateStr} ${timeStr}]`, user: userStr, action: action, level: level}); if(logsArr.length > 100) logsArr.pop(); localStorage.setItem('nvalk_logs', JSON.stringify(logsArr)); }
         function loadLogs() { const consoleEl = document.getElementById('log-console'); if(!consoleEl) return; consoleEl.innerHTML = ''; let logsArr = JSON.parse(localStorage.getItem('nvalk_logs')) || []; logsArr.forEach(l => { let colorClass = l.level === "alert" ? "log-alert" : "log-action"; consoleEl.innerHTML += `<div class="log-entry"><span class="log-time">${l.time}</span> <span class="log-user">${l.user}</span>: <span class="${colorClass}">${l.action}</span></div>`; }); }
 
-        // V21 : PARAMETRES DU SITE (Noms modifiables)
+        // V22 : PARAMETRES DU SITE
         let siteSettings = JSON.parse(localStorage.getItem('nvalk_settings')) || { mainTitle: "N-VALK", forumTitle: "SPECTRUM" };
-        function applySiteSettings() {
-            document.getElementById('main-title-dynamic').innerText = siteSettings.mainTitle; document.getElementById('intro-title-dynamic').innerText = siteSettings.mainTitle;
-            document.getElementById('forum-title-dynamic').innerText = siteSettings.forumTitle; document.getElementById('nav-forum').innerText = siteSettings.forumTitle.toUpperCase();
-            document.querySelectorAll('.dynamic-forum-name').forEach(el => el.innerText = siteSettings.forumTitle);
-            const inputMain = document.getElementById('setting-main-title'); const inputForum = document.getElementById('setting-forum-title');
-            if(inputMain) inputMain.value = siteSettings.mainTitle; if(inputForum) inputForum.value = siteSettings.forumTitle;
-        }
-        function saveCustomNames() {
-            const newMain = document.getElementById('setting-main-title').value || "N-VALK"; const newForum = document.getElementById('setting-forum-title').value || "SPECTRUM";
-            siteSettings.mainTitle = newMain; siteSettings.forumTitle = newForum; localStorage.setItem('nvalk_settings', JSON.stringify(siteSettings));
-            applySiteSettings(); showToast("Noms du site mis à jour !"); addLog(`Modification des noms du Hub : ${newMain} / ${newForum}`);
-        }
+        function applySiteSettings() { document.getElementById('main-title-dynamic').innerText = siteSettings.mainTitle; document.getElementById('intro-title-dynamic').innerText = siteSettings.mainTitle; document.getElementById('forum-title-dynamic').innerText = siteSettings.forumTitle; document.getElementById('nav-forum').innerText = siteSettings.forumTitle.toUpperCase(); document.querySelectorAll('.dynamic-forum-name').forEach(el => el.innerText = siteSettings.forumTitle); const inputMain = document.getElementById('setting-main-title'); const inputForum = document.getElementById('setting-forum-title'); if(inputMain) inputMain.value = siteSettings.mainTitle; if(inputForum) inputForum.value = siteSettings.forumTitle; }
+        function saveCustomNames() { const newMain = document.getElementById('setting-main-title').value || "N-VALK"; const newForum = document.getElementById('setting-forum-title').value || "SPECTRUM"; siteSettings.mainTitle = newMain; siteSettings.forumTitle = newForum; localStorage.setItem('nvalk_settings', JSON.stringify(siteSettings)); applySiteSettings(); showToast("Noms du site mis à jour !"); addLog(`Modification des noms du Hub : ${newMain} / ${newForum}`); }
 
         const defaultUsers = [
             { id: 1, login: 'admin', pseudo: 'Nhafy', grade: 'Admin', password: '123', avatar: 'https://api.dicebear.com/7.x/bottts/svg?seed=Nhafy', status: 'online', roleDisplay: 'Grand Admiral (Admin)', perms: {code: true, users: true, logs: true, forum: true}, active: true, unreadForum: 0, licenseKey: 'NVALK-MASTER', adminNotes: 'System Creator.', packExpire: Date.now() + 31536000000 },
             { id: 2, login: 'coadmin', pseudo: 'Nico Tech', grade: 'Co-Admin', password: '123', avatar: 'https://api.dicebear.com/7.x/bottts/svg?seed=Nico', status: 'away', roleDisplay: 'Commander (Co-Admin)', perms: {code: false, users: true, logs: true, forum: true}, active: true, unreadForum: 0, licenseKey: 'NVALK-COADM', adminNotes: '', packExpire: Date.now() + 31536000000 },
             { id: 3, login: 'jean_d', pseudo: 'Jean Dupont', grade: 'Utilisateur', password: '123', avatar: 'https://api.dicebear.com/7.x/bottts/svg?seed=Jean', status: 'dnd', roleDisplay: 'Citizen (User)', perms: {code: false, users: false, logs: false, forum: false}, active: true, unreadForum: 0, licenseKey: 'NVALK-USER-1234', adminNotes: '', packExpire: Date.now() + 2592000000 }
         ];
-        // V21: Structure forum améliorée avec vues, likes, réponses
         const defaultForum = [ { id: 1, title: "[ANNONCE] Mise à jour du Kernel N-VALK", author: "Nhafy", authorAvatar: "https://api.dicebear.com/7.x/bottts/svg?seed=Nhafy", authorRole: "Grand Admiral (Admin)", category: "Annonces", content: "Le système a été mis à jour.", image: "", timestamp: Date.now() - 86400000, pinned: true, views: 12, likes: 2, replies: [] } ];
 
         let dbUsers = JSON.parse(localStorage.getItem('nvalk_users')) || defaultUsers;
@@ -793,377 +814,63 @@
         function saveData() { localStorage.setItem('nvalk_users', JSON.stringify(dbUsers)); localStorage.setItem('nvalk_forum', JSON.stringify(dbForum)); localStorage.setItem('nvalk_tickets', JSON.stringify(dbTickets)); }
 
         window.addEventListener('online', handleNetworkChange); window.addEventListener('offline', handleNetworkChange);
-        function handleNetworkChange() {
-            if (!navigator.onLine) { document.getElementById('gold-val').innerText = "HORS LIGNE"; document.getElementById('temp-val').innerText = "HORS LIGNE"; const forumMain = document.getElementById('forum-main-view'); const forumOfflineMsg = document.getElementById('forum-offline-msg'); if (forumMain && forumOfflineMsg) { forumMain.classList.add('hidden'); forumOfflineMsg.classList.remove('hidden'); }
-            } else { document.getElementById('gold-val').innerText = "2150.20 €"; document.getElementById('temp-val').innerText = "18°C"; const forumMain = document.getElementById('forum-main-view'); const forumOfflineMsg = document.getElementById('forum-offline-msg'); if (forumMain && forumOfflineMsg) { forumMain.classList.remove('hidden'); forumOfflineMsg.classList.add('hidden'); } }
-        }
+        function handleNetworkChange() { if (!navigator.onLine) { document.getElementById('gold-val').innerText = "HORS LIGNE"; document.getElementById('temp-val').innerText = "HORS LIGNE"; const forumMain = document.getElementById('forum-main-view'); const forumOfflineMsg = document.getElementById('forum-offline-msg'); if (forumMain && forumOfflineMsg) { forumMain.classList.add('hidden'); forumOfflineMsg.classList.remove('hidden'); } } else { document.getElementById('gold-val').innerText = "2150.20 €"; document.getElementById('temp-val').innerText = "18°C"; const forumMain = document.getElementById('forum-main-view'); const forumOfflineMsg = document.getElementById('forum-offline-msg'); if (forumMain && forumOfflineMsg) { forumMain.classList.remove('hidden'); forumOfflineMsg.classList.add('hidden'); } } }
 
-        // --- V21 TICKETS SYSTEM ---
         let activeAdminTicketId = null; let activeUserTicketId = null;
-
-        function updateBadges() {
-            if(!currentUser) return;
-            const fBadge = document.getElementById('badge-forum'); const tBadge = document.getElementById('badge-tickets');
-            if(currentUser.unreadForum > 0) { fBadge.innerText = currentUser.unreadForum; fBadge.style.display = 'block'; } else { fBadge.style.display = 'none'; }
-            if(currentUser.perms.users) { 
-                let unread = dbTickets.filter(t => !t.read && t.status !== 'resolved').length;
-                if(unread > 0) { tBadge.innerText = unread; tBadge.style.display = 'block'; } else { tBadge.style.display = 'none'; }
-            } else { tBadge.style.display = 'none'; }
-        }
-
-        function openRegistrationModal() { document.getElementById('register-modal').classList.remove('hidden'); }
-        function openTokenSupport() { document.getElementById('token-modal').classList.remove('hidden'); }
-        function openInternalSupportModal() { document.getElementById('internal-ticket-modal').classList.remove('hidden'); }
+        function updateBadges() { if(!currentUser) return; const fBadge = document.getElementById('badge-forum'); const tBadge = document.getElementById('badge-tickets'); if(currentUser.unreadForum > 0) { fBadge.innerText = currentUser.unreadForum; fBadge.style.display = 'block'; } else { fBadge.style.display = 'none'; } if(currentUser.perms.users) { let unread = dbTickets.filter(t => !t.read && t.status !== 'resolved').length; if(unread > 0) { tBadge.innerText = unread; tBadge.style.display = 'block'; } else { tBadge.style.display = 'none'; } } else { tBadge.style.display = 'none'; } }
+        function openRegistrationModal() { document.getElementById('register-modal').classList.remove('hidden'); } function openTokenSupport() { document.getElementById('token-modal').classList.remove('hidden'); } function openInternalSupportModal() { document.getElementById('internal-ticket-modal').classList.remove('hidden'); }
         
-        function submitRegistration() {
-            const title = document.getElementById('reg-title').value; const log = document.getElementById('reg-login').value; const pseu = document.getElementById('reg-pseudo').value; const msg = document.getElementById('reg-msg').value;
-            if(!title || !log || !pseu || !msg) return alert("Remplissez tous les champs.");
-            dbTickets.push({ id: Date.now(), title: title, pseudo: pseu, type: 'Inscription', extraInfo: log, msg: msg, read: false, status: 'open', date: Date.now(), replies: [] });
-            saveData(); alert("Demande envoyée aux Administrateurs.");
-            document.getElementById('reg-title').value = ""; document.getElementById('reg-login').value = ""; document.getElementById('reg-pseudo').value = ""; document.getElementById('reg-msg').value = ""; 
-            document.getElementById('register-modal').classList.add('hidden');
-        }
+        function submitRegistration() { const title = document.getElementById('reg-title').value; const log = document.getElementById('reg-login').value; const pseu = document.getElementById('reg-pseudo').value; const msg = document.getElementById('reg-msg').value; if(!title || !log || !pseu || !msg) return alert("Remplissez tous les champs."); dbTickets.push({ id: Date.now(), title: title, pseudo: pseu, type: 'Inscription', extraInfo: log, msg: msg, read: false, status: 'open', date: Date.now(), replies: [] }); saveData(); alert("Demande envoyée aux Administrateurs."); document.getElementById('reg-title').value = ""; document.getElementById('reg-login').value = ""; document.getElementById('reg-pseudo').value = ""; document.getElementById('reg-msg').value = ""; document.getElementById('register-modal').classList.add('hidden'); }
+        function sendTokenTicket() { const title = document.getElementById('token-title').value; const pseudo = document.getElementById('token-pseudo').value; const token = document.getElementById('token-input').value; const msg = document.getElementById('token-msg').value; if(!title || !pseudo || !msg) return alert("Titre, Pseudo et Message obligatoires."); dbTickets.push({ id: Date.now(), title: title, pseudo: pseudo, type: 'Token_USB', extraInfo: token, msg: msg, read: false, status: 'open', date: Date.now(), replies: [] }); saveData(); alert("Ticket envoyé !"); document.getElementById('token-title').value = ""; document.getElementById('token-pseudo').value = ""; document.getElementById('token-input').value = ""; document.getElementById('token-msg').value = ""; document.getElementById('token-modal').classList.add('hidden'); }
+        function sendInternalTicket() { const title = document.getElementById('internal-ticket-title').value; const msg = document.getElementById('internal-ticket-msg').value; if(!title || !msg) return alert("Titre et message obligatoires."); dbTickets.push({ id: Date.now(), title: title, pseudo: currentUser.pseudo, type: 'Support_Interne', extraInfo: currentUser.login, msg: msg, read: false, status: 'open', date: Date.now(), replies: [] }); saveData(); alert("Ticket Interne envoyé à l'équipe de modération."); document.getElementById('internal-ticket-title').value = ""; document.getElementById('internal-ticket-msg').value = ""; document.getElementById('internal-ticket-modal').classList.add('hidden'); switchProfileTab('tickets', document.querySelectorAll('.ptab-btn')[1]); }
 
-        function sendTokenTicket() { 
-            const title = document.getElementById('token-title').value; const pseudo = document.getElementById('token-pseudo').value; const token = document.getElementById('token-input').value; const msg = document.getElementById('token-msg').value;
-            if(!title || !pseudo || !msg) return alert("Titre, Pseudo et Message obligatoires.");
-            dbTickets.push({ id: Date.now(), title: title, pseudo: pseudo, type: 'Token_USB', extraInfo: token, msg: msg, read: false, status: 'open', date: Date.now(), replies: [] });
-            saveData(); alert("Ticket envoyé !"); 
-            document.getElementById('token-title').value = ""; document.getElementById('token-pseudo').value = ""; document.getElementById('token-input').value = ""; document.getElementById('token-msg').value = ""; 
-            document.getElementById('token-modal').classList.add('hidden'); 
-        }
-
-        function sendInternalTicket() {
-            const title = document.getElementById('internal-ticket-title').value; const msg = document.getElementById('internal-ticket-msg').value;
-            if(!title || !msg) return alert("Titre et message obligatoires.");
-            dbTickets.push({ id: Date.now(), title: title, pseudo: currentUser.pseudo, type: 'Support_Interne', extraInfo: currentUser.login, msg: msg, read: false, status: 'open', date: Date.now(), replies: [] });
-            saveData(); alert("Ticket Interne envoyé à l'équipe de modération.");
-            document.getElementById('internal-ticket-title').value = ""; document.getElementById('internal-ticket-msg').value = "";
-            document.getElementById('internal-ticket-modal').classList.add('hidden');
-            switchProfileTab('tickets', document.querySelectorAll('.ptab-btn')[1]);
-        }
-
-        function renderAdminTickets() {
-            const list = document.getElementById('admin-tickets-list'); list.innerHTML = "";
-            if(dbTickets.length === 0) { list.innerHTML = "<p style='color:#666;'>Aucun ticket enregistré.</p>"; return; }
-            dbTickets.sort((a,b) => b.date - a.date).forEach(t => {
-                const bg = t.status === 'resolved' ? "rgba(46, 204, 113, 0.1)" : (t.read ? "rgba(0,0,0,0.5)" : "rgba(217, 38, 255, 0.1)");
-                const statusTag = t.status === 'resolved' ? "<span class='ticket-status-badge ticket-resolved'>RÉSOLU</span>" : "<span class='ticket-status-badge ticket-open'>OUVERT</span>";
-                let typeTag = "";
-                if(t.type === 'Inscription') typeTag = "<span style='color:var(--magenta); font-size:0.75rem; font-weight:bold;'>[INSCRIPTION]</span>";
-                else if(t.type === 'Token_USB') typeTag = "<span style='color:var(--orange); font-size:0.75rem; font-weight:bold;'>[TOKEN USB]</span>";
-                else typeTag = "<span style='color:var(--cyan); font-size:0.75rem; font-weight:bold;'>[SUPPORT INTERNE]</span>";
-                const d = new Date(t.date).toLocaleString('fr-FR');
-                list.innerHTML += `<div style="background:${bg}; border:1px solid #333; padding:15px; border-radius:8px; margin-bottom:10px; cursor:pointer; transition:0.3s;" onmouseover="this.style.borderColor='var(--cyan)'" onmouseout="this.style.borderColor='#333'" onclick="openAdminTicketRead(${t.id})"><div style="display:flex; justify-content:space-between; margin-bottom:10px; align-items:center;"><div>${typeTag} <strong style="color:white; font-size:1.1rem; margin-left:10px;">${t.title}</strong></div><div>${statusTag}</div></div><div style="display:flex; justify-content:space-between; color:#888; font-size:0.85rem;"><span>Auteur: <span style="color:var(--text-main)">${t.pseudo}</span></span><span>${d}</span></div></div>`;
-            });
-        }
-
-        function openAdminTicketRead(id) {
-            const t = dbTickets.find(x => x.id === id); if(!t) return; activeAdminTicketId = id;
-            if(!t.read && t.status !== 'resolved') { t.read = true; saveData(); updateBadges(); }
-            document.getElementById('admin-tickets-list-view').classList.add('hidden'); document.getElementById('admin-ticket-read-view').classList.remove('hidden');
-            document.getElementById('ad-ticket-title').innerText = t.title; document.getElementById('ad-ticket-author').innerText = `${t.pseudo} (${t.type}) - Info: ${t.extraInfo || 'N/A'}`; document.getElementById('ad-ticket-date').innerText = new Date(t.date).toLocaleString('fr-FR');
-            const thread = document.getElementById('ad-ticket-thread'); thread.innerHTML = "";
-            thread.innerHTML += `<div class="ticket-msg-box user"><strong style="color:var(--cyan);">${t.pseudo} :</strong><br><span style="color:#ddd; white-space:pre-wrap;">${t.msg}</span></div>`;
-            if(t.replies && t.replies.length > 0) { t.replies.forEach(r => { const isAdm = r.isAdmin ? "admin" : "user"; const col = r.isAdmin ? "var(--magenta)" : "var(--cyan)"; thread.innerHTML += `<div class="ticket-msg-box ${isAdm}"><div style="display:flex; justify-content:space-between; margin-bottom:5px;"><strong style="color:${col};">${r.author} :</strong><span style="font-size:0.75rem; color:#666;">${new Date(r.date).toLocaleString('fr-FR')}</span></div><span style="color:#ddd; white-space:pre-wrap;">${r.text}</span></div>`; }); }
-            const replyBox = document.getElementById('ad-ticket-reply-box');
-            if(t.status === 'resolved') { replyBox.classList.add('hidden'); thread.innerHTML += `<div style="text-align:center; color:var(--green); font-weight:bold; margin-top:20px;">✅ TICKET RÉSOLU ET ARCHIVÉ.</div>`; } else { replyBox.classList.remove('hidden'); }
-        }
+        function renderAdminTickets() { const list = document.getElementById('admin-tickets-list'); list.innerHTML = ""; if(dbTickets.length === 0) { list.innerHTML = "<p style='color:#666;'>Aucun ticket enregistré.</p>"; return; } dbTickets.sort((a,b) => b.date - a.date).forEach(t => { const bg = t.status === 'resolved' ? "rgba(46, 204, 113, 0.1)" : (t.read ? "rgba(0,0,0,0.5)" : "rgba(217, 38, 255, 0.1)"); const statusTag = t.status === 'resolved' ? "<span class='ticket-status-badge ticket-resolved'>RÉSOLU (Archive)</span>" : "<span class='ticket-status-badge ticket-open'>OUVERT</span>"; let typeTag = ""; if(t.type === 'Inscription') typeTag = "<span style='color:var(--magenta); font-size:0.75rem; font-weight:bold;'>[INSCRIPTION]</span>"; else if(t.type === 'Token_USB') typeTag = "<span style='color:var(--orange); font-size:0.75rem; font-weight:bold;'>[TOKEN USB]</span>"; else typeTag = "<span style='color:var(--cyan); font-size:0.75rem; font-weight:bold;'>[SUPPORT INTERNE]</span>"; const d = new Date(t.date).toLocaleString('fr-FR'); list.innerHTML += `<div style="background:${bg}; border:1px solid #333; padding:15px; border-radius:8px; margin-bottom:10px; cursor:pointer; transition:0.3s;" onmouseover="this.style.borderColor='var(--cyan)'" onmouseout="this.style.borderColor='#333'" onclick="openAdminTicketRead(${t.id})"><div style="display:flex; justify-content:space-between; margin-bottom:10px; align-items:center;"><div>${typeTag} <strong style="color:white; font-size:1.1rem; margin-left:10px;">${t.title}</strong></div><div>${statusTag}</div></div><div style="display:flex; justify-content:space-between; color:#888; font-size:0.85rem;"><span>Auteur: <span style="color:var(--text-main)">${t.pseudo}</span></span><span>${d}</span></div></div>`; }); }
+        function openAdminTicketRead(id) { const t = dbTickets.find(x => x.id === id); if(!t) return; activeAdminTicketId = id; if(!t.read && t.status !== 'resolved') { t.read = true; saveData(); updateBadges(); } document.getElementById('admin-tickets-list-view').classList.add('hidden'); document.getElementById('admin-ticket-read-view').classList.remove('hidden'); document.getElementById('ad-ticket-title').innerText = t.title; document.getElementById('ad-ticket-author').innerText = `${t.pseudo} (${t.type}) - Info: ${t.extraInfo || 'N/A'}`; document.getElementById('ad-ticket-date').innerText = new Date(t.date).toLocaleString('fr-FR'); const thread = document.getElementById('ad-ticket-thread'); thread.innerHTML = ""; thread.innerHTML += `<div class="ticket-msg-box user"><strong style="color:var(--cyan);">${t.pseudo} :</strong><br><span style="color:#ddd; white-space:pre-wrap;">${t.msg}</span></div>`; if(t.replies && t.replies.length > 0) { t.replies.forEach(r => { const isAdm = r.isAdmin ? "admin" : "user"; const col = r.isAdmin ? "var(--magenta)" : "var(--cyan)"; thread.innerHTML += `<div class="ticket-msg-box ${isAdm}"><div style="display:flex; justify-content:space-between; margin-bottom:5px;"><strong style="color:${col};">${r.author} :</strong><span style="font-size:0.75rem; color:#666;">${new Date(r.date).toLocaleString('fr-FR')}</span></div><span style="color:#ddd; white-space:pre-wrap;">${r.text}</span></div>`; }); } const replyBox = document.getElementById('ad-ticket-reply-box'); if(t.status === 'resolved') { replyBox.classList.add('hidden'); thread.innerHTML += `<div style="text-align:center; color:var(--green); font-weight:bold; margin-top:20px;">✅ CE TICKET A ÉTÉ MARQUÉ COMME RÉSOLU ET ARCHIVÉ.</div>`; } else { replyBox.classList.remove('hidden'); } }
         function closeAdminTicketRead() { document.getElementById('admin-ticket-read-view').classList.add('hidden'); document.getElementById('admin-tickets-list-view').classList.remove('hidden'); activeAdminTicketId = null; renderAdminTickets(); }
+        function replyToTicketAdmin() { const input = document.getElementById('ad-ticket-reply-input'); const text = input.value; if(!text) return; const t = dbTickets.find(x => x.id === activeAdminTicketId); if(!t) return; if(!t.replies) t.replies = []; t.replies.push({ author: currentUser.pseudo, isAdmin: true, text: text, date: Date.now() }); saveData(); input.value = ""; openAdminTicketRead(activeAdminTicketId); showToast("Réponse envoyée !"); }
+        function resolveTicketAdmin() { if(!confirm("Clôturer ce ticket et l'archiver ?")) return; const t = dbTickets.find(x => x.id === activeAdminTicketId); if(!t) return; t.status = 'resolved'; t.read = true; saveData(); closeAdminTicketRead(); showToast("Ticket Résolu !"); updateBadges(); }
 
-        function replyToTicketAdmin() {
-            const input = document.getElementById('ad-ticket-reply-input'); const text = input.value; if(!text) return;
-            const t = dbTickets.find(x => x.id === activeAdminTicketId); if(!t) return; if(!t.replies) t.replies = [];
-            t.replies.push({ author: currentUser.pseudo, isAdmin: true, text: text, date: Date.now() });
-            saveData(); input.value = ""; openAdminTicketRead(activeAdminTicketId); showToast("Réponse envoyée !");
-        }
-        function resolveTicketAdmin() {
-            if(!confirm("Clôturer ce ticket et l'archiver ?")) return;
-            const t = dbTickets.find(x => x.id === activeAdminTicketId); if(!t) return;
-            t.status = 'resolved'; t.read = true; saveData(); closeAdminTicketRead(); showToast("Ticket Résolu !"); updateBadges();
-        }
-
-        // --- V21 FORUM (VUES, LIKES, COMMENTAIRES, PAGINATION) ---
-        let currentForumCat = "Toutes"; let currentForumPage = 1; const topicsPerPage = 10;
-        let activeForumTopicId = null;
-
+        let currentForumCat = "Toutes"; let currentForumPage = 1; const topicsPerPage = 10; let activeForumTopicId = null;
         function filterForumCat(cat) { currentForumCat = cat; currentForumPage = 1; document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active')); event.target.classList.add('active'); renderForum(); }
-        
-        function renderForum() {
-            const searchTerm = document.getElementById('forum-search-input').value.toLowerCase(); const sortMode = document.getElementById('forum-sort-select').value;
-            const list = document.getElementById('forum-list'); list.innerHTML = "";
-            let filtered = [...dbForum];
-            if(currentForumCat !== "Toutes") { filtered = filtered.filter(t => t.category === currentForumCat); }
-            if(searchTerm) { filtered = filtered.filter(t => { let score = 0; if(t.title.toLowerCase().includes(searchTerm)) score += 3; if(t.content.toLowerCase().includes(searchTerm)) score += 1; if(t.author.toLowerCase().includes(searchTerm)) score += 2; t.relevanceScore = score; return score > 0; }); } else { filtered.forEach(t => t.relevanceScore = 0); }
-            filtered.sort((a, b) => { if(a.pinned !== b.pinned) return a.pinned ? -1 : 1; if(sortMode === 'pertinence' && searchTerm) return b.relevanceScore - a.relevanceScore; if(sortMode === 'ancien') return a.timestamp - b.timestamp; return b.timestamp - a.timestamp; });
-            const totalPages = Math.ceil(filtered.length / topicsPerPage); const startIndex = (currentForumPage - 1) * topicsPerPage; const paginatedTopics = filtered.slice(startIndex, startIndex + topicsPerPage);
-            
-            paginatedTopics.forEach(topic => {
-                const date = new Date(topic.timestamp).toLocaleString('fr-FR', {day:'numeric', month:'short', hour:'2-digit', minute:'2-digit'});
-                const isPinned = topic.pinned ? '<span style="color:var(--magenta); font-size:0.8rem; margin-right:10px;">📌 ÉPINGLÉ</span>' : '';
-                const pinClass = topic.pinned ? 'pinned' : '';
-                const repliesCount = topic.replies ? topic.replies.length : 0;
-                const viewsCount = topic.views || 0;
-                const likesCount = topic.likes || 0;
-
-                let adminHtml = ''; if(currentUser && currentUser.perms.forum) { const pinText = topic.pinned ? "DÉTACHER" : "ÉPINGLER"; adminHtml = `<div class="forum-admin-options" style="display:flex; gap:10px; margin-left:auto;"><button class="sc-btn" style="padding: 2px 10px; margin:0; font-size:0.7rem; border-color:var(--magenta); color:var(--magenta);" onclick="event.stopPropagation(); togglePinTopic(${topic.id})">${pinText}</button><button class="sc-btn" style="padding: 2px 10px; margin:0; font-size:0.7rem; border-color:var(--red); color:var(--red);" onclick="event.stopPropagation(); deleteTopic(${topic.id})">SUPPRIMER</button></div>`; }
-                
-                list.innerHTML += `
-                    <div class="forum-item ${pinClass}" onclick="readTopic(${topic.id})">
-                        <div class="forum-item-avatar" style="background-image: url('${topic.authorAvatar}');"></div>
-                        <div class="forum-item-author-box">
-                            <p class="fi-pseudo">${topic.author}</p><p class="fi-role">${topic.authorRole}</p>
-                        </div>
-                        <div class="forum-item-content-box">
-                            <h3 class="fi-title">${isPinned} [${topic.category}] ${topic.title}</h3>
-                            <p class="fi-excerpt">${topic.content}</p>
-                            <div class="fi-footer">
-                                <span>🗓️ ${date}</span> <span>👁️ ${viewsCount} vues</span> <span>💬 ${repliesCount} rép</span> <span><button class="btn-like" onclick="event.stopPropagation(); likeTopic(${topic.id})">❤️ ${likesCount}</button></span> ${adminHtml}
-                            </div>
-                        </div>
-                    </div>`;
-            });
-            renderForumPagination(totalPages); renderSidebarForum(); 
-        }
-
-        function likeTopic(id) {
-            const topic = dbForum.find(t => t.id === id); if(!topic) return;
-            topic.likes = (topic.likes || 0) + 1; saveData(); renderForum();
-        }
-
-        function postForumReply() {
-            const input = document.getElementById('forum-reply-input'); const text = input.value; if(!text) return;
-            const t = dbForum.find(x => x.id === activeForumTopicId); if(!t) return;
-            if(!t.replies) t.replies = [];
-            t.replies.push({ author: currentUser.pseudo, avatar: currentUser.avatar, text: text, date: Date.now() });
-            saveData(); input.value = ""; readTopic(activeForumTopicId); showToast("Réponse publiée !");
-        }
-
+        function renderForum() { const searchTerm = document.getElementById('forum-search-input').value.toLowerCase(); const sortMode = document.getElementById('forum-sort-select').value; const list = document.getElementById('forum-list'); list.innerHTML = ""; let filtered = [...dbForum]; if(currentForumCat !== "Toutes") { filtered = filtered.filter(t => t.category === currentForumCat); } if(searchTerm) { filtered = filtered.filter(t => { let score = 0; if(t.title.toLowerCase().includes(searchTerm)) score += 3; if(t.content.toLowerCase().includes(searchTerm)) score += 1; if(t.author.toLowerCase().includes(searchTerm)) score += 2; t.relevanceScore = score; return score > 0; }); } else { filtered.forEach(t => t.relevanceScore = 0); } filtered.sort((a, b) => { if(a.pinned !== b.pinned) return a.pinned ? -1 : 1; if(sortMode === 'pertinence' && searchTerm) return b.relevanceScore - a.relevanceScore; if(sortMode === 'ancien') return a.timestamp - b.timestamp; return b.timestamp - a.timestamp; }); const totalPages = Math.ceil(filtered.length / topicsPerPage); const startIndex = (currentForumPage - 1) * topicsPerPage; const paginatedTopics = filtered.slice(startIndex, startIndex + topicsPerPage); paginatedTopics.forEach(topic => { const date = new Date(topic.timestamp).toLocaleString('fr-FR', {day:'numeric', month:'short', hour:'2-digit', minute:'2-digit'}); const isPinned = topic.pinned ? '<span style="color:var(--magenta); font-size:0.8rem; margin-right:10px;">📌 ÉPINGLÉ</span>' : ''; const pinClass = topic.pinned ? 'pinned' : ''; const repliesCount = topic.replies ? topic.replies.length : 0; const viewsCount = topic.views || 0; const likesCount = topic.likes || 0; let adminHtml = ''; if(currentUser && currentUser.perms.forum) { const pinText = topic.pinned ? "DÉTACHER" : "ÉPINGLER"; adminHtml = `<div class="forum-admin-options" style="display:flex; gap:10px; margin-left:auto;"><button class="sc-btn" style="padding: 2px 10px; margin:0; font-size:0.7rem; border-color:var(--magenta); color:var(--magenta);" onclick="event.stopPropagation(); togglePinTopic(${topic.id})">${pinText}</button><button class="sc-btn" style="padding: 2px 10px; margin:0; font-size:0.7rem; border-color:var(--red); color:var(--red);" onclick="event.stopPropagation(); deleteTopic(${topic.id})">SUPPRIMER</button></div>`; } list.innerHTML += `<div class="forum-item ${pinClass}" onclick="readTopic(${topic.id})"><div class="forum-item-avatar" style="background-image: url('${topic.authorAvatar}');"></div><div class="forum-item-author-box"><p class="fi-pseudo">${topic.author}</p><p class="fi-role">${topic.authorRole}</p></div><div class="forum-item-content-box"><h3 class="fi-title">${isPinned} [${topic.category}] ${topic.title}</h3><p class="fi-excerpt">${topic.content}</p><div class="fi-footer"><span>🗓️ ${date}</span> <span>👁️ ${viewsCount} vues</span> <span>💬 ${repliesCount} rép</span> <span><button class="btn-like" onclick="event.stopPropagation(); likeTopic(${topic.id})">❤️ ${likesCount}</button></span> ${adminHtml}</div></div></div>`; }); renderForumPagination(totalPages); renderSidebarForum(); }
+        function likeTopic(id) { const topic = dbForum.find(t => t.id === id); if(!topic) return; topic.likes = (topic.likes || 0) + 1; saveData(); renderForum(); }
+        function postForumReply() { const input = document.getElementById('forum-reply-input'); const text = input.value; if(!text) return; const t = dbForum.find(x => x.id === activeForumTopicId); if(!t) return; if(!t.replies) t.replies = []; t.replies.push({ author: currentUser.pseudo, avatar: currentUser.avatar, text: text, date: Date.now() }); saveData(); input.value = ""; readTopic(activeForumTopicId); showToast("Réponse publiée !"); }
         function renderForumPagination(totalPages) { const pagiContainer = document.getElementById('forum-pagination'); pagiContainer.innerHTML = ''; if(totalPages <= 1) return; for(let i=1; i<=totalPages; i++) { const actClass = i === currentForumPage ? 'active' : ''; pagiContainer.innerHTML += `<button class="page-btn ${actClass}" onclick="currentForumPage=${i}; renderForum();">${i}</button>`; } }
-        
-        function renderSidebarForum() { 
-            const sidebarList = document.getElementById('sidebar-forum-list'); if(!sidebarList) return; sidebarList.innerHTML = ""; 
-            const latest = [...dbForum].sort((a,b) => b.timestamp - a.timestamp).slice(0,10); // V21 : 10 items
-            latest.forEach(t => { 
-                let tagColor = "gray"; if(t.category === "Annonces") tagColor = "var(--magenta)"; if(t.category === "Aide") tagColor = "var(--orange)"; 
-                sidebarList.innerHTML += `<div class="sidebar-post" onclick="switchTab('forum'); readTopic(${t.id})"><span class="tag" style="border-color:${tagColor}; color:${tagColor};">${t.category.slice(0,3)}</span> <span class="author">${t.author}</span>: ${t.title}</div>`; 
-            }); 
-        }
-
+        function renderSidebarForum() { const sidebarList = document.getElementById('sidebar-forum-list'); if(!sidebarList) return; sidebarList.innerHTML = ""; const latest = [...dbForum].sort((a,b) => b.timestamp - a.timestamp).slice(0,10); latest.forEach(t => { let tagColor = "gray"; if(t.category === "Annonces") tagColor = "var(--magenta)"; if(t.category === "Aide") tagColor = "var(--orange)"; sidebarList.innerHTML += `<div class="sidebar-post" onclick="switchTab('forum'); readTopic(${t.id})"><span class="tag" style="border-color:${tagColor}; color:${tagColor};">${t.category.slice(0,3)}</span> <span class="author">${t.author}</span>: ${t.title}</div>`; }); }
         function openCreateTopicModal() { document.getElementById('forum-create-modal').classList.remove('hidden'); }
         function createNewForumTopic() { const title = document.getElementById('new-topic-title').value; const content = document.getElementById('new-topic-content').value; const img = document.getElementById('new-topic-image').value; if(!title || !content) return alert("Remplissez le titre et le message."); dbForum.push({ id: Date.now(), title: title, content: content, category: "Général", image: img, author: currentUser.pseudo, authorAvatar: currentUser.avatar, authorRole: currentUser.roleDisplay, timestamp: Date.now(), pinned: false, views: 0, likes: 0, replies: [] }); saveData(); document.getElementById('new-topic-title').value = ''; document.getElementById('new-topic-content').value = ''; document.getElementById('new-topic-image').value = ''; document.getElementById('forum-create-modal').classList.add('hidden'); renderForum(); showToast("Sujet publié !"); addLog(`Nouveau sujet : ${title}`); }
         function togglePinTopic(id) { const topic = dbForum.find(t => t.id === id); if(topic) { topic.pinned = !topic.pinned; saveData(); renderForum(); } }
         function deleteTopic(id) { if(confirm("Détruire ce sujet ?")) { dbForum = dbForum.filter(t => t.id !== id); saveData(); renderForum(); showToast("Sujet supprimé", "success"); } }
-        
-        function readTopic(id) { 
-            const topic = dbForum.find(t => t.id === id); if(!topic) return; 
-            activeForumTopicId = id;
-            
-            // Increment views
-            topic.views = (topic.views || 0) + 1; saveData();
-
-            document.getElementById('forum-main-view').classList.add('hidden'); document.getElementById('content-profil').classList.add('hidden'); document.getElementById('forum-read').classList.remove('hidden'); 
-            document.getElementById('read-topic-tag').innerText = topic.category; document.getElementById('read-topic-title').innerText = topic.title; document.getElementById('read-topic-avatar').style.backgroundImage = `url('${topic.authorAvatar}')`; document.getElementById('read-topic-author').innerText = topic.author; document.getElementById('read-topic-role').innerText = topic.authorRole; document.getElementById('read-topic-date').innerText = new Date(topic.timestamp).toLocaleString('fr-FR'); document.getElementById('read-topic-content').innerText = topic.content; 
-            const imgEl = document.getElementById('read-topic-image'); if(topic.image) { imgEl.src = topic.image; imgEl.classList.remove('hidden'); } else { imgEl.classList.add('hidden'); } 
-
-            // Render Replies
-            const rCount = document.getElementById('topic-replies-count');
-            const rList = document.getElementById('forum-replies-list');
-            rList.innerHTML = "";
-            if(topic.replies && topic.replies.length > 0) {
-                rCount.innerText = `(${topic.replies.length})`;
-                topic.replies.forEach(r => {
-                    rList.innerHTML += `
-                        <div class="reply-item">
-                            <div class="reply-avatar" style="background-image:url('${r.avatar}')"></div>
-                            <div class="reply-content">
-                                <div class="reply-header"><strong style="color:var(--cyan);">${r.author}</strong> <span style="font-size:0.75rem; color:#666;">${new Date(r.date).toLocaleString('fr-FR')}</span></div>
-                                <div style="color:#ddd; font-size:0.95rem; white-space:pre-wrap;">${r.text}</div>
-                            </div>
-                        </div>
-                    `;
-                });
-            } else { rCount.innerText = `(0)`; rList.innerHTML = "<p style='color:#666; font-style:italic;'>Soyez le premier à répondre.</p>"; }
-        }
+        function readTopic(id) { const topic = dbForum.find(t => t.id === id); if(!topic) return; activeForumTopicId = id; topic.views = (topic.views || 0) + 1; saveData(); document.getElementById('forum-main-view').classList.add('hidden'); document.getElementById('content-profil').classList.add('hidden'); document.getElementById('forum-read').classList.remove('hidden'); document.getElementById('read-topic-tag').innerText = topic.category; document.getElementById('read-topic-title').innerText = topic.title; document.getElementById('read-topic-avatar').style.backgroundImage = `url('${topic.authorAvatar}')`; document.getElementById('read-topic-author').innerText = topic.author; document.getElementById('read-topic-role').innerText = topic.authorRole; document.getElementById('read-topic-date').innerText = new Date(topic.timestamp).toLocaleString('fr-FR'); document.getElementById('read-topic-content').innerText = topic.content; const imgEl = document.getElementById('read-topic-image'); if(topic.image) { imgEl.src = topic.image; imgEl.classList.remove('hidden'); } else { imgEl.classList.add('hidden'); } const rCount = document.getElementById('topic-replies-count'); const rList = document.getElementById('forum-replies-list'); rList.innerHTML = ""; if(topic.replies && topic.replies.length > 0) { rCount.innerText = `(${topic.replies.length})`; topic.replies.forEach(r => { rList.innerHTML += `<div class="reply-item"><div class="reply-avatar" style="background-image:url('${r.avatar}')"></div><div class="reply-content"><div class="reply-header"><strong style="color:var(--cyan);">${r.author}</strong> <span style="font-size:0.75rem; color:#666;">${new Date(r.date).toLocaleString('fr-FR')}</span></div><div style="color:#ddd; font-size:0.95rem; white-space:pre-wrap;">${r.text}</div></div></div>`; }); } else { rCount.innerText = `(0)`; rList.innerHTML = "<p style='color:#666; font-style:italic;'>Soyez le premier à répondre.</p>"; } }
         function closeForumTopic() { document.getElementById('forum-read').classList.add('hidden'); document.getElementById('forum-main-view').classList.remove('hidden'); activeForumTopicId = null; renderForum(); }
 
-        // --- V21 PROFIL UTILISATEUR & TABS ---
-        function switchProfileTab(tab, btnElement) {
-            document.querySelectorAll('.ptab-btn').forEach(b => b.classList.remove('active'));
-            if(btnElement) btnElement.classList.add('active');
-            
-            document.getElementById('prof-tab-topics').classList.add('hidden');
-            document.getElementById('prof-tab-tickets').classList.add('hidden');
-            
-            document.getElementById('prof-tab-' + tab).classList.remove('hidden');
-        }
+        function switchProfileTab(tab, btnElement) { document.querySelectorAll('.ptab-btn').forEach(b => b.classList.remove('active')); if(btnElement) btnElement.classList.add('active'); document.getElementById('prof-tab-topics').classList.add('hidden'); document.getElementById('prof-tab-tickets').classList.add('hidden'); document.getElementById('prof-tab-' + tab).classList.remove('hidden'); }
+        function renderUserActivities() { const myTopics = dbForum.filter(t => t.author === currentUser.pseudo); let myReplies = 0; dbForum.forEach(t => { if(t.replies) myReplies += t.replies.filter(r => r.author === currentUser.pseudo).length; }); const myTickets = dbTickets.filter(t => t.pseudo === currentUser.pseudo); document.getElementById('prof-stat-topics').innerText = myTopics.length; document.getElementById('prof-stat-replies').innerText = myReplies; document.getElementById('prof-stat-tickets').innerText = myTickets.length; const fList = document.getElementById('my-forum-posts'); fList.innerHTML = ""; if(myTopics.length === 0) { fList.innerHTML = "<p style='color:#666;'>Vous n'avez publié aucun sujet.</p>"; } else { myTopics.forEach(topic => { const date = new Date(topic.timestamp).toLocaleString('fr-FR'); fList.innerHTML += `<div class="forum-item" onclick="readTopic(${topic.id})"><div class="forum-item-content-box"><h3 class="fi-title">[${topic.category}] ${topic.title}</h3><p class="fi-excerpt">${topic.content}</p><p style="color: #666; font-size: 0.8rem; margin: 5px 0 0 0;">${date}</p></div></div>`; }); } const tList = document.getElementById('my-tickets-list'); tList.innerHTML = ""; if(myTickets.length === 0) { tList.innerHTML = "<p style='color:#666;'>Aucun ticket de support actif.</p>"; } else { myTickets.sort((a,b) => b.date - a.date).forEach(t => { const statusTag = t.status === 'resolved' ? "<span class='ticket-status-badge ticket-resolved'>RÉSOLU</span>" : "<span class='ticket-status-badge ticket-open'>EN ATTENTE</span>"; const d = new Date(t.date).toLocaleString('fr-FR'); tList.innerHTML += `<div style="background:rgba(0,0,0,0.5); border:1px solid var(--cyan); padding:15px; border-radius:8px; margin-bottom:10px; cursor:pointer; transition:0.3s;" onmouseover="this.style.boxShadow='var(--glow-cyan)'" onmouseout="this.style.boxShadow='none'" onclick="openUserTicketRead(${t.id})"><div style="display:flex; justify-content:space-between; align-items:center;"><strong style="color:white;">${t.title}</strong>${statusTag}</div><p style="color:#888; font-size:0.8rem; margin:5px 0 0 0;">Ouvert le : ${d}</p></div>`; }); } }
+        function openUserTicketRead(id) { const t = dbTickets.find(x => x.id === id); if(!t) return; activeUserTicketId = id; document.getElementById('user-ticket-read-modal').classList.remove('hidden'); document.getElementById('usr-ticket-title').innerText = t.title; const thread = document.getElementById('usr-ticket-thread'); thread.innerHTML = ""; thread.innerHTML += `<div class="ticket-msg-box user"><strong style="color:var(--cyan);">Vous :</strong><br><span style="color:#ddd; white-space:pre-wrap;">${t.msg}</span></div>`; if(t.replies && t.replies.length > 0) { t.replies.forEach(r => { const isAdm = r.isAdmin ? "admin" : "user"; const col = r.isAdmin ? "var(--magenta)" : "var(--cyan)"; thread.innerHTML += `<div class="ticket-msg-box ${isAdm}"><div style="display:flex; justify-content:space-between; margin-bottom:5px;"><strong style="color:${col};">${r.author} :</strong><span style="font-size:0.75rem; color:#666;">${new Date(r.date).toLocaleString('fr-FR')}</span></div><span style="color:#ddd; white-space:pre-wrap;">${r.text}</span></div>`; }); } const replyBox = document.getElementById('usr-ticket-reply-box'); if(t.status === 'resolved') { replyBox.classList.add('hidden'); thread.innerHTML += `<div style="text-align:center; color:var(--green); font-weight:bold; margin-top:20px;">✅ TICKET RÉSOLU.</div>`; } else { replyBox.classList.remove('hidden'); } }
+        function replyToTicketUser() { const input = document.getElementById('usr-ticket-reply-input'); const text = input.value; if(!text) return; const t = dbTickets.find(x => x.id === activeUserTicketId); if(!t) return; if(!t.replies) t.replies = []; t.replies.push({ author: currentUser.pseudo, isAdmin: false, text: text, date: Date.now() }); t.read = false; saveData(); input.value = ""; openUserTicketRead(activeUserTicketId); showToast("Réponse envoyée !"); }
 
-        function renderUserActivities() {
-            // Stats Update
-            const myTopics = dbForum.filter(t => t.author === currentUser.pseudo);
-            let myReplies = 0; dbForum.forEach(t => { if(t.replies) myReplies += t.replies.filter(r => r.author === currentUser.pseudo).length; });
-            const myTickets = dbTickets.filter(t => t.pseudo === currentUser.pseudo);
-            
-            document.getElementById('prof-stat-topics').innerText = myTopics.length;
-            document.getElementById('prof-stat-replies').innerText = myReplies;
-            document.getElementById('prof-stat-tickets').innerText = myTickets.length;
-
-            // Sujets Forum
-            const fList = document.getElementById('my-forum-posts'); fList.innerHTML = "";
-            if(myTopics.length === 0) { fList.innerHTML = "<p style='color:#666;'>Vous n'avez publié aucun sujet.</p>"; }
-            else { myTopics.forEach(topic => { const date = new Date(topic.timestamp).toLocaleString('fr-FR'); fList.innerHTML += `<div class="forum-item" onclick="readTopic(${topic.id})"><div class="forum-item-content-box"><h3 class="fi-title">[${topic.category}] ${topic.title}</h3><p class="fi-excerpt">${topic.content}</p><p style="color: #666; font-size: 0.8rem; margin: 5px 0 0 0;">${date}</p></div></div>`; }); }
-
-            // Tickets
-            const tList = document.getElementById('my-tickets-list'); tList.innerHTML = "";
-            if(myTickets.length === 0) { tList.innerHTML = "<p style='color:#666;'>Aucun ticket de support actif.</p>"; }
-            else {
-                myTickets.sort((a,b) => b.date - a.date).forEach(t => {
-                    const statusTag = t.status === 'resolved' ? "<span class='ticket-status-badge ticket-resolved'>RÉSOLU</span>" : "<span class='ticket-status-badge ticket-open'>EN ATTENTE</span>";
-                    const d = new Date(t.date).toLocaleString('fr-FR');
-                    tList.innerHTML += `<div style="background:rgba(0,0,0,0.5); border:1px solid var(--cyan); padding:15px; border-radius:8px; margin-bottom:10px; cursor:pointer; transition:0.3s;" onmouseover="this.style.boxShadow='var(--glow-cyan)'" onmouseout="this.style.boxShadow='none'" onclick="openUserTicketRead(${t.id})"><div style="display:flex; justify-content:space-between; align-items:center;"><strong style="color:white;">${t.title}</strong>${statusTag}</div><p style="color:#888; font-size:0.8rem; margin:5px 0 0 0;">Ouvert le : ${d}</p></div>`;
-                });
-            }
-        }
-
-        function openUserTicketRead(id) {
-            const t = dbTickets.find(x => x.id === id); if(!t) return; activeUserTicketId = id;
-            document.getElementById('user-ticket-read-modal').classList.remove('hidden'); document.getElementById('usr-ticket-title').innerText = t.title;
-            const thread = document.getElementById('usr-ticket-thread'); thread.innerHTML = "";
-            thread.innerHTML += `<div class="ticket-msg-box user"><strong style="color:var(--cyan);">Vous :</strong><br><span style="color:#ddd; white-space:pre-wrap;">${t.msg}</span></div>`;
-            if(t.replies && t.replies.length > 0) { t.replies.forEach(r => { const isAdm = r.isAdmin ? "admin" : "user"; const col = r.isAdmin ? "var(--magenta)" : "var(--cyan)"; thread.innerHTML += `<div class="ticket-msg-box ${isAdm}"><div style="display:flex; justify-content:space-between; margin-bottom:5px;"><strong style="color:${col};">${r.author} :</strong><span style="font-size:0.75rem; color:#666;">${new Date(r.date).toLocaleString('fr-FR')}</span></div><span style="color:#ddd; white-space:pre-wrap;">${r.text}</span></div>`; }); }
-            const replyBox = document.getElementById('usr-ticket-reply-box');
-            if(t.status === 'resolved') { replyBox.classList.add('hidden'); thread.innerHTML += `<div style="text-align:center; color:var(--green); font-weight:bold; margin-top:20px;">✅ TICKET RÉSOLU.</div>`; } else { replyBox.classList.remove('hidden'); }
-        }
-
-        function replyToTicketUser() {
-            const input = document.getElementById('usr-ticket-reply-input'); const text = input.value; if(!text) return;
-            const t = dbTickets.find(x => x.id === activeUserTicketId); if(!t) return; if(!t.replies) t.replies = [];
-            t.replies.push({ author: currentUser.pseudo, isAdmin: false, text: text, date: Date.now() }); t.read = false; 
-            saveData(); input.value = ""; openUserTicketRead(activeUserTicketId); showToast("Réponse envoyée !");
-        }
-
-        // --- COMMUNICATION AVEC L'AGENT LOCAL ---
-        async function checkAgentConnection(customUrl = null) {
-            const badge = document.getElementById('agent-status-badge'); const offlineView = document.getElementById('diag-offline-view'); const onlineView = document.getElementById('diag-online-view');
-            const agentUrl = customUrl || 'http://localhost:5989';
-            try {
-                badge.innerHTML = "⏳ SCAN EN COURS..."; badge.className = "agent-badge"; badge.style.color = "var(--orange)"; badge.style.borderColor = "var(--orange)";
-                const response = await fetch(`${agentUrl}/status`, { method: 'GET' }); const data = await response.json();
-                if(data.status === "online") { badge.innerHTML = "🟢 AGENT CONNECTÉ (v" + data.version + ")"; badge.className = "agent-badge agent-online"; badge.style.color = ""; badge.style.borderColor = ""; offlineView.classList.add('hidden'); onlineView.classList.remove('hidden'); loadLocalModules(agentUrl); }
-            } catch (error) { badge.innerHTML = "🔴 AGENT DÉCONNECTÉ"; badge.className = "agent-badge agent-offline"; badge.style.color = ""; badge.style.borderColor = ""; offlineView.classList.remove('hidden'); onlineView.classList.add('hidden'); showToast("Le port 5989 est injoignable.", "error"); }
-        }
-
-        async function loadLocalModules(agentUrl) {
-            const grid = document.getElementById('dynamic-modules-grid'); grid.innerHTML = "<p style='color:var(--text-gray); font-style:italic;'>Analyse des dossiers locaux en cours...</p>";
-            try {
-                const response = await fetch(`${agentUrl}/get-modules`); const modules = await response.json(); grid.innerHTML = ""; 
-                if(modules.length === 0) { grid.innerHTML = "<p style='color:var(--red);'>Aucun module trouvé dans le dossier Scripts.</p>"; return; }
-                modules.forEach(mod => {
-                    const tile = document.createElement('div'); tile.className = 'tile';
-                    tile.innerHTML = `<div style="font-size: 3rem; margin-bottom: 15px; text-shadow: 0 0 20px rgba(255,255,255,0.5);">${mod.icone || '⚙️'}</div><h3 style="font-size: 1.3rem; margin-bottom: 10px; color: var(--text-main); text-transform: uppercase;">${mod.nom}</h3><p style="font-size: 0.95rem; margin-bottom: 15px; color: var(--text-gray);">${mod.description}</p><span style="font-size: 0.75rem; background: #222; padding: 4px 10px; border-radius: 10px; color: var(--cyan); border: 1px solid var(--cyan);">${mod.os_compatible.join(', ')}</span>`;
-                    tile.onclick = () => executeModule(mod.script_file, mod.folder_path); grid.appendChild(tile);
-                });
-            } catch (error) { grid.innerHTML = "<p style='color:var(--red);'>Erreur de communication Agent.</p>"; }
-        }
-
-        async function executeModule(scriptFile, folderPath) {
-            const term = document.getElementById('diag-terminal-output'); const agentUrl = 'http://localhost:5989';
-            term.innerHTML += `<br><br>> <span style="color:var(--magenta);">[INITIATION]</span> Exécution de ${scriptFile}... veuillez patienter...`; term.scrollTop = term.scrollHeight;
-            try {
-                const response = await fetch(`${agentUrl}/run`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ script: scriptFile, folder: folderPath }) });
-                const data = await response.json();
-                if(data.success) { let formattedOutput = data.output.replace(/\n/g, '<br>').replace(/ /g, '&nbsp;'); term.innerHTML += `<br><br><span style="color:#FFF;">${formattedOutput}</span>`; term.innerHTML += `<br>> <span style="color:var(--green);">[TERMINÉ]</span> Exécution réussie.`; } else { term.innerHTML += `<br>> <span style="color:var(--red);">[ERREUR SYSTÈME]</span> ${data.error}`; }
-            } catch(error) { term.innerHTML += `<br>> <span style="color:var(--red);">[ERREUR RÉSEAU]</span> L'agent local n'a pas répondu.`; }
-            term.scrollTop = term.scrollHeight;
-        }
+        async function checkAgentConnection(customUrl = null) { const badge = document.getElementById('agent-status-badge'); const offlineView = document.getElementById('diag-offline-view'); const onlineView = document.getElementById('diag-online-view'); const agentUrl = customUrl || 'http://localhost:5989'; try { badge.innerHTML = "⏳ SCAN EN COURS..."; badge.className = "agent-badge"; badge.style.color = "var(--orange)"; badge.style.borderColor = "var(--orange)"; const response = await fetch(`${agentUrl}/status`, { method: 'GET' }); const data = await response.json(); if(data.status === "online") { badge.innerHTML = "🟢 AGENT CONNECTÉ (v" + data.version + ")"; badge.className = "agent-badge agent-online"; badge.style.color = ""; badge.style.borderColor = ""; offlineView.classList.add('hidden'); onlineView.classList.remove('hidden'); loadLocalModules(agentUrl); } } catch (error) { badge.innerHTML = "🔴 AGENT DÉCONNECTÉ"; badge.className = "agent-badge agent-offline"; badge.style.color = ""; badge.style.borderColor = ""; offlineView.classList.remove('hidden'); onlineView.classList.add('hidden'); showToast("Le port 5989 est injoignable.", "error"); } }
+        async function loadLocalModules(agentUrl) { const grid = document.getElementById('dynamic-modules-grid'); grid.innerHTML = "<p style='color:var(--text-gray); font-style:italic;'>Analyse des dossiers locaux en cours...</p>"; try { const response = await fetch(`${agentUrl}/get-modules`); const modules = await response.json(); grid.innerHTML = ""; if(modules.length === 0) { grid.innerHTML = "<p style='color:var(--red);'>Aucun module trouvé dans le dossier Scripts.</p>"; return; } modules.forEach(mod => { const tile = document.createElement('div'); tile.className = 'tile'; tile.innerHTML = `<div style="font-size: 3rem; margin-bottom: 15px; text-shadow: 0 0 20px rgba(255,255,255,0.5);">${mod.icone || '⚙️'}</div><h3 style="font-size: 1.3rem; margin-bottom: 10px; color: var(--text-main); text-transform: uppercase;">${mod.nom}</h3><p style="font-size: 0.95rem; margin-bottom: 15px; color: var(--text-gray);">${mod.description}</p><span style="font-size: 0.75rem; background: #222; padding: 4px 10px; border-radius: 10px; color: var(--cyan); border: 1px solid var(--cyan);">${mod.os_compatible.join(', ')}</span>`; tile.onclick = () => executeModule(mod.script_file, mod.folder_path); grid.appendChild(tile); }); } catch (error) { grid.innerHTML = "<p style='color:var(--red);'>Erreur de communication Agent.</p>"; } }
+        async function executeModule(scriptFile, folderPath) { const term = document.getElementById('diag-terminal-output'); const agentUrl = 'http://localhost:5989'; term.innerHTML += `<br><br>> <span style="color:var(--magenta);">[INITIATION]</span> Exécution de ${scriptFile}... veuillez patienter...`; term.scrollTop = term.scrollHeight; try { const response = await fetch(`${agentUrl}/run`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ script: scriptFile, folder: folderPath }) }); const data = await response.json(); if(data.success) { let formattedOutput = data.output.replace(/\n/g, '<br>').replace(/ /g, '&nbsp;'); term.innerHTML += `<br><br><span style="color:#FFF;">${formattedOutput}</span>`; term.innerHTML += `<br>> <span style="color:var(--green);">[TERMINÉ]</span> Exécution réussie.`; } else { term.innerHTML += `<br>> <span style="color:var(--red);">[ERREUR SYSTÈME]</span> ${data.error}`; } } catch(error) { term.innerHTML += `<br>> <span style="color:var(--red);">[ERREUR RÉSEAU]</span> L'agent local n'a pas répondu.`; } term.scrollTop = term.scrollHeight; }
 
         let attemptTimer = null;
-        function updateLockoutTimer(lockoutTime) {
-            const timerEl = document.getElementById('lockout-timer'); const btnSubmit = document.getElementById('btn-login-submit'); clearInterval(attemptTimer);
-            attemptTimer = setInterval(() => {
-                let remaining = Math.ceil((lockoutTime - Date.now()) / 1000);
-                if(remaining <= 0) { clearInterval(attemptTimer); timerEl.classList.add('hidden'); document.getElementById('login-box').classList.remove('locked'); btnSubmit.disabled = false; btnSubmit.innerText = "S'IDENTIFIER"; } 
-                else { timerEl.classList.remove('hidden'); timerEl.innerText = `SÉCURITÉ: Verrouillé pour ${remaining}s`; document.getElementById('login-box').classList.add('locked'); btnSubmit.disabled = true; btnSubmit.innerText = "VERROUILLÉ"; }
-            }, 1000);
-        }
-
+        function updateLockoutTimer(lockoutTime) { const timerEl = document.getElementById('lockout-timer'); const btnSubmit = document.getElementById('btn-login-submit'); clearInterval(attemptTimer); attemptTimer = setInterval(() => { let remaining = Math.ceil((lockoutTime - Date.now()) / 1000); if(remaining <= 0) { clearInterval(attemptTimer); timerEl.classList.add('hidden'); document.getElementById('login-box').classList.remove('locked'); btnSubmit.disabled = false; btnSubmit.innerText = "S'IDENTIFIER"; } else { timerEl.classList.remove('hidden'); timerEl.innerText = `SÉCURITÉ: Verrouillé pour ${remaining}s`; document.getElementById('login-box').classList.add('locked'); btnSubmit.disabled = true; btnSubmit.innerText = "VERROUILLÉ"; } }, 1000); }
         function handleEnter(e) { if (e.key === 'Enter') startFuriousBootSequence(); }
-        
-        function startFuriousBootSequence() {
-            let lockoutTime = parseInt(localStorage.getItem('nvalk_lockout')) || 0;
-            if (Date.now() < lockoutTime) { updateLockoutTimer(lockoutTime); return; }
-            const loginInput = document.getElementById('username').value.toLowerCase(); const passInput = document.getElementById('password').value;
-            if(!loginInput) return alert("Identifiant requis.");
-            const foundUser = dbUsers.find(u => u.login === loginInput);
-            if(foundUser) { 
-                if(foundUser.password !== passInput) { handleFailedLogin(`Mot de passe incorrect pour '${loginInput}'.`); return; }
-                if(!foundUser.active) { alert("🚫 ACCÈS REFUSÉ : Votre compte a été désactivé.\nVeuillez ouvrir un ticket de support."); addLog(`Tentative de connexion sur un compte désactivé : '${loginInput}'.`, "alert"); return; }
-                localStorage.setItem('nvalk_attempts', 0); currentUser = foundUser; 
-            } else { handleFailedLogin(`Tentative avec identifiant inconnu '${loginInput}'.`); return; }
-            document.getElementById('login-box').classList.add('hidden'); const introOverlay = document.getElementById('intro-overlay'); const introContent = document.getElementById('intro-content');
-            introOverlay.classList.remove('hidden'); setTimeout(() => { introContent.classList.add('furious-move'); }, 3000);
-            setTimeout(() => {
-                introOverlay.classList.add('hidden'); const dashboard = document.getElementById('dashboard');
-                dashboard.classList.remove('hidden'); setTimeout(() => { dashboard.classList.add('visible'); }, 50);
-                applyUserProfileUI(); renderForum(); loadLogs(); applySiteSettings(); handleNetworkChange(); addLog(`Connexion sécurisée de '${currentUser.login}'.`);
-            }, 4500); 
-        }
-
-        function handleFailedLogin(logMessage) {
-            addLog(logMessage, "alert"); document.getElementById('login-box').classList.add('locked'); setTimeout(() => document.getElementById('login-box').classList.remove('locked'), 500);
-            let attempts = parseInt(localStorage.getItem('nvalk_attempts')) || 0; attempts++; localStorage.setItem('nvalk_attempts', attempts);
-            if(attempts >= 5) { let penalty = attempts >= 10 ? 3600000 : 30000; let lockoutTime = Date.now() + penalty; localStorage.setItem('nvalk_lockout', lockoutTime); updateLockoutTimer(lockoutTime);
-            } else { alert(`🔒 ACCÈS REFUSÉ. (${attempts}/5 essais avant verrouillage)`); }
-        }
+        function startFuriousBootSequence() { let lockoutTime = parseInt(localStorage.getItem('nvalk_lockout')) || 0; if (Date.now() < lockoutTime) { updateLockoutTimer(lockoutTime); return; } const loginInput = document.getElementById('username').value.toLowerCase(); const passInput = document.getElementById('password').value; if(!loginInput) return alert("Identifiant requis."); const foundUser = dbUsers.find(u => u.login === loginInput); if(foundUser) { if(foundUser.password !== passInput) { handleFailedLogin(`Mot de passe incorrect pour '${loginInput}'.`); return; } if(!foundUser.active) { alert("🚫 ACCÈS REFUSÉ : Votre compte a été désactivé.\nVeuillez ouvrir un ticket de support."); addLog(`Tentative de connexion sur un compte désactivé : '${loginInput}'.`, "alert"); return; } localStorage.setItem('nvalk_attempts', 0); currentUser = foundUser; } else { handleFailedLogin(`Tentative avec identifiant inconnu '${loginInput}'.`); return; } document.getElementById('login-box').classList.add('hidden'); const introOverlay = document.getElementById('intro-overlay'); const introContent = document.getElementById('intro-content'); introOverlay.classList.remove('hidden'); setTimeout(() => { introContent.classList.add('furious-move'); }, 3000); setTimeout(() => { introOverlay.classList.add('hidden'); const dashboard = document.getElementById('dashboard'); dashboard.classList.remove('hidden'); setTimeout(() => { dashboard.classList.add('visible'); }, 50); applyUserProfileUI(); renderForum(); loadLogs(); applySiteSettings(); handleNetworkChange(); addLog(`Connexion sécurisée de '${currentUser.login}'.`); }, 4500); }
+        function handleFailedLogin(logMessage) { addLog(logMessage, "alert"); document.getElementById('login-box').classList.add('locked'); setTimeout(() => document.getElementById('login-box').classList.remove('locked'), 500); let attempts = parseInt(localStorage.getItem('nvalk_attempts')) || 0; attempts++; localStorage.setItem('nvalk_attempts', attempts); if(attempts >= 5) { let penalty = attempts >= 10 ? 3600000 : 30000; let lockoutTime = Date.now() + penalty; localStorage.setItem('nvalk_lockout', lockoutTime); updateLockoutTimer(lockoutTime); } else { alert(`🔒 ACCÈS REFUSÉ. (${attempts}/5 essais avant verrouillage)`); } }
 
         function applyUserProfileUI() {
-            // Profile Modal Infos
-            document.getElementById('sc-name').innerText = currentUser.pseudo; document.getElementById('user-display').innerText = currentUser.pseudo;
-            document.getElementById('top-avatar').style.backgroundImage = `url('${currentUser.avatar}')`; document.getElementById('side-avatar').style.backgroundImage = `url('${currentUser.avatar}')`;
-            document.getElementById('profile-direct-status').value = currentUser.status; updateStatusDot(currentUser.status);
-            
-            // Dashboard Full Profile Infos
-            document.getElementById('prof-pseudo').innerText = currentUser.pseudo;
-            document.getElementById('prof-login').innerText = "@" + currentUser.login;
-            document.getElementById('prof-avatar-large').style.backgroundImage = `url('${currentUser.avatar}')`;
-            document.getElementById('prof-license-key').innerText = currentUser.licenseKey || "AUCUNE";
-            
-            // Permissions UI
-            const permsContainer = document.getElementById('prof-perms-list'); permsContainer.innerHTML = "";
-            const mkPerm = (text, has) => `<span class="perm-box ${has ? '' : 'deny'}">${has ? '✅' : '❌'} ${text}</span>`;
-            permsContainer.innerHTML += mkPerm("Modifier Modules", currentUser.perms.code);
-            permsContainer.innerHTML += mkPerm("Gérer Utilisateurs", currentUser.perms.users);
-            permsContainer.innerHTML += mkPerm("Voir Logs", currentUser.perms.logs);
-            permsContainer.innerHTML += mkPerm("Modérer Forum", currentUser.perms.forum);
-
-            // Expiration Pack UI
-            const expireP = document.getElementById('pack-expire-date');
-            const profExpireP = document.getElementById('prof-pack-expire');
-            if(currentUser.packExpire) {
-                const d = new Date(currentUser.packExpire); const diffDays = Math.ceil((d - Date.now()) / (1000 * 60 * 60 * 24));
-                if(diffDays < 0) { const expTxt = `EXPIRÉ !`; expireP.innerText = expTxt; expireP.style.color = "var(--red)"; profExpireP.innerText = expTxt; profExpireP.style.color = "var(--red)"; }
-                else { const expTxt = `Expire le ${d.toLocaleDateString('fr-FR')} (${diffDays} Jours)`; expireP.innerText = expTxt; expireP.style.color = "var(--cyan)"; profExpireP.innerText = expTxt; profExpireP.style.color = "var(--cyan)"; }
-            }
-
+            document.getElementById('sc-name').innerText = currentUser.pseudo; document.getElementById('user-display').innerText = currentUser.pseudo; document.getElementById('top-avatar').style.backgroundImage = `url('${currentUser.avatar}')`; document.getElementById('side-avatar').style.backgroundImage = `url('${currentUser.avatar}')`; document.getElementById('profile-direct-status').value = currentUser.status; updateStatusDot(currentUser.status);
+            document.getElementById('prof-pseudo').innerText = currentUser.pseudo; document.getElementById('prof-login').innerText = "@" + currentUser.login; document.getElementById('prof-avatar-large').style.backgroundImage = `url('${currentUser.avatar}')`; document.getElementById('prof-license-key').innerText = currentUser.licenseKey || "AUCUNE";
+            const permsContainer = document.getElementById('prof-perms-list'); permsContainer.innerHTML = ""; const mkPerm = (text, has) => `<span class="perm-box ${has ? '' : 'deny'}">${has ? '✅' : '❌'} ${text}</span>`; permsContainer.innerHTML += mkPerm("Modifier Modules", currentUser.perms.code); permsContainer.innerHTML += mkPerm("Gérer Utilisateurs", currentUser.perms.users); permsContainer.innerHTML += mkPerm("Voir Logs", currentUser.perms.logs); permsContainer.innerHTML += mkPerm("Modérer Forum", currentUser.perms.forum);
+            const expireP = document.getElementById('pack-expire-date'); const profExpireP = document.getElementById('prof-pack-expire');
+            if(currentUser.packExpire) { const d = new Date(currentUser.packExpire); const diffDays = Math.ceil((d - Date.now()) / (1000 * 60 * 60 * 24)); if(diffDays < 0) { const expTxt = `EXPIRÉ !`; expireP.innerText = expTxt; expireP.style.color = "var(--red)"; profExpireP.innerText = expTxt; profExpireP.style.color = "var(--red)"; } else { const expTxt = `Expire le ${d.toLocaleDateString('fr-FR')} (${diffDays} Jours)`; expireP.innerText = expTxt; expireP.style.color = "var(--cyan)"; profExpireP.innerText = expTxt; profExpireP.style.color = "var(--cyan)"; } }
             const userDisp = document.getElementById('user-display'); const roleDisp = document.getElementById('role-display'); const btnAdmin = document.getElementById('nav-gestion');
-            if (currentUser.grade === "Admin" || currentUser.grade === "Co-Admin") {
-                userDisp.classList.add('admin'); userDisp.style.color = currentUser.grade === "Admin" ? "var(--cyan)" : "var(--magenta)";
-                roleDisp.innerText = currentUser.grade === "Admin" ? "Administrateur Système" : "Superviseur (Co-Admin)"; 
-                btnAdmin.parentElement.classList.remove('hidden'); document.getElementById('prof-role').innerText = roleDisp.innerText;
-                document.getElementById('sc-role').innerText = currentUser.roleDisplay; document.getElementById('sc-role').style.color = currentUser.grade === "Admin" ? "var(--cyan)" : "var(--magenta)";
-            } else {
-                userDisp.classList.remove('admin'); userDisp.style.color = "var(--text-main)"; roleDisp.innerText = "Utilisateur Standard";
-                btnAdmin.parentElement.classList.add('hidden'); document.getElementById('prof-role').innerText = roleDisp.innerText;
-                document.getElementById('sc-role').innerText = currentUser.roleDisplay; document.getElementById('sc-role').style.color = "var(--text-gray)";
-            }
+            if (currentUser.grade === "Admin" || currentUser.grade === "Co-Admin") { userDisp.classList.add('admin'); userDisp.style.color = currentUser.grade === "Admin" ? "var(--cyan)" : "var(--magenta)"; roleDisp.innerText = currentUser.grade === "Admin" ? "Administrateur Système" : "Superviseur (Co-Admin)"; btnAdmin.parentElement.classList.remove('hidden'); document.getElementById('prof-role').innerText = roleDisp.innerText; document.getElementById('sc-role').innerText = currentUser.roleDisplay; document.getElementById('sc-role').style.color = currentUser.grade === "Admin" ? "var(--cyan)" : "var(--magenta)"; } else { userDisp.classList.remove('admin'); userDisp.style.color = "var(--text-main)"; roleDisp.innerText = "Utilisateur Standard"; btnAdmin.parentElement.classList.add('hidden'); document.getElementById('prof-role').innerText = roleDisp.innerText; document.getElementById('sc-role').innerText = currentUser.roleDisplay; document.getElementById('sc-role').style.color = "var(--text-gray)"; }
             updateBadges(); renderUserActivities();
         }
 
-        function prolongerPack() {
-            if(!currentUser) return;
-            currentUser.packExpire = Date.now() + 31536000000; saveData(); applyUserProfileUI(); showToast("Pack réinitialisé pour 1 an !"); addLog(`Pack prolongé pour ${currentUser.login}`);
-        }
-
+        function prolongerPack() { if(!currentUser) return; currentUser.packExpire = Date.now() + 31536000000; saveData(); applyUserProfileUI(); showToast("Pack réinitialisé pour 1 an !"); addLog(`Pack prolongé pour ${currentUser.login}`); }
         function changeDirectStatus(newStatus) { currentUser.status = newStatus; updateStatusDot(newStatus); let dbIndex = dbUsers.findIndex(u => u.id === currentUser.id); if(dbIndex !== -1) dbUsers[dbIndex] = currentUser; saveData(); showToast("Statut mis à jour !"); }
         function updateStatusDot(status) { let color = "var(--green)"; let text = "🟢 En ligne"; if(status === "away") { color = "var(--orange)"; text = "🟠 Absent"; } if(status === "dnd") { color = "var(--red)"; text = "🔴 Occupé"; } if(status === "offline") { color = "gray"; text = "⚪ Déconnecté / Invisible"; } document.getElementById('top-status').style.background = color; document.getElementById('side-status').style.background = color; const scStatusText = document.getElementById('sc-status-text'); scStatusText.innerText = text; scStatusText.style.color = color; }
 
@@ -1178,11 +885,8 @@
         function confirmDeactivate() { currentUser.active = false; let dbIndex = dbUsers.findIndex(u => u.id === currentUser.id); if(dbIndex !== -1) { dbUsers[dbIndex] = currentUser; saveData(); } addLog(`Désactivation volontaire du compte : ${currentUser.login}`); location.reload(); }
 
         function checkAdminCode() { const code = document.getElementById('admin-code-input').value; if(code === "5989") { document.getElementById('admin-lock-screen').classList.add('hidden'); document.getElementById('admin-content').classList.remove('hidden'); renderAccountsTable(); renderAdminTickets(); addLog("Accès autorisé au panneau de gestion sécurisé."); } else { alert("CODE ACCÈS ERRONÉ."); addLog("Tentative d'accès échouée (Code incorrect).", "alert"); } }
-
         function renderAccountsTable() { const tbody = document.getElementById('accounts-table-body'); tbody.innerHTML = ''; dbUsers.forEach(user => { let color = "var(--text-gray)"; if (user.grade === "Admin") color = "var(--cyan)"; if (user.grade === "Co-Admin") color = "var(--magenta)"; let canEdit = true; if (currentUser.grade === "Co-Admin" && user.grade === "Admin") canEdit = false; const statusHtml = user.active ? '<span style="color:var(--green); font-weight:bold;">ACTIF</span>' : `<span style="color:var(--red); font-weight:bold;" title="${user.adminNotes}">DÉSACTIVÉ</span>`; let actionHtml = ''; if (canEdit) { const toggleText = user.active ? "Désactiver" : "Réactiver"; actionHtml = `<button class="nav-btn" style="background:#222; border:1px solid #444;" onclick="openAdminEdit(${user.id})">Modifier</button> <button class="nav-btn" style="background:var(--orange); color:black; border:none; margin-left:5px;" onclick="toggleUser(${user.id})">${toggleText}</button>`; } else { actionHtml = `<span style="color:#555; font-size:0.8rem;">Verrouillé</span>`; } tbody.innerHTML += `<tr><td style="font-family: Consolas;">${user.login}</td><td style="color: ${color}; font-weight: bold;">${user.grade}</td><td>${statusHtml}</td><td style="font-size:0.8rem; color:var(--text-gray);">${user.lastLogin || 'Inconnu'}</td><td>${actionHtml}</td></tr>`; }); }
-
         function toggleUser(id) { const user = dbUsers.find(u => u.id === id); if(!user) return; if(currentUser.grade === "Co-Admin" && user.grade === "Admin") return alert("ACCÈS REFUSÉ."); if(user.login === 'admin') return alert("Le compte Admin principal ne peut pas être désactivé."); user.active = !user.active; if(!user.active) { let raison = prompt("Raison de la désactivation (Sera ajoutée aux Notes Admin) :"); if(raison) user.adminNotes = raison; } saveData(); renderAccountsTable(); addLog(`Statut de ${user.login} modifié : ${user.active ? 'Réactivé' : 'Désactivé'}.`, user.active ? "info" : "alert"); showToast("Statut mis à jour"); }
-
         function createNewAccount() { const log = document.getElementById('new-user-login').value; const pseu = document.getElementById('new-user-pseudo').value; const pass = document.getElementById('new-user-password').value; const grade = document.getElementById('new-user-grade').value; if(!log || !pseu || !pass) return alert("Login, Pseudo et Mot de passe obligatoires."); if(currentUser.grade === "Co-Admin" && grade === "Admin") { addLog(`Tentative non autorisée.`, "alert"); return alert("ACCÈS REFUSÉ."); } if(dbUsers.some(u => u.login.toLowerCase() === log.toLowerCase() || u.pseudo.toLowerCase() === pseu.toLowerCase())) { return alert("Erreur : Ce Login ou Pseudo est déjà utilisé !"); } const perms = { code: document.getElementById('perm-code').checked, users: document.getElementById('perm-users').checked, logs: document.getElementById('perm-logs').checked, forum: document.getElementById('perm-forum').checked }; let rDisplay = "Citizen (User)"; if(grade === "Admin") rDisplay = "Grand Admiral (Admin)"; if(grade === "Co-Admin") rDisplay = "Commander (Co-Admin)"; dbUsers.push({ id: Date.now(), login: log, pseudo: pseu, password: pass, grade: grade, avatar: `https://api.dicebear.com/7.x/bottts/svg?seed=${log}`, status: 'online', roleDisplay: rDisplay, lastLogin: 'Jamais', perms: perms, active: true, unreadForum: 0, licenseKey: 'NVALK-'+Math.floor(Math.random()*9999), adminNotes: '', packExpire: Date.now() + 31536000000 }); saveData(); document.getElementById('new-user-login').value = ''; document.getElementById('new-user-pseudo').value = ''; document.getElementById('new-user-password').value = ''; renderAccountsTable(); addLog(`Création citoyen : '${log}'`); showToast("Compte généré avec succès."); }
 
         let editingUserId = null; function openAdminEdit(id) { const user = dbUsers.find(u => u.id === id); if(!user) return; editingUserId = id; document.getElementById('ae-login').value = user.login; document.getElementById('ae-pseudo').value = user.pseudo; document.getElementById('ae-password').value = ""; document.getElementById('ae-grade').value = user.grade; document.getElementById('ae-license').value = user.licenseKey || ""; document.getElementById('ae-notes').value = user.adminNotes || ""; document.getElementById('ae-perm-code').checked = user.perms?.code || false; document.getElementById('ae-perm-users').checked = user.perms?.users || false; document.getElementById('ae-perm-logs').checked = user.perms?.logs || false; document.getElementById('ae-perm-forum').checked = user.perms?.forum || false; document.getElementById('admin-edit-overlay').classList.remove('hidden'); }
@@ -1203,8 +907,8 @@
             if(tab === 'diag') checkAgentConnection();
         }
         function switchAdminSubTab(sub) { ['accounts', 'modules', 'colors', 'logs', 'tickets'].forEach(s => { const el = document.getElementById('admin-sub-' + s); if(el) el.classList.add('hidden'); }); document.getElementById('admin-sub-' + sub).classList.remove('hidden'); document.querySelectorAll('.admin-tab-btn').forEach(b => b.classList.remove('active')); event.target.classList.add('active'); if(sub === 'tickets') renderAdminTickets(); }
-        function updateColors() { const c = document.getElementById('picker-cyan').value; const m = document.getElementById('picker-magenta').value; document.documentElement.style.setProperty('--cyan', c); document.documentElement.style.setProperty('--magenta', m); document.documentElement.style.setProperty('--glow-cyan', `0 0 15px ${c}80`); document.documentElement.style.setProperty('--glow-magenta', `0 0 15px ${m}80`); addLog(`Couleurs MAJ (Cyan: ${c}, Magenta: ${m})`); showToast("Apparence modifiée !"); }
         
+        function updateColors() { const c = document.getElementById('picker-cyan').value; const m = document.getElementById('picker-magenta').value; document.documentElement.style.setProperty('--cyan', c); document.documentElement.style.setProperty('--magenta', m); document.documentElement.style.setProperty('--glow-cyan', `0 0 15px ${c}80`); document.documentElement.style.setProperty('--glow-magenta', `0 0 15px ${m}80`); addLog(`Couleurs MAJ (Cyan: ${c}, Magenta: ${m})`); showToast("Apparence modifiée !"); }
         let isEditMode = false; function toggleSidebarEdit() { isEditMode = !isEditMode; const sidebar = document.getElementById('sidebar-main'); const btn = document.getElementById('btn-toggle-edit'); const widgets = sidebar.querySelectorAll('.widget'); if(isEditMode) { sidebar.classList.add('edit-mode'); btn.innerText = "Désactiver Édition Sidebar"; btn.style.background = "var(--red)"; widgets.forEach(w => { w.setAttribute('draggable', 'true'); w.addEventListener('dragstart', dragStart); w.addEventListener('dragover', dragOver); w.addEventListener('drop', drop); }); } else { sidebar.classList.remove('edit-mode'); btn.innerText = "Activer Drag & Drop Sidebar"; btn.style.background = "var(--cyan)"; widgets.forEach(w => { w.setAttribute('draggable', 'false'); w.removeEventListener('dragstart', dragStart); w.removeEventListener('dragover', dragOver); w.removeEventListener('drop', drop); }); } }
         let draggedItem = null; function dragStart(e) { draggedItem = this; setTimeout(() => this.style.opacity = '0.5', 0); } function dragOver(e) { e.preventDefault(); } function drop(e) { e.preventDefault(); if(this !== draggedItem) { const allWidgets = [...document.getElementById('sidebar-main').querySelectorAll('.widget')]; const draggedIndex = allWidgets.indexOf(draggedItem); const droppedIndex = allWidgets.indexOf(this); if (draggedIndex < droppedIndex) this.parentNode.insertBefore(draggedItem, this.nextSibling); else this.parentNode.insertBefore(draggedItem, this); } draggedItem.style.opacity = '1'; }
 
