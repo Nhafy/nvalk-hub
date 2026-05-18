@@ -133,6 +133,7 @@
         #read-topic-content { line-height: 1.6; font-size: 1.05rem; color: #ddd; white-space: pre-wrap; word-wrap: break-word;}
         .read-topic-image { max-width: 100%; border-radius: 8px; margin-top: 20px; border: 1px solid #444; box-shadow: 0 5px 15px rgba(0,0,0,0.5);}
         
+        /* Réponses Forum */
         .forum-replies-section { margin-top: 40px; border-top: 2px solid #222; padding-top: 20px; }
         .reply-item { background: rgba(255,255,255,0.02); border-left: 3px solid var(--cyan); padding: 15px; border-radius: 0 8px 8px 0; margin-bottom: 15px; display: flex; gap: 15px; flex-wrap: wrap;}
         .reply-avatar { width: 40px; height: 40px; border-radius: 50%; background-size: cover; background-position: center; border: 1px solid #444; flex-shrink: 0;}
@@ -144,9 +145,9 @@
         .page-btn.active { background: var(--cyan); color: black; font-weight: bold; box-shadow: var(--glow-cyan);}
         .page-btn:hover { background: var(--cyan); color: black; }
 
-        /* LEXIQUE IT (Nouveau) */
+        /* LEXIQUE IT */
         .lex-main-content { display: flex; gap: 20px; min-height: 500px; flex-wrap: wrap;}
-        .lex-term-list { flex: 1; min-width: 250px; background-color: var(--bg-card); border: 1px solid #333; border-radius: 8px; overflow-y: auto; padding: 10px; max-height: 600px;}
+        .lex-term-list { flex: 1; min-width: 250px; background-color: rgba(0,0,0,0.4); border: 1px solid #333; border-radius: 8px; overflow-y: auto; padding: 10px; max-height: 600px;}
         .lex-term-card { padding: 15px; border-bottom: 1px solid #333; cursor: pointer; transition: background 0.2s; }
         .lex-term-card:hover { background-color: rgba(255,255,255,0.05); border-left: 3px solid var(--magenta); }
         .lex-term-card.active { background-color: rgba(0, 229, 255, 0.1); border-left: 3px solid var(--cyan); }
@@ -219,7 +220,7 @@
         #avatar-preview-img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.2s;}
         .crop-circle-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; box-sizing: border-box; border: 30px solid rgba(0,0,0,0.6); border-radius: 50%; pointer-events: none;}
 
-        /* --- 📱 RESPONSIVE DESIGN (MOBILES & TABLETTES) --- */
+        /* --- 📱 RESPONSIVE DESIGN MAGIQUE (MOBILES & TABLETTES) --- */
         @media (max-width: 900px) {
             .main-wrapper { flex-direction: column; overflow-y: auto; }
             .sidebar { width: 100%; border-right: none; border-bottom: 1px solid var(--cyan); display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px; padding: 10px; }
@@ -451,6 +452,7 @@
                     <button class="btn-back" onclick="switchTab('accueil')">◀ RETOUR</button>
                     <h1 class="hub-title-stylized" style="font-size: 3rem;">LEXIQUE IT</h1>
                     <span id="lex-termCount" style="color: var(--green); font-weight: bold; margin-left:15px; border:1px solid var(--border); padding:5px 10px; border-radius:5px;">0 Terme(s)</span>
+                    <button id="btn-export-lexique" class="sc-btn hidden" style="margin-left:10px; border-color:var(--orange); color:var(--orange); padding:10px;" onclick="exportLexiqueBackup()">💾 Exporter la Base</button>
                     <button class="cyber-btn" style="margin-left: auto; padding: 10px;" onclick="openLexModal()">➕ AJOUTER UN TERME</button>
                 </div>
                 
@@ -909,7 +911,7 @@
         function addLog(action, level = "info") { const now = new Date(); const timeStr = now.toLocaleTimeString('fr-FR'); const dateStr = now.toLocaleDateString('fr-FR', {day:'2-digit', month:'2-digit', year:'numeric'}); let userStr = currentUser ? currentUser.login : "SYSTEM"; let colorClass = level === "alert" ? "log-alert" : "log-action"; const logHtml = `<div class="log-entry"><span class="log-time">[${dateStr} ${timeStr}]</span> <span class="log-user">${userStr}</span>: <span class="${colorClass}">${action}</span></div>`; const consoleEl = document.getElementById('log-console'); if(consoleEl) consoleEl.insertAdjacentHTML('afterbegin', logHtml); let logsArr = JSON.parse(localStorage.getItem('nvalk_logs')) || []; logsArr.unshift({time: `[${dateStr} ${timeStr}]`, user: userStr, action: action, level: level}); if(logsArr.length > 100) logsArr.pop(); localStorage.setItem('nvalk_logs', JSON.stringify(logsArr)); }
         function loadLogs() { const consoleEl = document.getElementById('log-console'); if(!consoleEl) return; consoleEl.innerHTML = ''; let logsArr = JSON.parse(localStorage.getItem('nvalk_logs')) || []; logsArr.forEach(l => { let colorClass = l.level === "alert" ? "log-alert" : "log-action"; consoleEl.innerHTML += `<div class="log-entry"><span class="log-time">${l.time}</span> <span class="log-user">${l.user}</span>: <span class="${colorClass}">${l.action}</span></div>`; }); }
 
-        // V23 : PARAMETRES DU SITE
+        // V25 : PARAMETRES DU SITE
         let siteSettings = JSON.parse(localStorage.getItem('nvalk_settings')) || { mainTitle: "N-VALK", forumTitle: "SPECTRUM" };
         function applySiteSettings() { document.getElementById('main-title-dynamic').innerText = siteSettings.mainTitle; document.getElementById('intro-title-dynamic').innerText = siteSettings.mainTitle; document.getElementById('forum-title-dynamic').innerText = siteSettings.forumTitle; document.getElementById('nav-forum').innerText = siteSettings.forumTitle.toUpperCase(); document.querySelectorAll('.dynamic-forum-name').forEach(el => el.innerText = siteSettings.forumTitle); const inputMain = document.getElementById('setting-main-title'); const inputForum = document.getElementById('setting-forum-title'); if(inputMain) inputMain.value = siteSettings.mainTitle; if(inputForum) inputForum.value = siteSettings.forumTitle; }
         function saveCustomNames() { const newMain = document.getElementById('setting-main-title').value || "N-VALK"; const newForum = document.getElementById('setting-forum-title').value || "SPECTRUM"; siteSettings.mainTitle = newMain; siteSettings.forumTitle = newForum; localStorage.setItem('nvalk_settings', JSON.stringify(siteSettings)); applySiteSettings(); showToast("Noms du site mis à jour !"); addLog(`Modification des noms du Hub : ${newMain} / ${newForum}`); }
@@ -921,7 +923,6 @@
         ];
         const defaultForum = [ { id: 1, title: "[ANNONCE] Mise à jour du Kernel N-VALK", author: "Nhafy", authorAvatar: "https://api.dicebear.com/7.x/bottts/svg?seed=Nhafy", authorRole: "Grand Admiral (Admin)", category: "Annonces", content: "Le système a été mis à jour.", image: "", timestamp: Date.now() - 86400000, pinned: true, views: 12, likes: 2, replies: [] } ];
         
-        // V23 : LEXIQUE IT BDD
         const defaultLexique = [
             { id: 1, term: "Active Directory (AD)", category: "Système", tags: ["Microsoft", "Annuaire", "Sécurité"], desc: "Annuaire LDAP centralisé Microsoft.", deep: "Le cerveau d'un réseau Windows. Il centralise l'authentification des utilisateurs et des ordinateurs." },
             { id: 2, term: "VLAN", category: "Réseau", tags: ["Switch", "Sécurité", "Trunk"], desc: "Réseau Local Virtuel (Couche 2).", deep: "Segmentation logique d'un réseau physique. Sépare physiquement les flux de données sur un même switch." }
@@ -967,7 +968,7 @@
         function readTopic(id) { const topic = dbForum.find(t => t.id === id); if(!topic) return; activeForumTopicId = id; topic.views = (topic.views || 0) + 1; saveData(); document.getElementById('forum-main-view').classList.add('hidden'); document.getElementById('content-profil').classList.add('hidden'); document.getElementById('forum-read').classList.remove('hidden'); document.getElementById('read-topic-tag').innerText = topic.category; document.getElementById('read-topic-title').innerText = topic.title; document.getElementById('read-topic-avatar').style.backgroundImage = `url('${topic.authorAvatar}')`; document.getElementById('read-topic-author').innerText = topic.author; document.getElementById('read-topic-role').innerText = topic.authorRole; document.getElementById('read-topic-date').innerText = new Date(topic.timestamp).toLocaleString('fr-FR'); document.getElementById('read-topic-content').innerText = topic.content; const imgEl = document.getElementById('read-topic-image'); if(topic.image) { imgEl.src = topic.image; imgEl.classList.remove('hidden'); } else { imgEl.classList.add('hidden'); } const rCount = document.getElementById('topic-replies-count'); const rList = document.getElementById('forum-replies-list'); rList.innerHTML = ""; if(topic.replies && topic.replies.length > 0) { rCount.innerText = `(${topic.replies.length})`; topic.replies.forEach(r => { rList.innerHTML += `<div class="reply-item"><div class="reply-avatar" style="background-image:url('${r.avatar}')"></div><div class="reply-content"><div class="reply-header"><strong style="color:var(--cyan);">${r.author}</strong> <span style="font-size:0.75rem; color:#666;">${new Date(r.date).toLocaleString('fr-FR')}</span></div><div style="color:#ddd; font-size:0.95rem; white-space:pre-wrap;">${r.text}</div></div></div>`; }); } else { rCount.innerText = `(0)`; rList.innerHTML = "<p style='color:#666; font-style:italic;'>Soyez le premier à répondre.</p>"; } }
         function closeForumTopic() { document.getElementById('forum-read').classList.add('hidden'); document.getElementById('forum-main-view').classList.remove('hidden'); activeForumTopicId = null; renderForum(); }
 
-        // --- V23 : MOTEUR LEXIQUE IT ---
+        // --- V25 : MOTEUR LEXIQUE IT ---
         let currentLexTermId = null;
         function updateLexCount() { document.getElementById('lex-termCount').innerText = `${dbLexique.length} Terme(s)`; }
         function renderLexList(query = "") {
@@ -1015,6 +1016,15 @@
             if (confirm(`Supprimer définitivement "${item.term}" ?`)) { dbLexique = dbLexique.filter(t => t.id !== currentLexTermId); currentLexTermId = null; saveData(); document.getElementById('lexTermDetails').classList.add('hidden'); document.getElementById('lexSearchInput').value = ""; renderLexList(); showToast("Terme supprimé"); }
         }
 
+        function exportLexiqueBackup() {
+            const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(dbLexique, null, 4));
+            const dlAnchorElem = document.createElement('a');
+            dlAnchorElem.setAttribute("href", dataStr);
+            dlAnchorElem.setAttribute("download", "NVALK_Lexique_Backup.json");
+            dlAnchorElem.click();
+            showToast("Sauvegarde téléchargée !");
+        }
+
         // --- PROFIL ---
         function switchProfileTab(tab, btnElement) { document.querySelectorAll('.ptab-btn').forEach(b => b.classList.remove('active')); if(btnElement) btnElement.classList.add('active'); document.getElementById('prof-tab-topics').classList.add('hidden'); document.getElementById('prof-tab-tickets').classList.add('hidden'); document.getElementById('prof-tab-' + tab).classList.remove('hidden'); }
         function renderUserActivities() { const myTopics = dbForum.filter(t => t.author === currentUser.pseudo); let myReplies = 0; dbForum.forEach(t => { if(t.replies) myReplies += t.replies.filter(r => r.author === currentUser.pseudo).length; }); const myTickets = dbTickets.filter(t => t.pseudo === currentUser.pseudo); document.getElementById('prof-stat-topics').innerText = myTopics.length; document.getElementById('prof-stat-replies').innerText = myReplies; document.getElementById('prof-stat-tickets').innerText = myTickets.length; const fList = document.getElementById('my-forum-posts'); fList.innerHTML = ""; if(myTopics.length === 0) { fList.innerHTML = "<p style='color:#666;'>Vous n'avez publié aucun sujet.</p>"; } else { myTopics.forEach(topic => { const date = new Date(topic.timestamp).toLocaleString('fr-FR'); fList.innerHTML += `<div class="forum-item" onclick="switchTab('forum'); readTopic(${topic.id})"><div class="forum-item-content-box"><h3 class="fi-title">[${topic.category}] ${topic.title}</h3><p class="fi-excerpt">${topic.content}</p><p style="color: #666; font-size: 0.8rem; margin: 5px 0 0 0;">${date}</p></div></div>`; }); } const tList = document.getElementById('my-tickets-list'); tList.innerHTML = ""; if(myTickets.length === 0) { tList.innerHTML = "<p style='color:#666;'>Aucun ticket de support actif.</p>"; } else { myTickets.sort((a,b) => b.date - a.date).forEach(t => { const statusTag = t.status === 'resolved' ? "<span class='ticket-status-badge ticket-resolved'>RÉSOLU</span>" : "<span class='ticket-status-badge ticket-open'>EN ATTENTE</span>"; const d = new Date(t.date).toLocaleString('fr-FR'); tList.innerHTML += `<div style="background:rgba(0,0,0,0.5); border:1px solid var(--cyan); padding:15px; border-radius:8px; margin-bottom:10px; cursor:pointer; transition:0.3s;" onmouseover="this.style.boxShadow='var(--glow-cyan)'" onmouseout="this.style.boxShadow='none'" onclick="openUserTicketRead(${t.id})"><div style="display:flex; justify-content:space-between; align-items:center;"><strong style="color:white;">${t.title}</strong>${statusTag}</div><p style="color:#888; font-size:0.8rem; margin:5px 0 0 0;">Ouvert le : ${d}</p></div>`; }); } }
@@ -1025,10 +1035,44 @@
         async function loadLocalModules(agentUrl) { const grid = document.getElementById('dynamic-modules-grid'); grid.innerHTML = "<p style='color:var(--text-gray); font-style:italic;'>Analyse des dossiers locaux en cours...</p>"; try { const response = await fetch(`${agentUrl}/get-modules`); const modules = await response.json(); grid.innerHTML = ""; if(modules.length === 0) { grid.innerHTML = "<p style='color:var(--red);'>Aucun module trouvé dans le dossier Scripts.</p>"; return; } modules.forEach(mod => { const tile = document.createElement('div'); tile.className = 'tile'; tile.innerHTML = `<div style="font-size: 3rem; margin-bottom: 15px; text-shadow: 0 0 20px rgba(255,255,255,0.5);">${mod.icone || '⚙️'}</div><h3 style="font-size: 1.3rem; margin-bottom: 10px; color: var(--text-main); text-transform: uppercase;">${mod.nom}</h3><p style="font-size: 0.95rem; margin-bottom: 15px; color: var(--text-gray);">${mod.description}</p><span style="font-size: 0.75rem; background: #222; padding: 4px 10px; border-radius: 10px; color: var(--cyan); border: 1px solid var(--cyan);">${mod.os_compatible.join(', ')}</span>`; tile.onclick = () => executeModule(mod.script_file, mod.folder_path); grid.appendChild(tile); }); } catch (error) { grid.innerHTML = "<p style='color:var(--red);'>Erreur de communication Agent.</p>"; } }
         async function executeModule(scriptFile, folderPath) { const term = document.getElementById('diag-terminal-output'); const agentUrl = 'http://localhost:5989'; term.innerHTML += `<br><br>> <span style="color:var(--magenta);">[INITIATION]</span> Exécution de ${scriptFile}... veuillez patienter...`; term.scrollTop = term.scrollHeight; try { const response = await fetch(`${agentUrl}/run`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ script: scriptFile, folder: folderPath }) }); const data = await response.json(); if(data.success) { let formattedOutput = data.output.replace(/\n/g, '<br>').replace(/ /g, '&nbsp;'); term.innerHTML += `<br><br><span style="color:#FFF;">${formattedOutput}</span>`; term.innerHTML += `<br>> <span style="color:var(--green);">[TERMINÉ]</span> Exécution réussie.`; } else { term.innerHTML += `<br>> <span style="color:var(--red);">[ERREUR SYSTÈME]</span> ${data.error}`; } } catch(error) { term.innerHTML += `<br>> <span style="color:var(--red);">[ERREUR RÉSEAU]</span> L'agent local n'a pas répondu.`; } term.scrollTop = term.scrollHeight; }
 
-        let attemptTimer = null; function updateLockoutTimer(lockoutTime) { const timerEl = document.getElementById('lockout-timer'); const btnSubmit = document.getElementById('btn-login-submit'); clearInterval(attemptTimer); attemptTimer = setInterval(() => { let remaining = Math.ceil((lockoutTime - Date.now()) / 1000); if(remaining <= 0) { clearInterval(attemptTimer); timerEl.classList.add('hidden'); document.getElementById('login-box').classList.remove('locked'); btnSubmit.disabled = false; btnSubmit.innerText = "S'IDENTIFIER"; } else { timerEl.classList.remove('hidden'); timerEl.innerText = `SÉCURITÉ: Verrouillé pour ${remaining}s`; document.getElementById('login-box').classList.add('locked'); btnSubmit.disabled = true; btnSubmit.innerText = "VERROUILLÉ"; } }, 1000); }
+        let attemptTimer = null; 
+        function updateLockoutTimer(lockoutTime) { 
+            const timerEl = document.getElementById('lockout-timer'); const btnSubmit = document.getElementById('btn-login-submit'); 
+            clearInterval(attemptTimer); 
+            attemptTimer = setInterval(() => { 
+                let remaining = Math.ceil((lockoutTime - Date.now()) / 1000); 
+                if(remaining <= 0) { 
+                    clearInterval(attemptTimer); timerEl.classList.add('hidden'); document.getElementById('login-box').classList.remove('locked'); btnSubmit.disabled = false; btnSubmit.innerText = "S'IDENTIFIER"; 
+                    localStorage.setItem('nvalk_attempts', 0); // RESET DU COMPTEUR APRES PUNITION
+                } else { 
+                    timerEl.classList.remove('hidden'); timerEl.innerText = `SÉCURITÉ: Verrouillé pour ${remaining}s`; document.getElementById('login-box').classList.add('locked'); btnSubmit.disabled = true; btnSubmit.innerText = "VERROUILLÉ"; 
+                } 
+            }, 1000); 
+        }
         function handleEnter(e) { if (e.key === 'Enter') startFuriousBootSequence(); }
-        function startFuriousBootSequence() { let lockoutTime = parseInt(localStorage.getItem('nvalk_lockout')) || 0; if (Date.now() < lockoutTime) { updateLockoutTimer(lockoutTime); return; } const loginInput = document.getElementById('username').value.toLowerCase(); const passInput = document.getElementById('password').value; if(!loginInput) return alert("Identifiant requis."); const foundUser = dbUsers.find(u => u.login === loginInput); if(foundUser) { if(foundUser.password !== passInput) { handleFailedLogin(`Mot de passe incorrect pour '${loginInput}'.`); return; } if(!foundUser.active) { alert("🚫 ACCÈS REFUSÉ : Votre compte a été désactivé.\nVeuillez ouvrir un ticket de support."); addLog(`Tentative de connexion sur un compte désactivé : '${loginInput}'.`, "alert"); return; } localStorage.setItem('nvalk_attempts', 0); currentUser = foundUser; } else { handleFailedLogin(`Tentative avec identifiant inconnu '${loginInput}'.`); return; } document.getElementById('login-box').classList.add('hidden'); const introOverlay = document.getElementById('intro-overlay'); const introContent = document.getElementById('intro-content'); introOverlay.classList.remove('hidden'); setTimeout(() => { introContent.classList.add('furious-move'); }, 3000); setTimeout(() => { introOverlay.classList.add('hidden'); const dashboard = document.getElementById('dashboard'); dashboard.classList.remove('hidden'); setTimeout(() => { dashboard.classList.add('visible'); }, 50); applyUserProfileUI(); renderForum(); loadLogs(); applySiteSettings(); renderLexList(); handleNetworkChange(); addLog(`Connexion sécurisée de '${currentUser.login}'.`); }, 4500); }
-        function handleFailedLogin(logMessage) { addLog(logMessage, "alert"); document.getElementById('login-box').classList.add('locked'); setTimeout(() => document.getElementById('login-box').classList.remove('locked'), 500); let attempts = parseInt(localStorage.getItem('nvalk_attempts')) || 0; attempts++; localStorage.setItem('nvalk_attempts', attempts); if(attempts >= 5) { let penalty = attempts >= 10 ? 3600000 : 30000; let lockoutTime = Date.now() + penalty; localStorage.setItem('nvalk_lockout', lockoutTime); updateLockoutTimer(lockoutTime); } else { alert(`🔒 ACCÈS REFUSÉ. (${attempts}/5 essais avant verrouillage)`); } }
+        function startFuriousBootSequence() { 
+            let lockoutTime = parseInt(localStorage.getItem('nvalk_lockout')) || 0; if (Date.now() < lockoutTime) { updateLockoutTimer(lockoutTime); return; } 
+            const loginInput = document.getElementById('username').value.toLowerCase(); const passInput = document.getElementById('password').value; 
+            if(!loginInput) return alert("Identifiant requis."); 
+            const foundUser = dbUsers.find(u => u.login === loginInput); 
+            if(foundUser) { 
+                if(foundUser.password !== passInput) { handleFailedLogin(`Mot de passe incorrect pour '${loginInput}'.`); return; } 
+                if(!foundUser.active) { alert("🚫 ACCÈS REFUSÉ : Votre compte a été désactivé.\nVeuillez ouvrir un ticket de support."); addLog(`Tentative de connexion sur un compte désactivé : '${loginInput}'.`, "alert"); return; } 
+                localStorage.setItem('nvalk_attempts', 0); currentUser = foundUser; 
+            } else { handleFailedLogin(`Tentative avec identifiant inconnu '${loginInput}'.`); return; } 
+            document.getElementById('login-box').classList.add('hidden'); const introOverlay = document.getElementById('intro-overlay'); const introContent = document.getElementById('intro-content'); introOverlay.classList.remove('hidden'); setTimeout(() => { introContent.classList.add('furious-move'); }, 3000); setTimeout(() => { introOverlay.classList.add('hidden'); const dashboard = document.getElementById('dashboard'); dashboard.classList.remove('hidden'); setTimeout(() => { dashboard.classList.add('visible'); }, 50); applyUserProfileUI(); renderForum(); loadLogs(); applySiteSettings(); renderLexList(); handleNetworkChange(); addLog(`Connexion sécurisée de '${currentUser.login}'.`); }, 4500); 
+        }
+        function handleFailedLogin(logMessage) { 
+            addLog(logMessage, "alert"); document.getElementById('login-box').classList.add('locked'); setTimeout(() => document.getElementById('login-box').classList.remove('locked'), 500); 
+            let attempts = parseInt(localStorage.getItem('nvalk_attempts')); if (isNaN(attempts)) attempts = 0;
+            attempts++; localStorage.setItem('nvalk_attempts', attempts); 
+            if(attempts >= 5) { 
+                addLog(`[ANTI-SPAM] IP Verrouillée suite à ${attempts} échecs.`, "alert");
+                let penalty = attempts >= 10 ? 3600000 : 30000; let lockoutTime = Date.now() + penalty; localStorage.setItem('nvalk_lockout', lockoutTime); updateLockoutTimer(lockoutTime); 
+            } else { 
+                alert(`🔒 ACCÈS REFUSÉ.\nErreur ${attempts}/5 avant le verrouillage de sécurité de 30 secondes.`); 
+            } 
+        }
 
         function applyUserProfileUI() {
             document.getElementById('sc-name').innerText = currentUser.pseudo; document.getElementById('user-display').innerText = currentUser.pseudo; document.getElementById('top-avatar').style.backgroundImage = `url('${currentUser.avatar}')`; document.getElementById('side-avatar').style.backgroundImage = `url('${currentUser.avatar}')`; document.getElementById('profile-direct-status').value = currentUser.status; updateStatusDot(currentUser.status);
@@ -1037,7 +1081,13 @@
             const expireP = document.getElementById('pack-expire-date'); const profExpireP = document.getElementById('prof-pack-expire');
             if(currentUser.packExpire) { const d = new Date(currentUser.packExpire); const diffDays = Math.ceil((d - Date.now()) / (1000 * 60 * 60 * 24)); if(diffDays < 0) { const expTxt = `EXPIRÉ !`; expireP.innerText = expTxt; expireP.style.color = "var(--red)"; profExpireP.innerText = expTxt; profExpireP.style.color = "var(--red)"; } else { const expTxt = `Expire le ${d.toLocaleDateString('fr-FR')} (${diffDays} Jours)`; expireP.innerText = expTxt; expireP.style.color = "var(--cyan)"; profExpireP.innerText = expTxt; profExpireP.style.color = "var(--cyan)"; } }
             const userDisp = document.getElementById('user-display'); const roleDisp = document.getElementById('role-display'); const btnAdmin = document.getElementById('nav-gestion');
-            if (currentUser.grade === "Admin" || currentUser.grade === "Co-Admin") { userDisp.classList.add('admin'); userDisp.style.color = currentUser.grade === "Admin" ? "var(--cyan)" : "var(--magenta)"; roleDisp.innerText = currentUser.grade === "Admin" ? "Administrateur Système" : "Superviseur (Co-Admin)"; btnAdmin.parentElement.classList.remove('hidden'); document.getElementById('prof-role').innerText = roleDisp.innerText; document.getElementById('sc-role').innerText = currentUser.roleDisplay; document.getElementById('sc-role').style.color = currentUser.grade === "Admin" ? "var(--cyan)" : "var(--magenta)"; } else { userDisp.classList.remove('admin'); userDisp.style.color = "var(--text-main)"; roleDisp.innerText = "Utilisateur Standard"; btnAdmin.parentElement.classList.add('hidden'); document.getElementById('prof-role').innerText = roleDisp.innerText; document.getElementById('sc-role').innerText = currentUser.roleDisplay; document.getElementById('sc-role').style.color = "var(--text-gray)"; }
+            if (currentUser.grade === "Admin" || currentUser.grade === "Co-Admin") { 
+                userDisp.classList.add('admin'); userDisp.style.color = currentUser.grade === "Admin" ? "var(--cyan)" : "var(--magenta)"; roleDisp.innerText = currentUser.grade === "Admin" ? "Administrateur Système" : "Superviseur (Co-Admin)"; btnAdmin.parentElement.classList.remove('hidden'); document.getElementById('prof-role').innerText = roleDisp.innerText; document.getElementById('sc-role').innerText = currentUser.roleDisplay; document.getElementById('sc-role').style.color = currentUser.grade === "Admin" ? "var(--cyan)" : "var(--magenta)"; 
+                document.getElementById('btn-export-lexique').classList.remove('hidden'); 
+            } else { 
+                userDisp.classList.remove('admin'); userDisp.style.color = "var(--text-main)"; roleDisp.innerText = "Utilisateur Standard"; btnAdmin.parentElement.classList.add('hidden'); document.getElementById('prof-role').innerText = roleDisp.innerText; document.getElementById('sc-role').innerText = currentUser.roleDisplay; document.getElementById('sc-role').style.color = "var(--text-gray)"; 
+                document.getElementById('btn-export-lexique').classList.add('hidden'); 
+            }
             updateBadges(); renderUserActivities();
         }
 
