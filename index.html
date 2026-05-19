@@ -4,6 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>N-VALK | HUB</title>
+
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
+
     <style>
         /* --- VARIABLES DYNAMIQUES --- */
         :root { --bg-main: #000000; --bg-card: #05050a; --cyan: #00E5FF; --magenta: #D926FF; --red: #FF3B3B; --green: #2ecc71; --orange: #f39c12; --text-main: #FFFFFF; --text-gray: #888899; --glow-cyan: 0 0 15px rgba(0, 229, 255, 0.7); --glow-magenta: 0 0 15px rgba(217, 38, 255, 0.7); }
@@ -900,6 +904,19 @@
     </div>
 
     <script>
+        // --- 🌐 INIT FIREBASE ---
+        const firebaseConfig = {
+            apiKey: "AIzaSyCETiIjrBGrZh24u9UypxZ5XhuVDvGrH-M",
+            authDomain: "nvalk-hub.firebaseapp.com",
+            projectId: "nvalk-hub",
+            storageBucket: "nvalk-hub.firebasestorage.app",
+            messagingSenderId: "1046570714778",
+            appId: "1:1046570714778:web:7931adeeb516462461c123",
+            measurementId: "G-MVS2TTTCZV"
+        };
+        firebase.initializeApp(firebaseConfig);
+        const dbFire = firebase.firestore();
+
         // --- MATRIX ---
         const canvas = document.getElementById('matrix-canvas'); const ctx = canvas.getContext('2d'); canvas.width = window.innerWidth; canvas.height = window.innerHeight;
         const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%^&*()_+{}|:"<>?~`-=[]\;,./'; const fontSize = 14; const columns = canvas.width / fontSize; const drops = [];
@@ -911,30 +928,72 @@
         function addLog(action, level = "info") { const now = new Date(); const timeStr = now.toLocaleTimeString('fr-FR'); const dateStr = now.toLocaleDateString('fr-FR', {day:'2-digit', month:'2-digit', year:'numeric'}); let userStr = currentUser ? currentUser.login : "SYSTEM"; let colorClass = level === "alert" ? "log-alert" : "log-action"; const logHtml = `<div class="log-entry"><span class="log-time">[${dateStr} ${timeStr}]</span> <span class="log-user">${userStr}</span>: <span class="${colorClass}">${action}</span></div>`; const consoleEl = document.getElementById('log-console'); if(consoleEl) consoleEl.insertAdjacentHTML('afterbegin', logHtml); let logsArr = JSON.parse(localStorage.getItem('nvalk_logs')) || []; logsArr.unshift({time: `[${dateStr} ${timeStr}]`, user: userStr, action: action, level: level}); if(logsArr.length > 100) logsArr.pop(); localStorage.setItem('nvalk_logs', JSON.stringify(logsArr)); }
         function loadLogs() { const consoleEl = document.getElementById('log-console'); if(!consoleEl) return; consoleEl.innerHTML = ''; let logsArr = JSON.parse(localStorage.getItem('nvalk_logs')) || []; logsArr.forEach(l => { let colorClass = l.level === "alert" ? "log-alert" : "log-action"; consoleEl.innerHTML += `<div class="log-entry"><span class="log-time">${l.time}</span> <span class="log-user">${l.user}</span>: <span class="${colorClass}">${l.action}</span></div>`; }); }
 
-        // PARAMETRES DU SITE
-        let siteSettings = JSON.parse(localStorage.getItem('nvalk_settings')) || { mainTitle: "N-VALK", forumTitle: "SPECTRUM" };
-        function applySiteSettings() { document.getElementById('main-title-dynamic').innerText = siteSettings.mainTitle; document.getElementById('intro-title-dynamic').innerText = siteSettings.mainTitle; document.getElementById('forum-title-dynamic').innerText = siteSettings.forumTitle; document.getElementById('nav-forum').innerText = siteSettings.forumTitle.toUpperCase(); document.querySelectorAll('.dynamic-forum-name').forEach(el => el.innerText = siteSettings.forumTitle); const inputMain = document.getElementById('setting-main-title'); const inputForum = document.getElementById('setting-forum-title'); if(inputMain) inputMain.value = siteSettings.mainTitle; if(inputForum) inputForum.value = siteSettings.forumTitle; }
-        function saveCustomNames() { const newMain = document.getElementById('setting-main-title').value || "N-VALK"; const newForum = document.getElementById('setting-forum-title').value || "SPECTRUM"; siteSettings.mainTitle = newMain; siteSettings.forumTitle = newForum; localStorage.setItem('nvalk_settings', JSON.stringify(siteSettings)); applySiteSettings(); showToast("Noms du site mis à jour !"); addLog(`Modification des noms du Hub : ${newMain} / ${newForum}`); }
-
         const defaultUsers = [
             { id: 1, login: 'admin', pseudo: 'Nhafy', grade: 'Admin', password: '123', avatar: 'https://api.dicebear.com/7.x/bottts/svg?seed=Nhafy', status: 'online', roleDisplay: 'Grand Admiral (Admin)', perms: {code: true, users: true, logs: true, forum: true}, active: true, unreadForum: 0, licenseKey: 'NVALK-MASTER', adminNotes: 'System Creator.', packExpire: Date.now() + 31536000000 },
             { id: 2, login: 'coadmin', pseudo: 'Nico Tech', grade: 'Co-Admin', password: '123', avatar: 'https://api.dicebear.com/7.x/bottts/svg?seed=Nico', status: 'away', roleDisplay: 'Commander (Co-Admin)', perms: {code: false, users: true, logs: true, forum: true}, active: true, unreadForum: 0, licenseKey: 'NVALK-COADM', adminNotes: '', packExpire: Date.now() + 31536000000 },
             { id: 3, login: 'jean_d', pseudo: 'Jean Dupont', grade: 'Utilisateur', password: '123', avatar: 'https://api.dicebear.com/7.x/bottts/svg?seed=Jean', status: 'dnd', roleDisplay: 'Citizen (User)', perms: {code: false, users: false, logs: false, forum: false}, active: true, unreadForum: 0, licenseKey: 'NVALK-USER-1234', adminNotes: '', packExpire: Date.now() + 2592000000 }
         ];
-        const defaultForum = [ { id: 1, title: "[ANNONCE] Mise à jour du Kernel N-VALK", author: "Nhafy", authorAvatar: "https://api.dicebear.com/7.x/bottts/svg?seed=Nhafy", authorRole: "Grand Admiral (Admin)", category: "Annonces", content: "Le système a été mis à jour.", image: "", timestamp: Date.now() - 86400000, pinned: true, views: 12, likes: 2, replies: [] } ];
-        
+        const defaultForum = [ { id: 1, title: "[ANNONCE] Mise à jour du Kernel N-VALK", author: "Nhafy", authorAvatar: "https://api.dicebear.com/7.x/bottts/svg?seed=Nhafy", authorRole: "Grand Admiral (Admin)", category: "Annonces", content: "Le système a été mis à jour avec le Cloud Firebase.", image: "", timestamp: Date.now(), pinned: true, views: 0, likes: 0, replies: [] } ];
         const defaultLexique = [
             { id: 1, term: "Active Directory (AD)", category: "Système", tags: ["Microsoft", "Annuaire", "Sécurité"], desc: "Annuaire LDAP centralisé Microsoft.", deep: "Le cerveau d'un réseau Windows. Il centralise l'authentification des utilisateurs et des ordinateurs." },
             { id: 2, term: "VLAN", category: "Réseau", tags: ["Switch", "Sécurité", "Trunk"], desc: "Réseau Local Virtuel (Couche 2).", deep: "Segmentation logique d'un réseau physique. Sépare physiquement les flux de données sur un même switch." }
         ];
 
-        let dbUsers = JSON.parse(localStorage.getItem('nvalk_users')) || defaultUsers;
-        let dbForum = JSON.parse(localStorage.getItem('nvalk_forum')) || defaultForum;
-        let dbTickets = JSON.parse(localStorage.getItem('nvalk_tickets')) || [];
-        let dbLexique = JSON.parse(localStorage.getItem('nvalk_lexique')) || defaultLexique;
+        let dbUsers = defaultUsers;
+        let dbForum = defaultForum;
+        let dbTickets = [];
+        let dbLexique = defaultLexique;
+        let siteSettings = { mainTitle: "N-VALK", forumTitle: "SPECTRUM" };
         let currentUser = null; 
 
-        function saveData() { localStorage.setItem('nvalk_users', JSON.stringify(dbUsers)); localStorage.setItem('nvalk_forum', JSON.stringify(dbForum)); localStorage.setItem('nvalk_tickets', JSON.stringify(dbTickets)); localStorage.setItem('nvalk_lexique', JSON.stringify(dbLexique)); }
+        // --- 🌐 ÉCOUTE CLOUD FIREBASE ---
+        dbFire.collection("system").doc("state").onSnapshot((doc) => {
+            if (doc.exists) {
+                const data = doc.data();
+                dbUsers = data.users || defaultUsers;
+                dbForum = data.forum || defaultForum;
+                dbTickets = data.tickets || [];
+                dbLexique = data.lexique || defaultLexique;
+                siteSettings = data.settings || { mainTitle: "N-VALK", forumTitle: "SPECTRUM" };
+                
+                // Actualise l'écran pour l'utilisateur en temps réel
+                if(currentUser) {
+                    const freshUser = dbUsers.find(u => u.id === currentUser.id);
+                    if(freshUser) currentUser = freshUser; // Maintient sa session à jour
+                    applyUserProfileUI();
+                    renderForum();
+                    renderLexList(document.getElementById('lexSearchInput').value);
+                    if(!document.getElementById('admin-content').classList.contains('hidden')) { renderAccountsTable(); renderAdminTickets(); }
+                    if(!document.getElementById('content-profil').classList.contains('hidden')) renderUserActivities();
+                }
+                applySiteSettings();
+            } else {
+                saveData(); // Initialise la DB Cloud la première fois
+            }
+        }, (error) => {
+            console.log("Mode Hors-Ligne ou erreur Firebase.", error);
+            // Sécurité de secours : Récupère le localStorage local
+            dbUsers = JSON.parse(localStorage.getItem('nvalk_users')) || defaultUsers;
+            dbForum = JSON.parse(localStorage.getItem('nvalk_forum')) || defaultForum;
+            dbTickets = JSON.parse(localStorage.getItem('nvalk_tickets')) || [];
+            dbLexique = JSON.parse(localStorage.getItem('nvalk_lexique')) || defaultLexique;
+            siteSettings = JSON.parse(localStorage.getItem('nvalk_settings')) || { mainTitle: "N-VALK", forumTitle: "SPECTRUM" };
+            applySiteSettings();
+        });
+
+        function saveData() { 
+            // 1. Envoie vers le Cloud Firebase
+            dbFire.collection("system").doc("state").set({
+                users: dbUsers, forum: dbForum, tickets: dbTickets, lexique: dbLexique, settings: siteSettings
+            }).catch(e => console.log("Sauvegarde Cloud échouée", e));
+
+            // 2. Sauvegarde PC Local en secours
+            localStorage.setItem('nvalk_users', JSON.stringify(dbUsers)); 
+            localStorage.setItem('nvalk_forum', JSON.stringify(dbForum)); 
+            localStorage.setItem('nvalk_tickets', JSON.stringify(dbTickets)); 
+            localStorage.setItem('nvalk_lexique', JSON.stringify(dbLexique)); 
+            localStorage.setItem('nvalk_settings', JSON.stringify(siteSettings));
+        }
 
         window.addEventListener('online', handleNetworkChange); window.addEventListener('offline', handleNetworkChange);
         function handleNetworkChange() { if (!navigator.onLine) { document.getElementById('gold-val').innerText = "HORS LIGNE"; document.getElementById('temp-val').innerText = "HORS LIGNE"; const forumMain = document.getElementById('forum-main-view'); const forumOfflineMsg = document.getElementById('forum-offline-msg'); if (forumMain && forumOfflineMsg) { forumMain.classList.add('hidden'); forumOfflineMsg.classList.remove('hidden'); } } else { document.getElementById('gold-val').innerText = "2150.20 €"; document.getElementById('temp-val').innerText = "18°C"; const forumMain = document.getElementById('forum-main-view'); const forumOfflineMsg = document.getElementById('forum-offline-msg'); if (forumMain && forumOfflineMsg) { forumMain.classList.remove('hidden'); forumOfflineMsg.classList.add('hidden'); } } }
@@ -1043,7 +1102,7 @@
                 let remaining = Math.ceil((lockoutTime - Date.now()) / 1000); 
                 if(remaining <= 0) { 
                     clearInterval(attemptTimer); timerEl.classList.add('hidden'); document.getElementById('login-box').classList.remove('locked'); btnSubmit.disabled = false; btnSubmit.innerText = "S'IDENTIFIER"; 
-                    localStorage.setItem('nvalk_attempts', 0); // V25 : RESET DU COMPTEUR APRES PUNITION
+                    localStorage.setItem('nvalk_attempts', 0); // V26: RESET DU COMPTEUR APRES PUNITION
                 } else { 
                     timerEl.classList.remove('hidden'); timerEl.innerText = `SÉCURITÉ: Verrouillé pour ${remaining}s`; document.getElementById('login-box').classList.add('locked'); btnSubmit.disabled = true; btnSubmit.innerText = "VERROUILLÉ"; 
                 } 
