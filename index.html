@@ -10,38 +10,37 @@
 
     <style>
         /* --- VARIABLES DYNAMIQUES --- */
-        :root { --bg-main: #000000; --bg-card: #05050a; --cyan: #00E5FF; --magenta: #D926FF; --red: #FF3B3B; --green: #2ecc71; --orange: #f39c12; --text-main: #FFFFFF; --text-gray: #888899; --glow-cyan: 0 0 15px rgba(0, 229, 255, 0.7); --glow-magenta: 0 0 15px rgba(217, 38, 255, 0.7); }
-        body { background-color: var(--bg-main); color: var(--text-main); font-family: 'Segoe UI', sans-serif; margin: 0; height: 100vh; overflow: hidden; display: flex; flex-direction: column; background-image: linear-gradient(rgba(0, 229, 255, 0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(0, 229, 255, 0.03) 1px, transparent 1px); background-size: 40px 40px; position: relative; transition: all 0.3s; }
+        :root { --bg-main: #020205; --bg-card: #05050a; --cyan: #00E5FF; --magenta: #D926FF; --red: #FF3B3B; --green: #2ecc71; --orange: #f39c12; --text-main: #FFFFFF; --text-gray: #888899; --glow-cyan: 0 0 15px rgba(0, 229, 255, 0.7); --glow-magenta: 0 0 15px rgba(217, 38, 255, 0.7); }
+        
+        /* FOND ANIMÉ MODERNE (Fini les carrés !) */
+        body { 
+            background-color: var(--bg-main); 
+            color: var(--text-main); 
+            font-family: 'Segoe UI', sans-serif; 
+            margin: 0; height: 100vh; overflow: hidden; display: flex; flex-direction: column; 
+            position: relative; transition: all 0.3s; 
+            background: radial-gradient(circle at 20% 50%, rgba(0, 229, 255, 0.05), transparent 40%),
+                        radial-gradient(circle at 80% 30%, rgba(217, 38, 255, 0.05), transparent 40%);
+            background-size: 200% 200%;
+            animation: bgShift 20s ease infinite alternate;
+        }
+        @keyframes bgShift { 0% {background-position: 0% 50%;} 100% {background-position: 100% 50%;} }
+
         * { box-sizing: border-box; }
         .hidden { display: none !important; }
-        #matrix-canvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; opacity: 0.15; }
+        #matrix-canvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; opacity: 0.1; }
         .nav-container { position: relative; display: inline-block; }
         .badge { position: absolute; top: -5px; right: -5px; background: var(--red); color: white; font-size: 0.7rem; font-weight: bold; padding: 2px 6px; border-radius: 10px; box-shadow: 0 0 10px var(--red); display: none; z-index: 5;}
         #toast-notification { position: fixed; bottom: -100px; right: 20px; background: var(--cyan); color: black; padding: 15px 25px; border-radius: 8px; font-weight: bold; font-size: 1.1rem; box-shadow: var(--glow-cyan); z-index: 10000; transition: 0.4s cubic-bezier(0.18, 0.89, 0.32, 1.28); }
         #toast-notification.show { bottom: 20px; }
 
-        /* INTRO */
-        #intro-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: black; z-index: 9999; display: flex; justify-content: center; align-items: center; }
-        .intro-content-anim { text-align: center; position: relative; animation: intro-appear 0.5s ease-out forwards; }
-        .intro-real-logo { width: 250px; height: auto; margin-bottom: 20px; filter: drop-shadow(0 0 30px var(--magenta)); }
-        .intro-title-text { font-size: 8rem; font-weight: 900; letter-spacing: 15px; margin: 0; text-transform: uppercase; background-image: linear-gradient(180deg, #000 30%, var(--cyan) 70%, #000 100%); -webkit-background-clip: text; background-clip: text; color: transparent; filter: drop-shadow(0 0 20px var(--cyan)); animation: liquid-drip-text 3s infinite alternate ease-in-out; }
-        @keyframes intro-appear { 0% { transform: scale(3); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
-        @keyframes liquid-drip-text { 0% { background-position: 0% 0%; } 100% { background-position: 0% 100%; } }
-        .liquid-splatter { position: absolute; width: 150px; height: 150px; border-radius: 50%; filter: blur(25px) opacity(0.8); animation: splatter-fall 2s ease-in forwards; pointer-events: none; }
-        .splatter-cyan { background: var(--cyan); box-shadow: 0 0 60px var(--cyan); top: -200px; left: 20%; animation-delay: 1s; }
-        .splatter-magenta { background: var(--magenta); box-shadow: 0 0 60px var(--magenta); top: -200px; left: 60%; animation-delay: 1.5s; }
-        @keyframes splatter-fall { 0% { transform: translateY(0); opacity: 0; } 10% { opacity: 1; } 80% { transform: translateY(400px); opacity: 1; } 100% { transform: translateY(400px) scale(1.5); opacity: 0; } }
-        .intro-content-anim.furious-move { animation: furious-shrink-move 1.5s forwards cubic-bezier(0.8, 0, 0.2, 1); }
-        @keyframes furious-shrink-move { 0% { transform: translate(0, 0) scale(1); opacity: 1; } 100% { transform: translate(calc(-50vw + 60px), calc(-50vh + 35px)) scale(0.18); opacity: 0; } }
-
         /* HEADER */
         #dashboard { width: 100%; height: 100%; display: flex; flex-direction: column; opacity: 0; transition: opacity 0.5s; position: relative; z-index: 10;}
         #dashboard.visible { opacity: 1; }
-        .header { position: sticky; top: 0; z-index: 1000; display: flex; align-items: center; padding: 10px 30px; background: rgba(5, 5, 10, 0.98); border-bottom: 2px solid var(--cyan); backdrop-filter: blur(10px); box-shadow: 0 0 30px rgba(0, 229, 255, 0.2); }
+        .header { position: sticky; top: 0; z-index: 1000; display: flex; align-items: center; padding: 10px 30px; background: rgba(2, 2, 5, 0.95); border-bottom: 2px solid var(--cyan); backdrop-filter: blur(10px); box-shadow: 0 0 30px rgba(0, 229, 255, 0.1); }
         .mini-logo-img { height: 45px; width: auto; filter: drop-shadow(0 0 8px var(--cyan)); border-radius: 4px; margin-right: 15px; flex-shrink: 0;}
         .cyber-title-container { position: relative; margin-right: 40px; }
         .main-title-unifie { color: var(--text-main); font-size: 2.5rem; margin: 0; font-weight: 900; letter-spacing: 5px; text-transform: uppercase; filter: drop-shadow(var(--glow-cyan)); }
-        .cyber-cables { position: absolute; top: 100%; left: 0; width: 100%; height: 15px; opacity: 0.8; filter: drop-shadow(0 0 5px var(--cyan));}
         .top-nav { display: flex; gap: 20px; flex: 1; margin-left: 20px; overflow-x: auto; scrollbar-width: none;}
         .nav-btn { background: transparent; color: var(--text-gray); border: none; font-size: 1.1rem; font-weight: 600; cursor: pointer; transition: 0.3s; padding: 5px 15px; border-radius: 4px; position: relative; text-transform: uppercase; white-space: nowrap; }
         .nav-btn:hover { color: var(--cyan); text-shadow: var(--glow-cyan); }
@@ -49,19 +48,45 @@
         .nav-btn.admin:hover { color: var(--magenta); text-shadow: var(--glow-magenta); }
         .nav-btn.active { color: var(--text-main); text-shadow: var(--glow-cyan); background: rgba(0, 229, 255, 0.1); border-bottom: 2px solid var(--cyan);}
         .nav-btn.admin.active { text-shadow: var(--glow-magenta); background: rgba(217, 38, 255, 0.1); border-bottom-color: var(--magenta); }
+        
         .user-profile { display: flex; align-items: center; gap: 12px; cursor: pointer; transition: 0.3s;}
         .user-profile:hover { transform: scale(1.05); }
         .avatar-container { position: relative; width: 45px; height: 45px; flex-shrink: 0; }
-        .avatar { width: 100%; height: 100%; background: #222; border-radius: 50%; border: 2px solid var(--text-gray); background-size: cover; background-position: center;}
+        .avatar { width: 100%; height: 100%; background: #222; border-radius: 50%; border: 2px solid var(--text-gray); background-size: cover; background-position: center; transition: all 0.3s;}
         .status-dot { position: absolute; bottom: 0; right: 0; width: 12px; height: 12px; border-radius: 50%; background: var(--green); border: 2px solid var(--bg-card); z-index: 2;}
+
+        /* ANIMATION FLAMME LORS DE LA CONNEXION */
+        .flame-effect {
+            animation: flameAnim 2s infinite alternate;
+            border-color: var(--orange) !important;
+        }
+        @keyframes flameAnim {
+            0% { box-shadow: 0 0 10px var(--orange), 0 0 20px var(--red); }
+            100% { box-shadow: 0 0 20px var(--orange), 0 0 40px #ffea00; }
+        }
+
+        /* LOGIN */
+        #login-box { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: rgba(5,5,10,0.9); padding: 40px; border: 1px solid var(--cyan); border-radius: 12px; text-align: center; width: 350px; box-shadow: 0 0 30px rgba(0, 229, 255, 0.1); z-index: 1000; backdrop-filter: blur(10px); transition: all 0.3s; max-width: 90%; }
+        #login-box.locked { border-color: var(--red); box-shadow: 0 0 30px rgba(255, 59, 59, 0.3); animation: shake 0.5s; }
+        @keyframes shake { 0% { transform: translate(-50%, -50%) translateX(-10px); } 25% { transform: translate(-50%, -50%) translateX(10px); } 50% { transform: translate(-50%, -50%) translateX(-10px); } 75% { transform: translate(-50%, -50%) translateX(10px); } 100% { transform: translate(-50%, -50%) translateX(0); } }
+        #login-box input { width: 100%; padding: 12px; margin: 10px 0; background: #0f1015; color: white; border: 1px solid #333; border-radius: 6px; font-family: 'Segoe UI'; font-size: 1rem; transition: 0.3s;}
+        #login-box input:focus { border-color: var(--cyan); outline: none; box-shadow: 0 0 10px rgba(0,229,255,0.3);}
+        .btn-login { width: 100%; padding: 15px; margin-top: 15px; background: var(--cyan); color: #000; font-weight: bold; border: none; border-radius: 4px; cursor: pointer; transition: 0.3s; text-transform: uppercase;}
+        .btn-login:hover { background: var(--magenta); color: white; box-shadow: 0 0 20px var(--magenta); }
+        .btn-login:disabled { background: #333; color: #666; cursor: not-allowed; box-shadow: none; }
+        .btn-token-support { background: transparent; border: 1px solid #444; color: var(--text-gray); font-size: 0.75rem; margin-top: 10px; padding: 8px; width: 100%; cursor: pointer; border-radius: 4px; transition: 0.3s; }
+        .btn-token-support:hover { border-color: var(--orange); color: var(--orange); }
+        .btn-register-req { background: transparent; border: 1px solid var(--magenta); color: var(--magenta); font-size: 0.75rem; margin-top: 10px; padding: 8px; width: 100%; cursor: pointer; border-radius: 4px; transition: 0.3s; }
+        .btn-register-req:hover { background: var(--magenta); color: black; box-shadow: var(--glow-magenta); }
+        #lockout-timer { color: var(--red); font-weight: bold; margin-top: 15px; font-size: 0.9rem; }
 
         /* SIDEBAR */
         .main-wrapper { display: flex; flex: 1; overflow: hidden; position: relative; z-index: 1;}
-        .sidebar { width: 260px; padding: 25px; display: flex; flex-direction: column; gap: 20px; border-right: 1px solid rgba(0, 229, 255, 0.3); background: rgba(0,0,0,0.4); overflow-y: auto; scrollbar-width: none; transition: all 0.3s;}
+        .sidebar { width: 260px; padding: 25px; display: flex; flex-direction: column; gap: 20px; border-right: 1px solid rgba(0, 229, 255, 0.1); background: rgba(0,0,0,0.4); overflow-y: auto; scrollbar-width: none; transition: all 0.3s;}
         .sidebar.edit-mode { border: 2px dashed var(--magenta); background: rgba(217, 38, 255, 0.05); }
         .sidebar.edit-mode .widget { cursor: grab; border-color: var(--magenta); animation: wiggle 1s infinite alternate; }
         @keyframes wiggle { 0% { transform: rotate(-1deg); } 100% { transform: rotate(1deg); } }
-        .widget { background: rgba(0,0,0,0.8); border-radius: 10px; padding: 15px; text-align: center; border: 1px solid var(--cyan); transition: transform 0.2s; box-shadow: inset 0 0 15px rgba(0,229,255,0.05);}
+        .widget { background: rgba(0,0,0,0.5); border-radius: 10px; padding: 15px; text-align: center; border: 1px solid rgba(0,229,255,0.2); transition: transform 0.2s; box-shadow: inset 0 0 15px rgba(0,229,255,0.05);}
         .time-display { font-size: 3rem; font-weight: bold; color: var(--cyan); margin: 0; text-shadow: var(--glow-cyan);}
         .sidebar-forum-console { background: rgba(0, 0, 0, 0.6); border: 1px solid #333; border-left: 3px solid var(--cyan); border-radius: 4px; padding: 10px; text-align: left; height: 200px; overflow-y: auto; font-family: 'Consolas', monospace; font-size: 0.8rem; color: #ccc; box-shadow: inset 0 0 10px rgba(0,0,0,0.8); scrollbar-width: thin; scrollbar-color: var(--cyan) transparent; transition: 0.3s; cursor: pointer;}
         .sidebar-forum-console:hover { border-color: var(--cyan); box-shadow: inset 0 0 15px rgba(0,229,255,0.2); }
@@ -81,14 +106,14 @@
         .btn-back:hover { background: var(--cyan); color: black; box-shadow: var(--glow-cyan); }
         .hub-title-stylized { font-size: 4rem; font-weight: 900; letter-spacing: 10px; color: var(--text-main); margin: 0; text-shadow: var(--glow-cyan); }
         .tiles-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
-        .tile { background: linear-gradient(180deg, rgba(0, 229, 255, 0.1) 0%, rgba(0,0,0,0.9) 100%); border: 2px solid var(--cyan); padding: 30px; border-radius: 15px; text-align: center; cursor: pointer; transition: 0.4s; position: relative; overflow: hidden; }
-        .tile:hover { transform: translateY(-5px); box-shadow: 0 10px 30px rgba(0, 229, 255, 0.4); border-color: white; }
+        .tile { background: linear-gradient(180deg, rgba(0, 229, 255, 0.05) 0%, rgba(0,0,0,0.8) 100%); border: 1px solid var(--cyan); padding: 30px; border-radius: 10px; text-align: center; cursor: pointer; transition: 0.4s; position: relative; overflow: hidden; }
+        .tile:hover { transform: translateY(-5px); box-shadow: 0 10px 30px rgba(0, 229, 255, 0.2); border-color: white; }
 
-        /* V27 OS Selector Style */
-        .os-selector-bar { display: flex; gap: 10px; margin-bottom: 25px; border-bottom: 1px dashed #333; padding-bottom: 15px; flex-wrap: wrap; width: 100%; }
-        .os-tab-btn { background: #0c101c; border: 1px solid #333; color: var(--text-gray); padding: 10px 25px; font-weight: bold; border-radius: 4px; cursor: pointer; transition: 0.3s; text-transform: uppercase; letter-spacing: 1px; }
+        /* V28 OS Selector Style */
+        .os-selector-bar { display: flex; gap: 10px; margin-bottom: 25px; border-bottom: 1px solid rgba(0,229,255,0.2); padding-bottom: 15px; flex-wrap: wrap; width: 100%; }
+        .os-tab-btn { background: rgba(0,0,0,0.5); border: 1px solid #333; color: var(--text-gray); padding: 12px 30px; font-weight: bold; border-radius: 4px; cursor: pointer; transition: 0.3s; text-transform: uppercase; letter-spacing: 1px; }
         .os-tab-btn:hover { border-color: var(--cyan); color: var(--cyan); }
-        .os-tab-btn.active { background: rgba(0, 229, 255, 0.1); border-color: var(--cyan); color: white; box-shadow: var(--glow-cyan); }
+        .os-tab-btn.active { background: rgba(0, 229, 255, 0.15); border-color: var(--cyan); color: white; box-shadow: var(--glow-cyan); }
 
         .agent-badge { padding: 8px 20px; border-radius: 30px; font-weight: bold; font-size: 0.9rem; letter-spacing: 1px; display: flex; align-items: center; gap: 10px; border: 1px solid transparent; flex-shrink: 0;}
         .agent-offline { background: rgba(255,59,59,0.1); border-color: var(--red); color: var(--red); }
@@ -106,7 +131,7 @@
         .cat-btn:hover { border-color: var(--cyan); color: var(--cyan); }
         .cat-btn.active { background: var(--cyan); color: black; border-color: var(--cyan); font-weight: bold; box-shadow: 0 0 10px var(--cyan);}
         
-        .forum-item { background: rgba(0,0,0,0.8); border: 1px solid #333; padding: 20px; border-radius: 10px; margin-bottom: 15px; display: flex; align-items: center; gap: 20px; transition: 0.3s; cursor: pointer; flex-wrap: wrap;}
+        .forum-item { background: rgba(0,0,0,0.6); border: 1px solid #333; padding: 20px; border-radius: 10px; margin-bottom: 15px; display: flex; align-items: center; gap: 20px; transition: 0.3s; cursor: pointer; flex-wrap: wrap;}
         .forum-item.pinned { border-color: var(--magenta); box-shadow: inset 0 0 15px rgba(217,38,255,0.1); border-left: 5px solid var(--magenta);}
         .forum-item:hover { border-color: var(--cyan); box-shadow: inset 0 0 20px rgba(0,229,255,0.1), 0 5px 15px rgba(0,0,0,0.5); transform: translateX(5px);}
         .forum-item-avatar { width: 60px; height: 60px; border-radius: 50%; border: 2px solid var(--text-gray); background-size: cover; background-position: center; flex-shrink: 0;}
@@ -126,7 +151,6 @@
         #read-topic-title { color: white; font-size: 2rem; margin-top: 0; margin-bottom: 15px; text-shadow: 0 0 10px rgba(255,255,255,0.5); word-wrap: break-word;}
         .read-author-box { display: flex; align-items: center; gap: 15px; border-bottom: 1px dashed #333; padding-bottom: 20px; margin-bottom: 30px; flex-wrap: wrap;}
         #read-topic-content { line-height: 1.6; font-size: 1.05rem; color: #ddd; white-space: pre-wrap; word-wrap: break-word;}
-        .read-topic-image { max-width: 100%; border-radius: 8px; margin-top: 20px; border: 1px solid #444; box-shadow: 0 5px 15px rgba(0,0,0,0.5);}
         
         .forum-replies-section { margin-top: 40px; border-top: 2px solid #222; padding-top: 20px; }
         .reply-item { background: rgba(255,255,255,0.02); border-left: 3px solid var(--cyan); padding: 15px; border-radius: 0 8px 8px 0; margin-bottom: 15px; display: flex; gap: 15px; flex-wrap: wrap;}
@@ -250,18 +274,6 @@
 </head>
 <body>
 
-    <canvas id="matrix-canvas"></canvas>
-    <div id="toast-notification">Notification</div>
-
-    <div id="intro-overlay" class="hidden">
-        <div class="liquid-splatter splatter-cyan"></div>
-        <div class="liquid-splatter splatter-magenta"></div>
-        <div id="intro-content" class="intro-content-anim">
-            <img src="logo-nvalk.jpg" alt="Logo N-VALK" class="intro-real-logo" onerror="console.log('Erreur logo')">
-            <h1 class="intro-title-text" id="intro-title-dynamic">N-VALK</h1>
-        </div>
-    </div>
-
     <div id="login-box">
         <img src="logo-nvalk.jpg" alt="Logo N-VALK" style="width: 150px; margin-bottom: 20px; border-radius: 10px; filter: drop-shadow(var(--glow-cyan));">
         <h2 style="color: var(--cyan); text-transform: uppercase; letter-spacing: 3px; margin-top: 0;">Connexion</h2>
@@ -281,7 +293,6 @@
                 <svg class="cyber-cables" viewBox="0 0 200 30" preserveAspectRatio="none">
                     <path d="M10,0 Q20,20 40,10 T80,25 T120,5 T160,20 T190,0" fill="none" stroke="var(--cyan)" stroke-width="2" stroke-dasharray="5,2" />
                     <path d="M0,0 Q30,30 50,5 T100,25 T150,10 T200,0" fill="none" stroke="var(--magenta)" stroke-width="1" />
-                    <circle cx="40" cy="10" r="2" fill="white"/> <circle cx="120" cy="5" r="2" fill="white"/>
                 </svg>
             </div>
             
@@ -292,7 +303,7 @@
                 <button class="nav-btn" id="nav-profil" onclick="switchTab('profil')">MON PROFIL</button>
                 <button class="nav-btn" id="nav-support" onclick="switchTab('support')">SUPPORT</button>
                 
-                <div class="nav-container admin hidden">
+                <div class="nav-container admin hidden" id="nav-admin-container">
                     <button class="nav-btn admin" id="nav-gestion" onclick="switchTab('gestion')">GESTION DU SITE</button>
                     <span id="badge-tickets" class="badge">0</span>
                 </div>
@@ -333,9 +344,7 @@
             </div>
 
             <div class="license-box">
-                <div class="license-row"><span style="color:var(--text-gray);">Licence Compte:</span> <strong style="color:var(--green);">Active (À Vie)</strong></div>
-                <div class="license-row"><span style="color:var(--text-gray);">Licence Pack:</span> <strong id="pack-expire-date" style="color:var(--cyan);">Expire le 31/12/2030</strong></div>
-                <button class="sc-btn" style="border-color: var(--magenta); color: var(--magenta); width: 100%; padding: 5px; margin-top: 10px; font-size: 0.8rem;" onclick="prolongerPack()">+ PROLONGER LE PACK (1 An)</button>
+                <div class="license-row"><span style="color:var(--text-gray);">Licence d'Accès :</span> <strong style="color:var(--green);">Validée (À Vie)</strong></div>
             </div>
 
             <button class="sc-btn" onclick="openPersonalSettings()" style="margin-top:20px;">Gérer Paramètres</button>
@@ -397,10 +406,10 @@
                     <button class="os-tab-btn" onclick="switchOSTab('macos', this)">🍏 macOS</button>
                 </div>
                 
-                <div class="tiles-grid" id="diag-dynamic-tiles-grid"></div>
+                <div class="tiles-grid" id="diag-dynamic-tiles-grid" style="margin-bottom: 50px;"></div>
 
                 <div style="margin-top: 40px; border-top: 1px dashed #333; padding-top: 20px;">
-                    <h3 style="color: var(--magenta); margin-top:0;">Mode Local (Clé USB Agent Connecté)</h3>
+                    <h3 style="color: var(--magenta); margin-top:0;">Mode Local Externe (Clé USB Agent)</h3>
                     <button class="cyber-btn" style="background: var(--magenta); color: white; box-shadow: var(--glow-magenta);" onclick="checkAgentConnection('http://localhost:5989')">🔄 DÉTECTER L'AGENT MATÉRIEL</button>
                 </div>
 
@@ -538,11 +547,9 @@
                     <div>
                         <div class="profile-card" style="margin-bottom: 20px; display:flex; flex-wrap:wrap; gap:20px;">
                             <div style="flex:1; min-width: 200px;">
-                                <h3>Licences Logicielles</h3>
-                                <div class="stat-box"><span style="color:var(--text-gray);">Statut</span> <strong style="color:var(--green);">Actif (À Vie)</strong></div>
-                                <div class="stat-box"><span style="color:var(--text-gray);">Clé</span> <strong id="prof-license-key" style="color:var(--magenta); font-family:Consolas;">XXXX-XXXX</strong></div>
-                                <div class="stat-box"><span style="color:var(--text-gray);">Pack</span> <strong id="prof-pack-expire" style="color:var(--cyan);">31/12/2030</strong></div>
-                                <button class="sc-btn" style="border-color: var(--cyan); color: var(--cyan); width: 100%; padding: 10px; margin-top: 10px; font-size: 0.8rem; height: auto; white-space: normal;" onclick="prolongerPack()">🔄 PROLONGER LE PACK (+1 AN)</button>
+                                <h3>Licence Numérique</h3>
+                                <div class="stat-box"><span style="color:var(--text-gray);">Statut d'Accès</span> <strong style="color:var(--green);">Valide (À Vie)</strong></div>
+                                <div class="stat-box"><span style="color:var(--text-gray);">Clé Privée</span> <strong id="prof-license-key" style="color:var(--magenta); font-family:Consolas;">XXXX-XXXX</strong></div>
                             </div>
                             <div style="flex:1; min-width: 200px;">
                                 <h3>Statistiques</h3>
@@ -661,23 +668,25 @@
                     </div>
 
                     <div id="admin-sub-modules" class="admin-panel hidden">
-                        <h3>Gestionnaire des Carrés OS (Téléchargements)</h3>
+                        <h3>Gestionnaire des Carrés d'Intervention (Glisser/Déplacer Virtuel)</h3>
                         <table class="admin-table">
-                            <thead><tr><th>OS Ciblé</th><th>Nom du Carré</th><th>Fichiers Requis</th><th>Action</th></tr></thead>
+                            <thead><tr><th>OS Ciblé</th><th>Icône</th><th>Nom du Carré</th><th>Fichiers Requis</th><th>Ordre</th><th>Action</th></tr></thead>
                             <tbody id="db-script-tiles-table-body"></tbody>
                         </table>
 
-                        <h3 style="margin-top: 40px; border-top: 1px dashed #333; padding-top: 20px;">➕ Déployer un Nouveau Onglet Carré</h3>
+                        <h3 style="margin-top: 40px; border-top: 1px dashed #333; padding-top: 20px;">➕ Créer un Nouveau Carré</h3>
                         <div style="display: flex; flex-direction:column; gap: 12px; max-width: 500px;">
-                            <label style="font-size:0.85rem; color:var(--text-gray);">Sélectionner l'OS de destination :</label>
+                            <label style="font-size:0.85rem; color:var(--text-gray);">OS Destination :</label>
                             <select id="add-tile-os" class="modal-input" style="background:#000; margin-bottom:0;">
                                 <option value="windows">Windows</option>
                                 <option value="linux">Linux</option>
                                 <option value="macos">macOS</option>
                             </select>
-                            <input type="text" id="add-tile-title" class="modal-input" placeholder="Nom principal du carré (Ex: Diagnostic Général)">
-                            <input type="text" id="add-tile-desc" class="modal-input" placeholder="Description courte de l'action">
-                            <input type="text" id="add-tile-files" class="modal-input" placeholder="Fichiers exacts GitHub (séparés par des virgules : diag.bat, fix.ps1)">
+                            <label style="font-size:0.85rem; color:var(--text-gray);">Icône (Emoji) :</label>
+                            <input type="text" id="add-tile-icon" class="modal-input" placeholder="Ex: 📦, 🛠️, 🛡️" value="📦">
+                            <input type="text" id="add-tile-title" class="modal-input" placeholder="Nom principal du carré (Ex: Pack Général)">
+                            <input type="text" id="add-tile-desc" class="modal-input" placeholder="Description courte (A quoi il sert ?)">
+                            <input type="text" id="add-tile-files" class="modal-input" placeholder="Fichiers GitHub (séparés par virgules : diag.bat, fix.ps1)">
                             <button class="cyber-btn" style="background:var(--magenta); color:white; box-shadow:var(--glow-magenta);" onclick="addNewScriptTile()">GÉNÉRER LE CARRÉ EN LIGNE</button>
                         </div>
                     </div>
@@ -689,7 +698,7 @@
                                 <input type="color" id="picker-cyan" value="#00E5FF" onchange="updateColors()"> Cyan<br><br>
                                 <input type="color" id="picker-magenta" value="#D926FF" onchange="updateColors()"> Magenta
                                 <br><br>
-                                <button onclick="toggleSidebarEdit()" id="btn-toggle-edit" style="padding:10px; background:var(--cyan); color:black; font-weight:bold; border:none; border-radius:5px;">Activer Déplacement Widgets</button>
+                                <button onclick="toggleSidebarEdit()" id="btn-toggle-edit" style="padding:10px; background:var(--cyan); color:black; font-weight:bold; border:none; border-radius:5px;">Activer Déplacement Sidebar</button>
                             </div>
                             <div style="flex: 1; border-left: 1px dashed #333; padding-left: 40px; min-width:250px;">
                                 <h3 style="color:var(--magenta);">Personnalisation des Noms</h3>
@@ -801,15 +810,19 @@
             <div style="display: flex; gap: 20px; flex-wrap:wrap;">
                 <div style="flex: 1; min-width:200px;">
                     <label style="color: var(--text-gray); font-size: 0.8rem;">Login</label><input type="text" id="ae-login" class="modal-input">
-                    <label style="color: var(--text-gray); font-size: 0.8rem;">Pseudo</label><input type="text" id="ae-pseudo" class="modal-input">
+                    <label style="color: var(--text-gray); font-size: 0.8rem;">Pseudo Actuel</label><input type="text" id="ae-pseudo" class="modal-input">
                     <label style="color: var(--text-gray); font-size: 0.8rem;">Forcer Mot de passe</label><input type="password" id="ae-password" class="modal-input" placeholder="Laisser vide = inchangé">
                     <label style="color: var(--text-gray); font-size: 0.8rem;">Grade</label>
                     <select id="ae-grade" class="modal-input" style="background: #111;"><option value="Utilisateur">Utilisateur</option><option value="Co-Admin">Co-Admin</option><option value="Admin">Administrateur</option></select>
                 </div>
                 <div style="flex: 1; border-left: 1px dashed #333; padding-left: 20px; min-width:200px;">
-                    <label style="color: var(--cyan); font-size: 0.8rem; font-weight: bold;">🔑 Clé de Licence Unique</label>
-                    <div style="display: flex; gap: 5px; margin-bottom: 15px;"><input type="text" id="ae-license" class="modal-input" style="border-color: var(--cyan); color: var(--cyan); font-family: Consolas; margin-bottom: 0;"><button class="cyber-btn" style="padding: 0 10px; font-size: 1.2rem;" onclick="generateNewLicenseForUser()">🔄</button></div>
-                    <label style="color: var(--orange); font-size: 0.8rem; font-weight: bold;">📝 Notes Secrètes</label><textarea id="ae-notes" class="modal-input" style="height: 120px; border-color: var(--orange); resize: none;"></textarea>
+                    <label style="color: var(--cyan); font-size: 0.8rem; font-weight: bold;">🔑 Clé Unique</label>
+                    <div style="display: flex; gap: 5px; margin-bottom: 10px;"><input type="text" id="ae-license" class="modal-input" style="border-color: var(--cyan); color: var(--cyan); font-family: Consolas; margin-bottom: 0;"><button class="cyber-btn" style="padding: 0 10px; font-size: 1.2rem;" onclick="generateNewLicenseForUser()">🔄</button></div>
+                    
+                    <label style="color: #666; font-size: 0.75rem; font-weight: bold;">📜 HISTORIQUE DES ANCIENS PSEUDOS</label>
+                    <div id="ae-pseudo-history" style="background:rgba(0,0,0,0.5); padding:10px; border-radius:4px; font-size:0.8rem; color:var(--text-gray); margin-bottom:10px; max-height: 50px; overflow-y:auto;">Aucun</div>
+
+                    <label style="color: var(--orange); font-size: 0.8rem; font-weight: bold;">📝 Notes Secrètes Admin</label><textarea id="ae-notes" class="modal-input" style="height: 60px; border-color: var(--orange); resize: none;"></textarea>
                 </div>
             </div>
             <h4 style="color: var(--text-gray); margin-bottom: 5px;">Permissions d'Accès</h4>
@@ -841,7 +854,7 @@
     </div>
 
     <script>
-        // --- 🌐 CONFIGURATION CLOUD FIREBASE CENTRALISÉE ---
+        // --- 🌐 CONFIGURATION CLOUD FIREBASE ---
         const firebaseConfig = {
             apiKey: "AIzaSyCETiIjrBGrZh24u9UypxZ5XhuVDvGrH-M",
             authDomain: "nvalk-hub.firebaseapp.com",
@@ -854,25 +867,28 @@
         firebase.initializeApp(firebaseConfig);
         const dbFire = firebase.firestore();
 
-        let currentActiveOS = "windows"; // OS par défaut pour l'onglet Diag
+        let currentActiveOS = "windows"; 
+        
+        // V28 Default Users with pseudoHistory
         let dbUsers = defaultUsers = [
-            { id: 1, login: 'admin', pseudo: 'Nhafy', grade: 'Admin', password: '123', avatar: 'https://api.dicebear.com/7.x/bottts/svg?seed=Nhafy', status: 'online', roleDisplay: 'Grand Admiral (Admin)', perms: {code: true, users: true, logs: true, forum: true}, active: true, unreadForum: 0, licenseKey: 'NVALK-MASTER', adminNotes: 'Créateur.', packExpire: Date.now() + 31536000000 },
-            { id: 2, login: 'coadmin', pseudo: 'Nico Tech', grade: 'Co-Admin', password: '123', avatar: 'https://api.dicebear.com/7.x/bottts/svg?seed=Nico', status: 'away', roleDisplay: 'Commander (Co-Admin)', perms: {code: false, users: true, logs: true, forum: true}, active: true, unreadForum: 0, licenseKey: 'NVALK-COADM', adminNotes: '', packExpire: Date.now() + 31536000000 },
-            { id: 3, login: 'jean_d', pseudo: 'Jean Dupont', grade: 'Utilisateur', password: '123', avatar: 'https://api.dicebear.com/7.x/bottts/svg?seed=Jean', status: 'dnd', roleDisplay: 'Citizen (User)', perms: {code: false, users: false, logs: false, forum: false}, active: true, unreadForum: 0, licenseKey: 'NVALK-USER-1234', adminNotes: '', packExpire: Date.now() + 2592000000 }
+            { id: 1, login: 'admin', pseudo: 'Nhafy', pseudoHistory: [], grade: 'Admin', password: '123', avatar: 'https://api.dicebear.com/7.x/bottts/svg?seed=Nhafy', status: 'online', roleDisplay: 'Grand Admiral (Admin)', perms: {code: true, users: true, logs: true, forum: true}, active: true, unreadForum: 0, licenseKey: 'NVALK-MASTER', adminNotes: 'Créateur.' },
+            { id: 2, login: 'coadmin', pseudo: 'Nico Tech', pseudoHistory: [], grade: 'Co-Admin', password: '123', avatar: 'https://api.dicebear.com/7.x/bottts/svg?seed=Nico', status: 'away', roleDisplay: 'Commander (Co-Admin)', perms: {code: false, users: true, logs: true, forum: true}, active: true, unreadForum: 0, licenseKey: 'NVALK-COADM', adminNotes: '' },
+            { id: 3, login: 'jean_d', pseudo: 'Jean Dupont', pseudoHistory: [], grade: 'Utilisateur', password: '123', avatar: 'https://api.dicebear.com/7.x/bottts/svg?seed=Jean', status: 'dnd', roleDisplay: 'Citizen (User)', perms: {code: false, users: false, logs: false, forum: false}, active: true, unreadForum: 0, licenseKey: 'NVALK-USER-1234', adminNotes: '' }
         ];
         let dbForum = [ { id: 1, title: "[ANNONCE] Serveur N-VALK Connecté au Cloud", author: "Nhafy", authorAvatar: "https://api.dicebear.com/7.x/bottts/svg?seed=Nhafy", authorRole: "Grand Admiral (Admin)", category: "Annonces", content: "La structure globale de données est désormais synchronisée en temps réel.", image: "", timestamp: Date.now(), pinned: true, views: 0, likes: 0, replies: [] } ];
         let dbTickets = [];
         let dbLexique = [
-            { id: 1, term: "Active Directory (AD)", category: "Système", tags: ["Microsoft", "Annuaire", "LDAP"], desc: "Annuaire centralisé d'identités Microsoft.", deep: "Le centre névralgique de la gestion des droits d'accès Windows en entreprise." },
-            { id: 2, term: "VLAN", category: "Réseau", tags: ["Cisco", "Switch", "Sécurité"], desc: "Réseau Local Virtuel.", deep: "Permet de diviser logiquement un réseau informatique physique pour sécuriser les flux." }
+            { id: 1, term: "Active Directory (AD)", category: "Système", tags: ["Microsoft", "Annuaire", "LDAP"], desc: "Annuaire centralisé d'identités Microsoft.", deep: "Le centre névralgique de la gestion des droits d'accès Windows en entreprise." }
         ];
+        
+        // V28 Dynamic Tiles with order/icon
         let dbScriptTiles = [
-            { id: 1, os: "windows", title: "Pack Intégral Windows", desc: "Télécharge l'agent et les scripts de déploiement d'urgence Windows.", files: ["1_N-VALK_WEB.bat", "2_N-VALK_USB_LOCAL.bat"] }
+            { id: 1, os: "windows", icon: "📦", title: "Pack Intégral Windows", desc: "Télécharge l'agent et les scripts de déploiement d'urgence Windows.", files: ["START_NVALK.bat", "nvalk_agent.ps1"] }
         ];
 
         let currentUser = null;
 
-        // --- 🌐 ÉCOUTEUR CLOUD PRINCIPAL (FIRESTORE REALTIME) ---
+        // --- 🌐 ÉCOUTEUR CLOUD ---
         dbFire.collection("system").doc("state").onSnapshot((doc) => {
             if (doc.exists) {
                 const data = doc.data();
@@ -894,9 +910,7 @@
                     if(!document.getElementById('content-profil').classList.contains('hidden')) renderUserActivities();
                 }
                 applySiteSettings();
-            } else {
-                saveData(); // Initialisation de sécurité
-            }
+            } else { saveData(); }
         }, (err) => {
             console.log("Lecture Cloud non connectée. Fallback LocalStorage actif.", err);
             dbUsers = JSON.parse(localStorage.getItem('nvalk_users')) || defaultUsers;
@@ -911,7 +925,7 @@
         function saveData() {
             dbFire.collection("system").doc("state").set({
                 users: dbUsers, forum: dbForum, tickets: dbTickets, lexique: dbLexique, scriptTiles: dbScriptTiles, settings: siteSettings
-            }).catch(e => console.error("Échec de synchronisation Firebase :", e));
+            }).catch(e => console.error("Échec Cloud:", e));
 
             localStorage.setItem('nvalk_users', JSON.stringify(dbUsers));
             localStorage.setItem('nvalk_forum', JSON.stringify(dbForum));
@@ -921,7 +935,7 @@
             localStorage.setItem('nvalk_settings', JSON.stringify(siteSettings));
         }
 
-        // --- 📥 LOGIQUE SÉCURISÉE DES TÉLÉCHARGEMENTS ET VÉRIFICATION GITHUB ---
+        // --- 📥 V28: GESTION DES TUILES DIAGNOSTIC (CARRÉS) ---
         function switchOSTab(os, btn) {
             currentActiveOS = os;
             document.querySelectorAll('.os-tab-btn').forEach(b => b.classList.remove('active'));
@@ -933,103 +947,86 @@
             const grid = document.getElementById('diag-dynamic-tiles-grid');
             if(!grid) return;
             grid.innerHTML = "";
-            
             const filtered = dbScriptTiles.filter(t => t.os === currentActiveOS);
             if(filtered.length === 0) {
                 grid.innerHTML = `<p style="color:var(--text-gray); font-style:italic;">Aucun carré d'intervention disponible pour cet OS actuellement.</p>`;
                 return;
             }
-
             filtered.forEach(tile => {
                 grid.innerHTML += `
                     <div class="tile">
-                        <div style="font-size: 3rem; margin-bottom: 10px;">📦</div>
+                        <div style="font-size: 3rem; margin-bottom: 10px;">${tile.icon || '📦'}</div>
                         <h3>${tile.title}</h3>
                         <p style="font-size:0.9rem; color:var(--text-gray); min-height:40px;">${tile.desc}</p>
-                        <button class="cyber-btn" style="width:100%; margin-top:10px; font-size:0.85rem;" onclick="processGitDownload('${tile.files.join(',')}')">💾 TÉLÉCHARGER LES INFOS</button>
+                        <button class="cyber-btn" style="width:100%; margin-top:10px; font-size:0.85rem;" onclick="processGitDownload('${tile.files.join(',')}')">💾 TÉLÉCHARGER</button>
                     </div>`;
             });
         }
 
         async function processGitDownload(filesString) {
             const files = filesString.split(',').map(f => f.trim()).filter(f => f);
-            const baseUrl = window.location.origin + "/"; // Cible la racine nhafy.github.io/
-
+            const baseUrl = window.location.origin + "/"; 
             for (const file of files) {
-                showToast(`Vérification de ${file} sur GitHub...`, "success");
+                showToast(`Vérification et DL de ${file}...`, "success");
                 try {
-                    // Utilise fetch pour vérifier la présence réelle du fichier sur le serveur GitHub Pages
                     const response = await fetch(baseUrl + file, { method: 'HEAD' });
                     if(response.ok) {
-                        // Le fichier existe, on simule l'actionneur de téléchargement
-                        const a = document.createElement('a');
-                        a.href = baseUrl + file;
-                        a.download = file;
-                        document.body.appendChild(a);
-                        a.click();
-                        document.body.removeChild(a);
-                        addLog(`Téléchargement de l'outil : ${file}`);
+                        const a = document.createElement('a'); a.href = baseUrl + file; a.download = file;
+                        document.body.appendChild(a); a.click(); document.body.removeChild(a); addLog(`Download : ${file}`);
                     } else {
-                        alert(`⚠️ ERREUR CRITIQUE DE LIEN\nLe fichier [${file}] renseigné dans le carré n'a pas été trouvé à la racine de ton dépôt GitHub.\n\nAssure-toi de l'avoir uploadé avec le nom exact.`);
-                        addLog(`Fichier introuvable sur GitHub : ${file}`, "alert");
+                        alert(`⚠️ ERREUR CRITIQUE DE LIEN\nLe fichier [${file}] est introuvable sur ton GitHub.`); addLog(`Fichier introuvable sur GitHub : ${file}`, "alert");
                     }
                 } catch (error) {
-                    // Plan B : Tente le téléchargement direct au cas où le CORS bloque le HEAD
-                    const a = document.createElement('a');
-                    a.href = baseUrl + file;
-                    a.download = file;
-                    document.body.appendChild(a);
-                    a.click();
-                    document.body.removeChild(a);
+                    const a = document.createElement('a'); a.href = baseUrl + file; a.download = file;
+                    document.body.appendChild(a); a.click(); document.body.removeChild(a);
                 }
             }
         }
 
-        // Configuration Admin pour l'onglet de création de carrés
+        // Admin: Gérer l'ordre des carrés
         function renderAdminScriptTilesTable() {
             const tbody = document.getElementById('db-script-tiles-table-body');
-            if(!tbody) return;
-            tbody.innerHTML = "";
-            dbScriptTiles.forEach(t => {
+            if(!tbody) return; tbody.innerHTML = "";
+            dbScriptTiles.forEach((t, index) => {
                 tbody.innerHTML += `
                     <tr>
                         <td style="text-transform:uppercase; color:var(--cyan); font-weight:bold;">${t.os}</td>
+                        <td style="font-size: 1.5rem;">${t.icon || '📦'}</td>
                         <td><strong>${t.title}</strong></td>
                         <td style="font-family:Consolas; font-size:0.85rem;">${t.files.join(', ')}</td>
+                        <td>
+                            <button class="sc-btn" style="padding:2px 5px; margin:0;" onclick="moveScriptTile(${index}, -1)" ${index===0?'disabled':''}>⬆️</button>
+                            <button class="sc-btn" style="padding:2px 5px; margin:0;" onclick="moveScriptTile(${index}, 1)" ${index===dbScriptTiles.length-1?'disabled':''}>⬇️</button>
+                        </td>
                         <td><button class="sc-btn" style="border-color:var(--red); color:var(--red); padding:4px 8px; margin:0;" onclick="deleteScriptTile(${t.id})">Supprimer</button></td>
                     </tr>`;
             });
         }
 
+        function moveScriptTile(index, direction) {
+            if (index + direction < 0 || index + direction >= dbScriptTiles.length) return;
+            const temp = dbScriptTiles[index];
+            dbScriptTiles[index] = dbScriptTiles[index + direction];
+            dbScriptTiles[index + direction] = temp;
+            saveData();
+        }
+
         function addNewScriptTile() {
             const os = document.getElementById('add-tile-os').value;
+            const icon = document.getElementById('add-tile-icon').value.trim() || "📦";
             const title = document.getElementById('add-tile-title').value.trim();
             const desc = document.getElementById('add-tile-desc').value.trim();
             const filesInput = document.getElementById('add-tile-files').value;
-            
-            if(!title || !filesInput) return alert("Le nom principal et les fichiers sont obligatoires.");
+            if(!title || !filesInput) return alert("Nom et fichiers obligatoires.");
             const filesArray = filesInput.split(',').map(f => f.trim()).filter(f => f);
-
-            dbScriptTiles.push({
-                id: Date.now(), os: os, title: title, desc: desc || "Aucune description fournie.", files: filesArray
-            });
+            dbScriptTiles.push({ id: Date.now(), os: os, icon: icon, title: title, desc: desc, files: filesArray });
             saveData();
-            document.getElementById('add-tile-title').value = "";
-            document.getElementById('add-tile-desc').value = "";
-            document.getElementById('add-tile-files').value = "";
-            showToast("Nouveau carré d'intervention déployé !");
-            addLog(`Admin a configuré un nouveau carré pour l'OS ${os} : ${title}`);
+            document.getElementById('add-tile-title').value = ""; document.getElementById('add-tile-desc').value = ""; document.getElementById('add-tile-files').value = "";
+            showToast("Nouveau carré déployé !");
         }
+        function deleteScriptTile(id) { if(confirm("Détruire définitivement ce carré ?")) { dbScriptTiles = dbScriptTiles.filter(t => t.id !== id); saveData(); } }
 
-        function deleteScriptTile(id) {
-            if(confirm("Détruire définitivement ce carré d'outils d'intervention ?")) {
-                dbScriptTiles = dbScriptTiles.filter(t => t.id !== id);
-                saveData();
-                showToast("Carré supprimé.");
-            }
-        }
-
-        // --- CODE HISTORIQUE DE TOUTES LES FONCTIONS ---
+        // --- HISTORIQUE DES FONCTIONS STANDARDS ---
         function filterForumCat(cat) { currentForumCat = cat; currentForumPage = 1; document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active')); event.target.classList.add('active'); renderForum(); }
         function renderForum() { const searchTerm = document.getElementById('forum-search-input').value.toLowerCase(); const sortMode = document.getElementById('forum-sort-select').value; const list = document.getElementById('forum-list'); if(!list) return; list.innerHTML = ""; let filtered = [...dbForum]; if(currentForumCat !== "Toutes") { filtered = filtered.filter(t => t.category === currentForumCat); } if(searchTerm) { filtered = filtered.filter(t => { let score = 0; if(t.title.toLowerCase().includes(searchTerm)) score += 3; if(t.content.toLowerCase().includes(searchTerm)) score += 1; if(t.author.toLowerCase().includes(searchTerm)) score += 2; t.relevanceScore = score; return score > 0; }); } else { filtered.forEach(t => t.relevanceScore = 0); } filtered.sort((a, b) => { if(a.pinned !== b.pinned) return a.pinned ? -1 : 1; if(sortMode === 'ancien') return a.timestamp - b.timestamp; return b.timestamp - a.timestamp; }); const totalPages = Math.ceil(filtered.length / topicsPerPage) || 1; const startIndex = (currentForumPage - 1) * topicsPerPage; const paginatedTopics = filtered.slice(startIndex, startIndex + topicsPerPage); paginatedTopics.forEach(topic => { const date = new Date(topic.timestamp).toLocaleString('fr-FR'); const isPinned = topic.pinned ? '<span style="color:var(--magenta); margin-right:10px;">📌 ÉPINGLÉ</span>' : ''; const pinClass = topic.pinned ? 'pinned' : ''; const repliesCount = topic.replies ? topic.replies.length : 0; let adminHtml = ''; if(currentUser && currentUser.perms.forum) { const pinText = topic.pinned ? "DÉTACHER" : "ÉPINGLER"; adminHtml = `<div class="forum-admin-options" style="display:flex; gap:10px; margin-left:auto;"><button class="sc-btn" style="padding: 2px 10px; margin:0; font-size:0.7rem; border-color:var(--magenta); color:var(--magenta);" onclick="event.stopPropagation(); togglePinTopic(${topic.id})">${pinText}</button><button class="sc-btn" style="padding: 2px 10px; margin:0; font-size:0.7rem; border-color:var(--red); color:var(--red);" onclick="event.stopPropagation(); deleteTopic(${topic.id})">SUPPRIMER</button></div>`; } list.innerHTML += `<div class="forum-item ${pinClass}" onclick="readTopic(${topic.id})"><div class="forum-item-avatar" style="background-image: url('${topic.authorAvatar}');"></div><div class="forum-item-author-box"><p class="fi-pseudo">${topic.author}</p><p class="fi-role">${topic.authorRole}</p></div><div class="forum-item-content-box"><h3 class="fi-title">${isPinned} [${topic.category}] ${topic.title}</h3><p class="fi-excerpt">${topic.content}</p><div class="fi-footer"><span>🗓️ ${date}</span> <span>👁️ ${topic.views || 0} vues</span> <span>💬 ${repliesCount} rép</span> <span><button class="btn-like" onclick="event.stopPropagation(); likeTopic(${topic.id})">❤️ ${topic.likes || 0}</button></span> ${adminHtml}</div></div></div>`; }); renderForumPagination(totalPages); renderSidebarForum(); }
         let currentForumCat = "Toutes"; let currentForumPage = 1; const topicsPerPage = 10; let activeForumTopicId = null;
@@ -1090,11 +1087,19 @@
         function closePersonalSettings() { document.getElementById('personal-settings-overlay').classList.add('hidden'); }
         function previewAvatar(e) { if(e.target.files && e.target.files[0]) { currentTempAvatarUrl = URL.createObjectURL(e.target.files[0]); document.getElementById('avatar-preview-img').src = currentTempAvatarUrl; } }
         function updateAvatarZoom() { document.getElementById('avatar-preview-img').style.transform = `scale(${document.getElementById('avatar-zoom').value})`; }
-        function savePersonalSettings() { currentUser.avatar = currentTempAvatarUrl; currentUser.login = document.getElementById('ps-login').value; currentUser.pseudo = document.getElementById('ps-pseudo').value; const pass = document.getElementById('ps-password').value; if(pass) currentUser.password = pass; const idx = dbUsers.findIndex(u => u.id === currentUser.id); if(idx !== -1) dbUsers[idx] = currentUser; saveData(); closePersonalSettings(); showToast("Paramètres sauvegardés."); }
+        function savePersonalSettings() { 
+            const newPseudo = document.getElementById('ps-pseudo').value;
+            if(currentUser.pseudo !== newPseudo && !currentUser.pseudoHistory.includes(currentUser.pseudo)) {
+                currentUser.pseudoHistory.push(currentUser.pseudo);
+            }
+            currentUser.avatar = currentTempAvatarUrl; currentUser.login = document.getElementById('ps-login').value; currentUser.pseudo = newPseudo; 
+            const pass = document.getElementById('ps-password').value; if(pass) currentUser.password = pass; 
+            const idx = dbUsers.findIndex(u => u.id === currentUser.id); if(idx !== -1) dbUsers[idx] = currentUser; saveData(); closePersonalSettings(); showToast("Paramètres sauvegardés."); 
+        }
         function askDeactivate() { closePersonalSettings(); document.getElementById('deactivate-modal').classList.remove('hidden'); }
         function confirmDeactivate() { currentUser.active = false; const idx = dbUsers.findIndex(u => u.id === currentUser.id); if(idx !== -1) dbUsers[idx] = currentUser; saveData(); location.reload(); }
 
-        // --- CORE AUTHENTICATION ENGINE (ANTI-SPAM) ---
+        // --- CORE AUTHENTICATION (ANTI-SPAM) & FAST LOGIN ---
         let attemptTimer = null;
         function updateLockoutTimer(lockoutTime) {
             const timerEl = document.getElementById('lockout-timer'); const btnSubmit = document.getElementById('btn-login-submit');
@@ -1103,7 +1108,7 @@
                 let remaining = Math.ceil((lockoutTime - Date.now()) / 1000);
                 if(remaining <= 0) {
                     clearInterval(attemptTimer); timerEl.classList.add('hidden'); document.getElementById('login-box').classList.remove('locked'); btnSubmit.disabled = false; btnSubmit.innerText = "S'IDENTIFIER";
-                    localStorage.setItem('nvalk_attempts', 0); // V26: Reset obligatoire du compteur anti-spam à zéro après expiration !
+                    localStorage.setItem('nvalk_attempts', 0); // V26/V28 Reset Anti-spam
                 } else {
                     timerEl.classList.remove('hidden'); timerEl.innerText = `SÉCURITÉ: Verrouillé pour ${remaining}s`; document.getElementById('login-box').classList.add('locked'); btnSubmit.disabled = true; btnSubmit.innerText = "VERROUILLÉ";
                 }
@@ -1118,8 +1123,19 @@
                 if(foundUser.password !== passInput) { handleFailedLogin(`Mot de passe incorrect pour '${loginInput}'.`); return; }
                 if(!foundUser.active) { alert("🚫 ACCÈS REFUSÉ : Ce compte est désactivé."); return; }
                 localStorage.setItem('nvalk_attempts', 0); currentUser = foundUser;
+                if(!currentUser.pseudoHistory) currentUser.pseudoHistory = []; // Retro-compatibilité
             } else { handleFailedLogin(`Tentative avec identifiant inconnu '${loginInput}'.`); return; }
-            document.getElementById('login-box').classList.add('hidden'); const introOverlay = document.getElementById('intro-overlay'); const introContent = document.getElementById('intro-content'); introOverlay.classList.remove('hidden'); setTimeout(() => { introContent.classList.add('furious-move'); }, 3000); setTimeout(() => { introOverlay.classList.add('hidden'); const dashboard = document.getElementById('dashboard'); dashboard.classList.remove('hidden'); dashboard.classList.add('visible'); applyUserProfileUI(); switchTab('accueil'); addLog(`Connexion sécurisée réussie.`); }, 4500);
+            
+            // FAST LOGIN V28 avec effet de Flamme
+            document.getElementById('login-box').classList.add('hidden');
+            const dashboard = document.getElementById('dashboard'); 
+            dashboard.classList.remove('hidden'); 
+            setTimeout(() => { dashboard.classList.add('visible'); }, 50);
+            applyUserProfileUI(); switchTab('accueil'); addLog(`Connexion sécurisée réussie.`);
+            
+            const avatarHead = document.querySelector('.header .avatar');
+            avatarHead.classList.add('flame-effect');
+            setTimeout(() => avatarHead.classList.remove('flame-effect'), 5000); // 5 sec de flamme
         }
         function handleFailedLogin(logMessage) {
             addLog(logMessage, "alert"); document.getElementById('login-box').classList.add('locked'); setTimeout(() => document.getElementById('login-box').classList.remove('locked'), 500);
@@ -1130,7 +1146,13 @@
         }
 
         // --- AMÉNAGEMENT ADMIN & CONFIG PANELS ---
-        function checkAdminCode() { if(document.getElementById('admin-code-input').value === "5989") { document.getElementById('admin-lock-screen').classList.add('hidden'); document.getElementById('admin-content').classList.remove('hidden'); renderAccountsTable(); renderAdminTickets(); renderAdminScriptTilesTable(); } else { alert("CODE TERMINAL FAUX."); } }
+        function checkAdminCode() { 
+            if(document.getElementById('admin-code-input').value === "5989") { 
+                document.getElementById('admin-lock-screen').classList.add('hidden'); 
+                document.getElementById('admin-content').classList.remove('hidden'); 
+                renderAccountsTable(); renderAdminTickets(); renderAdminScriptTilesTable(); 
+            } else { alert("CODE TERMINAL FAUX."); } 
+        }
         function renderAccountsTable() {
             const tbody = document.getElementById('accounts-table-body'); if(!tbody) return; tbody.innerHTML = '';
             dbUsers.forEach(user => {
@@ -1142,17 +1164,38 @@
             });
         }
         function toggleUser(id) { const u = dbUsers.find(x => x.id === id); if(u) { if(u.login === 'admin') return; u.active = !u.active; saveData(); } }
-        function openAdminEdit(id) { const u = dbUsers.find(x => x.id === id); if(!u) return; editingUserId = id; document.getElementById('ae-login').value = u.login; document.getElementById('ae-pseudo').value = u.pseudo; document.getElementById('ae-grade').value = u.grade; document.getElementById('ae-license').value = u.licenseKey || ""; document.getElementById('ae-notes').value = u.adminNotes || ""; document.getElementById('admin-edit-overlay').classList.remove('hidden'); }
+        
+        function openAdminEdit(id) { 
+            const u = dbUsers.find(x => x.id === id); if(!u) return; editingUserId = id; 
+            document.getElementById('ae-login').value = u.login; document.getElementById('ae-pseudo').value = u.pseudo; document.getElementById('ae-grade').value = u.grade; document.getElementById('ae-license').value = u.licenseKey || ""; document.getElementById('ae-notes').value = u.adminNotes || ""; 
+            
+            // V28 Historique Pseudos
+            const historyBox = document.getElementById('ae-pseudo-history');
+            if(u.pseudoHistory && u.pseudoHistory.length > 0) {
+                historyBox.innerHTML = u.pseudoHistory.join(" ➔ ");
+            } else {
+                historyBox.innerHTML = "Aucun changement connu.";
+            }
+
+            document.getElementById('admin-edit-overlay').classList.remove('hidden'); 
+        }
         let editingUserId = null;
         function closeAdminEdit() { document.getElementById('admin-edit-overlay').classList.add('hidden'); }
         function saveAdminEdit() {
             const u = dbUsers.find(x => x.id === editingUserId);
-            if(u) { u.login = document.getElementById('ae-login').value; u.pseudo = document.getElementById('ae-pseudo').value; u.grade = document.getElementById('ae-grade').value; u.licenseKey = document.getElementById('ae-license').value; u.adminNotes = document.getElementById('ae-notes').value; saveData(); closeAdminEdit(); showToast("Dossier citoyen synchronisé au cloud."); }
+            if(u) { 
+                const newPseudo = document.getElementById('ae-pseudo').value;
+                if(u.pseudo !== newPseudo && !u.pseudoHistory.includes(u.pseudo)) {
+                    u.pseudoHistory.push(u.pseudo);
+                }
+                u.login = document.getElementById('ae-login').value; u.pseudo = newPseudo; u.grade = document.getElementById('ae-grade').value; u.licenseKey = document.getElementById('ae-license').value; u.adminNotes = document.getElementById('ae-notes').value; 
+                saveData(); closeAdminEdit(); showToast("Dossier citoyen synchronisé au cloud."); 
+            }
         }
         function createNewAccount() {
             const log = document.getElementById('new-user-login').value; const pseu = document.getElementById('new-user-pseudo').value; const pass = document.getElementById('new-user-password').value; const grade = document.getElementById('new-user-grade').value;
             if(!log || !pseu || !pass) return alert("Champs vides.");
-            dbUsers.push({ id: Date.now(), login: log, pseudo: pseu, password: pass, grade: grade, perms: {code:false, users:false, logs:false, forum:false}, active:true, licenseKey: 'NVALK-'+Math.floor(Math.random()*9999), adminNotes:'', packExpire: Date.now() + 31536000000 });
+            dbUsers.push({ id: Date.now(), login: log, pseudo: pseu, pseudoHistory: [], password: pass, grade: grade, perms: {code:false, users:false, logs:false, forum:false}, active:true, licenseKey: 'NVALK-'+Math.floor(Math.random()*9999), adminNotes:'' });
             saveData(); showToast("Compte utilisateur créé.");
         }
 
